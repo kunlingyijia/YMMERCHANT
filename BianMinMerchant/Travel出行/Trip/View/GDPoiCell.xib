@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="102" id="KGk-i7-Jjw" customClass="GDPoiCell">
+            <rect key="frame" x="0.0" y="0.0" width="358" height="102"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="358" height="101"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2sH-6A-AmQ">
+                        <rect key="frame" x="10" y="5" width="318" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rca-ib-NfB">
+                        <rect key="frame" x="10" y="82" width="308" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_denglu_zidongdenglu_press" translatesAutoresizingMaskIntoConstraints="NO" id="iFw-CS-veS">
+                        <rect key="frame" x="328" y="40" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="ps1-E9-T8Y"/>
+                            <constraint firstAttribute="height" constant="20" id="vjf-dl-irk"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="2sH-6A-AmQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="0DV-Uz-Tsw"/>
+                    <constraint firstItem="Rca-ib-NfB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="3W6-eK-LdG"/>
+                    <constraint firstAttribute="bottom" secondItem="Rca-ib-NfB" secondAttribute="bottom" constant="5" id="8AB-lr-W2P"/>
+                    <constraint firstItem="iFw-CS-veS" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="BOd-yZ-YXH"/>
+                    <constraint firstAttribute="trailing" secondItem="iFw-CS-veS" secondAttribute="trailing" constant="10" id="HvG-qw-6Je"/>
+                    <constraint firstAttribute="trailing" secondItem="Rca-ib-NfB" secondAttribute="trailing" constant="40" id="rnY-qv-8Lg"/>
+                    <constraint firstAttribute="trailing" secondItem="2sH-6A-AmQ" secondAttribute="trailing" constant="30" id="sEC-DT-8mU"/>
+                    <constraint firstItem="2sH-6A-AmQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="yIj-LU-HNH"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="address" destination="Rca-ib-NfB" id="CEp-4o-pTi"/>
+                <outlet property="choseIma" destination="iFw-CS-veS" id="Tnk-fM-Hsb"/>
+                <outlet property="name" destination="2sH-6A-AmQ" id="zRD-Wl-PZG"/>
+            </connections>
+            <point key="canvasLocation" x="53" y="148"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="btn_denglu_zidongdenglu_press" width="25" height="25"/>
+    </resources>
+</document>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddTirpinfoVC">
+            <connections>
+                <outlet property="LeftLabel" destination="WzT-M5-DGp" id="gJl-09-DAj"/>
+                <outlet property="RightTF" destination="nIt-Bf-R1g" id="59g-QI-49h"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yOG-vO-455">
+                    <rect key="frame" x="0.0" y="10" width="375" height="41.5"/>
+                    <subviews>
+                        <label autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WzT-M5-DGp">
+                            <rect key="frame" x="10" y="21.5" width="0.0" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nIt-Bf-R1g">
+                            <rect key="frame" x="15" y="12.5" width="350" height="17"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="Mbk-MM-zE2"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="yOG-vO-455" secondAttribute="height" multiplier="9" id="3c6-qJ-xYE"/>
+                        <constraint firstItem="WzT-M5-DGp" firstAttribute="centerY" secondItem="yOG-vO-455" secondAttribute="centerY" id="Bj0-v8-f0r"/>
+                        <constraint firstAttribute="trailing" secondItem="nIt-Bf-R1g" secondAttribute="trailing" constant="10" id="KNh-KF-6du"/>
+                        <constraint firstItem="WzT-M5-DGp" firstAttribute="leading" secondItem="yOG-vO-455" secondAttribute="leading" constant="10" id="P1d-SJ-cfl"/>
+                        <constraint firstItem="nIt-Bf-R1g" firstAttribute="leading" secondItem="WzT-M5-DGp" secondAttribute="trailing" constant="5" id="YHd-eJ-i4e"/>
+                        <constraint firstItem="nIt-Bf-R1g" firstAttribute="centerY" secondItem="yOG-vO-455" secondAttribute="centerY" id="hnm-hX-F3c"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="yOG-vO-455" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="4Qt-8f-o0n"/>
+                <constraint firstAttribute="trailing" secondItem="yOG-vO-455" secondAttribute="trailing" id="XqY-de-Uc4"/>
+                <constraint firstItem="yOG-vO-455" firstAttribute="width" secondItem="yOG-vO-455" secondAttribute="height" multiplier="9" id="dv7-x4-uDT"/>
+                <constraint firstItem="yOG-vO-455" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kF2-G0-Gpw"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

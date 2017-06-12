@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UpdateSexController">
+            <connections>
+                <outlet property="ManLabel" destination="L4X-9K-Pck" id="l54-h2-oUj"/>
+                <outlet property="WomanLabel" destination="lu8-qf-3IM" id="Etl-A8-CHQ"/>
+                <outlet property="chooseManBtn" destination="UIQ-CC-mVK" id="cfn-ZS-2n4"/>
+                <outlet property="chooseManView" destination="V4m-VQ-9iL" id="v0T-Uh-Do3"/>
+                <outlet property="chooseWomanBtn" destination="5EX-VD-a6t" id="DzX-rD-ecl"/>
+                <outlet property="chooseWomanView" destination="z5n-js-b7p" id="m3J-nd-Iia"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V4m-VQ-9iL">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="男" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4X-9K-Pck">
+                            <rect key="frame" x="20" y="0.0" width="50" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="s13-df-STn"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UIQ-CC-mVK">
+                            <rect key="frame" x="335" y="12" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="P1y-pb-kbg"/>
+                                <constraint firstAttribute="height" constant="20" id="ct0-h7-4Jp"/>
+                            </constraints>
+                            <state key="normal" image="btn_denglu_zidongdenglu_press"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="UIQ-CC-mVK" secondAttribute="trailing" constant="20" id="0K2-Y2-xOx"/>
+                        <constraint firstAttribute="bottom" secondItem="L4X-9K-Pck" secondAttribute="bottom" id="DO0-r1-hJn"/>
+                        <constraint firstItem="L4X-9K-Pck" firstAttribute="leading" secondItem="V4m-VQ-9iL" secondAttribute="leading" constant="20" id="Kwo-Sk-RA5"/>
+                        <constraint firstItem="L4X-9K-Pck" firstAttribute="top" secondItem="V4m-VQ-9iL" secondAttribute="top" id="SLr-Iv-l4h"/>
+                        <constraint firstAttribute="height" constant="44" id="dug-sa-U81"/>
+                        <constraint firstItem="UIQ-CC-mVK" firstAttribute="centerY" secondItem="V4m-VQ-9iL" secondAttribute="centerY" id="xhD-k1-aoP"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CFp-rc-5hl">
+                    <rect key="frame" x="20" y="44" width="355" height="1"/>
+                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="be6-sd-I6G"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YhE-Kq-WfX">
+                    <rect key="frame" x="20" y="89" width="355" height="1"/>
+                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="XrL-aT-w4p"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z5n-js-b7p">
+                    <rect key="frame" x="0.0" y="45" width="375" height="44"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="女" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lu8-qf-3IM">
+                            <rect key="frame" x="20" y="0.0" width="50" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="ndy-DF-n16"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5EX-VD-a6t">
+                            <rect key="frame" x="335" y="12" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="Olm-Fb-GS4"/>
+                                <constraint firstAttribute="width" constant="20" id="V3P-HX-xTO"/>
+                            </constraints>
+                            <state key="normal" image="btn_denglu_zidongdenglu_press"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="lu8-qf-3IM" secondAttribute="bottom" id="EQe-OW-rxo"/>
+                        <constraint firstAttribute="trailing" secondItem="5EX-VD-a6t" secondAttribute="trailing" constant="20" id="G7W-uk-K88"/>
+                        <constraint firstItem="lu8-qf-3IM" firstAttribute="leading" secondItem="z5n-js-b7p" secondAttribute="leading" constant="20" id="QzH-8q-ko2"/>
+                        <constraint firstAttribute="height" constant="44" id="cR5-0r-a0M"/>
+                        <constraint firstItem="lu8-qf-3IM" firstAttribute="top" secondItem="z5n-js-b7p" secondAttribute="top" id="glh-nO-Okm"/>
+                        <constraint firstItem="5EX-VD-a6t" firstAttribute="centerY" secondItem="z5n-js-b7p" secondAttribute="centerY" id="uag-lz-Xst"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="CFp-rc-5hl" secondAttribute="trailing" id="28H-Tu-Ozh"/>
+                <constraint firstItem="z5n-js-b7p" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="E8Z-Yj-0Zk"/>
+                <constraint firstItem="V4m-VQ-9iL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Gll-xy-X0p"/>
+                <constraint firstItem="CFp-rc-5hl" firstAttribute="top" secondItem="V4m-VQ-9iL" secondAttribute="bottom" id="Pr9-Cb-hid"/>
+                <constraint firstItem="CFp-rc-5hl" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="RhW-b7-9lJ"/>
+                <constraint firstItem="V4m-VQ-9iL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Vam-sh-TY1"/>
+                <constraint firstAttribute="trailing" secondItem="YhE-Kq-WfX" secondAttribute="trailing" id="YXH-i0-xeA"/>
+                <constraint firstAttribute="trailing" secondItem="V4m-VQ-9iL" secondAttribute="trailing" id="fGq-Rz-0Db"/>
+                <constraint firstAttribute="trailing" secondItem="z5n-js-b7p" secondAttribute="trailing" id="k6W-uF-qu8"/>
+                <constraint firstItem="z5n-js-b7p" firstAttribute="top" secondItem="CFp-rc-5hl" secondAttribute="bottom" id="p0y-Op-ugE"/>
+                <constraint firstItem="YhE-Kq-WfX" firstAttribute="top" secondItem="z5n-js-b7p" secondAttribute="bottom" id="sNG-Ag-eVU"/>
+                <constraint firstItem="YhE-Kq-WfX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="td1-U8-XIa"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="btn_denglu_zidongdenglu_press" width="25" height="25"/>
+    </resources>
+</document>

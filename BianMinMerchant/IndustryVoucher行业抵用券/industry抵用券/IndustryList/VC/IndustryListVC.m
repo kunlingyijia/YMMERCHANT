@@ -48,6 +48,8 @@
         AddIndustryVC * VC = [[AddIndustryVC alloc]initWithNibName:@"AddIndustryVC" bundle:nil];
         VC.AddIndustryVCBlock =^(NSString*balanceFaceAmount){
             weakSelf.balanceFaceAmount.text = balanceFaceAmount;
+            [weakSelf requestAction];
+            
         };
         [weakSelf.navigationController  pushViewController:VC animated:YES];
         
@@ -70,9 +72,9 @@
 -(void)SET_DATA{
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     self.pageIndex =1;
-    [self requestAction];
-    //上拉刷新下拉加载
-    [self Refresh];
+//    [self requestAction];
+//    //上拉刷新下拉加载
+//    [self Refresh];
 }
 -(void)Refresh{
     //下拉刷新
@@ -157,60 +159,87 @@
 #pragma mark - Cell点击事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    //Push 跳转
-    IndustryDetailVC * VC = [[IndustryDetailVC alloc]initWithNibName:@"IndustryDetailVC" bundle:nil];
-    [self.navigationController  pushViewController:VC animated:YES];
-
+//    //Push 跳转
+//    IndustryDetailVC * VC = [[IndustryDetailVC alloc]initWithNibName:@"IndustryDetailVC" bundle:nil];
+//    [self.navigationController  pushViewController:VC animated:YES];
+//
     
 }
 #pragma mark - Cell的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
-    return Width*5/10;
+    //用storyboard 进行自适应布局
+    self.tableView.estimatedRowHeight = 200;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    return self.tableView.rowHeight;
     
     
 }
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
+    return YES;
 }
 //iOS 8.0 后才有的方法
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     __weak typeof(self) weakSelf = self;
-
+    IndustryModel*   model = indexPath.row >= self.dataArray.count ? nil :self.dataArray[indexPath.row];
+    UITableViewRowAction *cancel = [UITableViewRowAction rowActionWithStyle:(UITableViewRowActionStyleNormal) title:@"取消发布" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        [weakSelf alertWithTitle:@"是否取消发布?" message:nil OKWithTitle:@"确定" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
+            NSString *Token =[AuthenticationModel getLoginToken];
+            __weak typeof(self) weakself = self;
+            if (Token.length!= 0) {
+                BaseRequest *baseReq = [[BaseRequest alloc] init];
+                baseReq.token = [AuthenticationModel getLoginToken];
+                baseReq.encryptionType = AES;
+                baseReq.data = [AESCrypt encrypt:[model yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
+                [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/TravelPlan/requestDeletePlan" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response)  {
+                    NSLog(@"取消发布----%@",response);
+                    if ([response[@"resultCode"] isEqualToString:@"1"]) {
+                        weakSelf.balanceFaceAmount.text = response[@"data"][@"balanceFaceAmount"];
+                        [weakSelf.dataArray removeObjectAtIndex:indexPath.row];
+                        [weakSelf.tableView reloadData];
+                    }else{
+                        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+                        [weakself showToast:response[@"msg"]];
+                    }
+                    
+                } faild:^(id error) {
+                    NSLog(@"%@", error);
+                }];
+            }
+        } withCancel:^(UIAlertAction *cancelaction) {
+        }];
+    }];
     UITableViewRowAction *delete = [UITableViewRowAction rowActionWithStyle:(UITableViewRowActionStyleDefault) title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         
         [weakSelf alertWithTitle:@"是否删除?" message:nil OKWithTitle:@"删除" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
             NSString *Token =[AuthenticationModel getLoginToken];
             __weak typeof(self) weakself = self;
-//            if (Token.length!= 0) {
-//                BaseRequest *baseReq = [[BaseRequest alloc] init];
-//                baseReq.token = [AuthenticationModel getLoginToken];
-//                baseReq.encryptionType = AES;
-//                baseReq.data = [AESCrypt encrypt:[model yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
-//                [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/TravelPlan/requestDeletePlan" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response)  {
-//                    NSLog(@"删除行程(新增)----%@",response);
-//                    if ([response[@"resultCode"] isEqualToString:@"1"]) {
-//                        [weakSelf.dataArray removeObjectAtIndex:indexPath.row];
-//                        [weakSelf.tableView reloadData];
-//                    }else{
-//                        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
-//                        [weakself showToast:response[@"msg"]];
-//                    }
-//                    
-//                } faild:^(id error) {
-//                    NSLog(@"%@", error);
-//                }];
-            //}
+            if (Token.length!= 0) {
+                BaseRequest *baseReq = [[BaseRequest alloc] init];
+                baseReq.token = [AuthenticationModel getLoginToken];
+                baseReq.encryptionType = AES;
+                baseReq.data = [AESCrypt encrypt:[model yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
+                [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/TravelPlan/requestDeletePlan" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response)  {
+                    NSLog(@"删除行业抵用券----%@",response);
+                    if ([response[@"resultCode"] isEqualToString:@"1"]) {
+                        weakSelf.balanceFaceAmount.text = response[@"data"][@"balanceFaceAmount"];
+                        [weakSelf.dataArray removeObjectAtIndex:indexPath.row];
+                        [weakSelf.tableView reloadData];
+                    }else{
+                        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+                        [weakself showToast:response[@"msg"]];
+                    }
+                    
+                } faild:^(id error) {
+                    NSLog(@"%@", error);
+                }];
+            }
         } withCancel:^(UIAlertAction *cancelaction) {
             
         }];
     }];
     
    
-    return @[delete];
+    return @[delete,cancel];
     
 }
 

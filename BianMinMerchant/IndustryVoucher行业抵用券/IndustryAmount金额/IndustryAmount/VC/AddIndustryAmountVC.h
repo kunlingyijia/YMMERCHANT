@@ -9,6 +9,8 @@
 #import "BaseViewController.h"
 @class IndustryModel;
 @interface AddIndustryAmountVC : BaseViewController
+
+@property (nonatomic, copy) void(^ AddIndustryAmountVCBlock)();
 @property (weak, nonatomic) IBOutlet UIView *refuseReasonView;
 
 @property (weak, nonatomic) IBOutlet UILabel *refuseReason;

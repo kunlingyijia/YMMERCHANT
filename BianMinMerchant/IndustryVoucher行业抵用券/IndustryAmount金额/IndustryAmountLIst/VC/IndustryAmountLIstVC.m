@@ -45,6 +45,10 @@
     [self showRightBtnTitle:@"添加" Image:nil RightBtn:^{
         //Push 跳转
         AddIndustryAmountVC * VC = [[AddIndustryAmountVC alloc]initWithNibName:@"AddIndustryAmountVC" bundle:nil];
+        VC.AddIndustryAmountVCBlock =^(){
+            weakSelf.pageIndex = 1;
+            [weakSelf requestAction];
+        };
         [weakSelf.navigationController  pushViewController:VC animated:YES];
 
     }];
@@ -158,16 +162,20 @@
     if ([model.status isEqualToString:@"1"]) {
         [self showToast:@"审核中"];
     }
-    if ([model.status isEqualToString:@"2"]) {
+    //if ([model.status isEqualToString:@"2"]) {
         //Push 跳转
         IndustryListVC * VC = [[IndustryListVC alloc]initWithNibName:@"IndustryListVC" bundle:nil];
         VC.model  = model;
         [self.navigationController  pushViewController:VC animated:YES];
-    }
+    //}
     if ([model.status isEqualToString:@"3"]) {
         
         //Push 跳转
         AddIndustryAmountVC * VC = [[AddIndustryAmountVC alloc]initWithNibName:@"AddIndustryAmountVC" bundle:nil];
+        VC.AddIndustryAmountVCBlock =^(){
+             self.pageIndex = 1;
+            [self requestAction];
+        };
         VC.model=model;
         [self.navigationController  pushViewController:VC animated:YES];
     }

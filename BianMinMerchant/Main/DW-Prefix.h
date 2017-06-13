@@ -57,15 +57,15 @@
 #endif
 #define Bounds [UIScreen mainScreen].bounds
 //正式
-//#define kServerUrl @"http://api.bmin.wang/?"
+#define kServerUrl @"http://api.bmin.wang/?"
 ///测试
-#define kServerUrl @"http://test.bmin.wang/?"
+//#define kServerUrl @"http://test.bmin.wang/?"
 ///开发
 //#define kServerUrl @"http://test.bmin.dongwuit.com/?"
 ///正式地图
-//#define GDKey @"6ab283311b81de8c1ac2d843244b2966"
+#define GDKey @"6ab283311b81de8c1ac2d843244b2966"
 ///测试地图
-#define GDKey @"9dd7acc47456a8294c0deb319d591741"
+//#define GDKey @"9dd7acc47456a8294c0deb319d591741"
 #define kTitleColor @"#676767"
 #define kSubTitleColor @"#aaaaaa"
 #define kNavigationTitleColor @"#ffffff"
@@ -75,7 +75,6 @@
 #define kBorderColor @"#dddddd"
 #define kUserName @"dwusername"
 #define kPassword @"dwpassword"
-
 #define kFirstFont 15
 
 #define Height [UIScreen mainScreen].bounds.size.height

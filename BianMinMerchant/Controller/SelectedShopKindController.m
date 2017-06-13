@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"易民商户";
-    [self  updateVerison];
+    //[self  updateVerison];
 
     // Do any additional setup after loading the view from its nib.
 }

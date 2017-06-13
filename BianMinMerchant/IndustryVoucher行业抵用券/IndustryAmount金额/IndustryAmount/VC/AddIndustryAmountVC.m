@@ -47,7 +47,7 @@
         [_endTime setTitle:self.industryModel.endTime forState:0];
     }else{
         self.refuseReasonViewConstraint.constant =0.00;
-        [self.refuseReasonView removeFromSuperview];
+        self.refuseReasonView.hidden = YES;
     }
    
    
@@ -130,10 +130,11 @@
                 baseReq.token = [AuthenticationModel getLoginToken];
                 baseReq.encryptionType = AES;
                 baseReq.data = [AESCrypt encrypt:[weakself.industryModel yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
-                [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/IndustryCouponFace/requestAddIndustryCouponFace" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response)  {
-                    NSLog(@"申请面额----%@",response);
+                [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:self.model ? @"act=MerApi/IndustryCouponFace/requestUpdateIndustryCouponFace": @"act=MerApi/IndustryCouponFace/requestAddIndustryCouponFace" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response)  {
+                    NSLog(@"申请/修改面额----%@",response);
                     if ([response[@"resultCode"] isEqualToString:@"1"]) {
                         [weakSelf showToast:response[@"msg"]];
+                        weakSelf.AddIndustryAmountVCBlock();
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                             [weakSelf.navigationController popViewControllerAnimated:YES];
                         });

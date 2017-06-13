@@ -136,9 +136,7 @@
     NSLog(@"%@",[settingC.shopModel yy_modelToJSONObject]);
         [self.navigationController pushViewController:settingC animated:YES];
 
-//    //Push 跳转
-//    IndustryAmountLIstVC * VC = [[IndustryAmountLIstVC alloc]initWithNibName:@"IndustryAmountLIstVC" bundle:nil];
-//    [self.navigationController  pushViewController:VC animated:YES];
+
 
 }
 -(void)SET_DATA{
@@ -499,16 +497,16 @@
         [self.navigationController pushViewController:ticketController animated:YES];
     }else if (tag == 4) {
         
-//        //Push 跳转--提现
-//        TravelwithdrawalVC * VC = [[TravelwithdrawalVC alloc]initWithNibName:@"TravelwithdrawalVC" bundle:nil];
-//        VC.account = self.shopModel.account;
-//        [self.navigationController  pushViewController:VC animated:YES];
+        //Push 跳转--提现
+        TravelwithdrawalVC * VC = [[TravelwithdrawalVC alloc]initWithNibName:@"TravelwithdrawalVC" bundle:nil];
+        VC.account = self.shopModel.account;
+        [self.navigationController  pushViewController:VC animated:YES];
         //Push 跳转--行业抵用券认证
-      DWHelper* helper = [DWHelper shareHelper];
-      IndustryCertificationVC * industryCertificationVC = [[IndustryCertificationVC alloc]initWithNibName:@"IndustryCertificationVC" bundle:nil];
-               //Push 跳转--行业抵用券列表
-       IndustryAmountLIstVC * VC = [[IndustryAmountLIstVC alloc]initWithNibName:@"IndustryAmountLIstVC" bundle:nil];
-        [self.navigationController  pushViewController:[helper.shopModel.industryCouponStatus isEqualToString:@"1"]||[helper.shopModel.industryCouponStatus isEqualToString:@"2"] ?   industryCertificationVC :VC animated:YES];
+//      DWHelper* helper = [DWHelper shareHelper];
+//      IndustryCertificationVC * industryCertificationVC = [[IndustryCertificationVC alloc]initWithNibName:@"IndustryCertificationVC" bundle:nil];
+//               //Push 跳转--行业抵用券列表
+//       IndustryAmountLIstVC * VC = [[IndustryAmountLIstVC alloc]initWithNibName:@"IndustryAmountLIstVC" bundle:nil];
+//        [self.navigationController  pushViewController:[helper.shopModel.industryCouponStatus isEqualToString:@"1"]||[helper.shopModel.industryCouponStatus isEqualToString:@"2"] ?   industryCertificationVC :VC animated:YES];
 
         
         

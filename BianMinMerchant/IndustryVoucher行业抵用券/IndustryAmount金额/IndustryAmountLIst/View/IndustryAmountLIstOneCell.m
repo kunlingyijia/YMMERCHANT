@@ -23,22 +23,23 @@
 -(void)setModel:(IndustryModel *)model{
     if (!model) return;
     _model = model;
+    _no.text = model.no;
     _totalFaceAmount.text = [NSString stringWithFormat:@"总金额: %@元",model.totalFaceAmount];
-    ///1-审核中  2-审核通过，3-审核失败(可删除) ，4-已过期
+    ///1-待审核 , 2-审核失败(可删除)，3-审核通过 ，4-已过期
     if ([model.status isEqualToString:@"1"]) {
         _status.text  = @"审核中";
     }
     if ([model.status isEqualToString:@"2"]) {
-        _status.text  = @"审核通过";
+        _status.text  = @"审核失败";
     }
     if ([model.status isEqualToString:@"3"]) {
-        _status.text  = @"审核失败";
+        _status.text  = @"通过";
     }
     if ([model.status isEqualToString:@"4"]) {
         _status.text  = @"已过期";
     }
-    _beginTime.text = [NSString stringWithFormat:@"有效期: 起%@",model.beginTime];
-    _endTime.text = [NSString stringWithFormat:@"有效期: 止%@",model.endTime];
+    _beginTimeAndendTime.text = [NSString stringWithFormat:@"有效期: %@至%@",model.beginTime,model.endTime];
+    
     
 }
 @end

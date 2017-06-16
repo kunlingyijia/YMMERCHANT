@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (DWString)
++ (CGFloat)getTextHight:(NSString *)text withSize:(CGFloat )wordSize withFont:(CGFloat )font ;
+
 //获取单行文本长度
 - (CGFloat)getSingleLineTextWidthWithFont:(UIFont *)font withMaxWith:(float)maxWidth;
 //获取在规定size内 文本的高度

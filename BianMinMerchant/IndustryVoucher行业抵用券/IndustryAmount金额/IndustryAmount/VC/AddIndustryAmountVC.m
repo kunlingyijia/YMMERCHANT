@@ -43,11 +43,13 @@
     if (self.model) {
         self.industryModel =self.model;
         _totalFaceAmount.text = self.industryModel.totalFaceAmount;
+        self.refuseReasonViewConstraint.constant = [NSString getTextHight:self.industryModel.refuseReason withSize:Width-100 withFont:15]+20;
+        _refuseReason.text =self.industryModel.refuseReason;
         [_beginTime setTitle:self.industryModel.beginTime forState:0];
         [_endTime setTitle:self.industryModel.endTime forState:0];
     }else{
         self.refuseReasonViewConstraint.constant =0.00;
-        self.refuseReasonView.hidden = YES;
+        self.refuseReasonView .hidden = YES;
     }
    
    
@@ -103,10 +105,10 @@
     if ([daterView isEqual:dater]) {
         if ([self.timeStr isEqualToString:@"1"]) {
             [self.beginTime setTitle: daterView.dateString  forState:(UIControlStateNormal)]  ;
-            self.industryModel.beginTime =[NSString stringWithFormat:@" %@",[daterView.timeString substringToIndex:5]];
+            self.industryModel.beginTime =daterView.dateString;
         }else if([self.timeStr isEqualToString:@"2"]){
             [self.endTime setTitle: daterView.dateString  forState:(UIControlStateNormal)];
-            self.industryModel.endTime =[NSString stringWithFormat:@" %@",[daterView.timeString substringToIndex:5]];
+            self.industryModel.endTime =daterView.dateString;
         }
    }
 }
@@ -121,7 +123,7 @@
 - (IBAction)submitAction:(PublicBtn *)sender {
     if ([self IF]) {
         __weak typeof(self) weakSelf = self;
-        [self alertWithTitle:@"确认发布?" message:nil OKWithTitle:@"确认" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
+        [self alertWithTitle:@"是否申请?" message:nil OKWithTitle:@"确认" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
             weakSelf.view.userInteractionEnabled = NO;
             NSString *Token =[AuthenticationModel getLoginToken];
             __weak typeof(self) weakself = self;
@@ -134,6 +136,7 @@
                     NSLog(@"申请/修改面额----%@",response);
                     if ([response[@"resultCode"] isEqualToString:@"1"]) {
                         [weakSelf showToast:response[@"msg"]];
+                        weakSelf.model.status =weakSelf.model ? @"1" :nil;
                         weakSelf.AddIndustryAmountVCBlock();
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                             [weakSelf.navigationController popViewControllerAnimated:YES];
@@ -180,8 +183,8 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"YYYYMMdd"];
     NSString *nowDate = [dateFormatter stringFromDate:currentDate];
-    NSString *a = [self.beginTime.titleLabel.text stringByReplacingOccurrencesOfString:@"-" withString:@""];//该方法是去掉指定符号
-    NSString *b = [self.endTime.titleLabel.text stringByReplacingOccurrencesOfString:@"-" withString:@""];//该方法是去掉指定符号
+    NSString *a = [[self.beginTime.titleLabel.text substringToIndex:10] stringByReplacingOccurrencesOfString:@"-" withString:@""];//该方法是去掉指定符号
+    NSString *b = [[self.endTime.titleLabel.text substringToIndex:10]stringByReplacingOccurrencesOfString:@"-" withString:@""];//该方法是去掉指定符号
        if ([a intValue]<[nowDate intValue  ]) {
         [self showToast:@"请不要选择早于今日的日期"];
         return NO;

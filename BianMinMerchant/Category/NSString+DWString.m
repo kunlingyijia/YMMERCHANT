@@ -11,7 +11,10 @@
 
 @implementation NSString (DWString)
 
-
++ (CGFloat)getTextHight:(NSString *)text withSize:(CGFloat )wordSize withFont:(CGFloat )font {
+    NSDictionary *attrinbtes = @{NSFontAttributeName:[UIFont systemFontOfSize:font]};
+    return [text boundingRectWithSize:CGSizeMake(wordSize, 10000) options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrinbtes context:nil].size.height;
+}
 - (CGFloat)getSingleLineTextWidthWithFont:(UIFont *)font withMaxWith:(float)maxWidth;{
     
     CGSize textSize = [self sizeWithFont:font forWidth:maxWidth lineBreakMode:NSLineBreakByWordWrapping];

@@ -497,20 +497,18 @@
         [self.navigationController pushViewController:ticketController animated:YES];
     }else if (tag == 4) {
         
-        //Push 跳转--提现
-        TravelwithdrawalVC * VC = [[TravelwithdrawalVC alloc]initWithNibName:@"TravelwithdrawalVC" bundle:nil];
-        VC.account = self.shopModel.account;
-        [self.navigationController  pushViewController:VC animated:YES];
+//        //Push 跳转--提现
+//        TravelwithdrawalVC * VC = [[TravelwithdrawalVC alloc]initWithNibName:@"TravelwithdrawalVC" bundle:nil];
+//        VC.account = self.shopModel.account;
+//        [self.navigationController  pushViewController:VC animated:YES];
         //Push 跳转--行业抵用券认证
-//      DWHelper* helper = [DWHelper shareHelper];
-//      IndustryCertificationVC * industryCertificationVC = [[IndustryCertificationVC alloc]initWithNibName:@"IndustryCertificationVC" bundle:nil];
-//               //Push 跳转--行业抵用券列表
-//       IndustryAmountLIstVC * VC = [[IndustryAmountLIstVC alloc]initWithNibName:@"IndustryAmountLIstVC" bundle:nil];
-//        [self.navigationController  pushViewController:[helper.shopModel.industryCouponStatus isEqualToString:@"1"]||[helper.shopModel.industryCouponStatus isEqualToString:@"2"] ?   industryCertificationVC :VC animated:YES];
-
-        
-        
-        
+      DWHelper* helper = [DWHelper shareHelper];
+      IndustryCertificationVC * industryCertificationVC = [[IndustryCertificationVC alloc]initWithNibName:@"IndustryCertificationVC" bundle:nil];
+               //Push 跳转--行业抵用券列表
+       IndustryAmountLIstVC * VC = [[IndustryAmountLIstVC alloc]initWithNibName:@"IndustryAmountLIstVC" bundle:nil];
+        //helper.shopModel.industryCouponStatus = @"2";
+        ///开通行业抵用券  1-未开通, 2-开通中,3-开通失败, 4-已开通, 5-暂停业务
+        [self.navigationController  pushViewController:[helper.shopModel.industryCouponStatus isEqualToString:@"1"]||[helper.shopModel.industryCouponStatus isEqualToString:@"2"]||[helper.shopModel.industryCouponStatus isEqualToString:@"3"] ?  industryCertificationVC :VC animated:YES];
     }else if (tag == 5) {
         ShopCenterViewController *shopCenterC = [[ShopCenterViewController alloc] init];
         [self.navigationController pushViewController:shopCenterC animated:YES];
@@ -524,10 +522,8 @@
 //        };
 //
 //        [self.navigationController pushViewController:writeMessage animated:YES];
-        
         //Push 跳转
         NewCompleonDataVC * VC = [[NewCompleonDataVC alloc]initWithNibName:@"NewCompleonDataVC" bundle:nil];
-        
         VC.shopModel = self.shopModel;
         VC.regionId = self.shopModel.regionId;
         __weak typeof(self) weakSelf = self;
@@ -538,15 +534,11 @@
         [self.navigationController  pushViewController:VC animated:YES];
     }
 }
-
-
-
 #pragma mark - Cell的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
         case 0:
         {
-            
             return 0.5*Width;
             
             break;
@@ -557,22 +549,12 @@
             return Height-64- 0.5*Width;
             break;
         }
-            
-       
-            
         default:{
              return 0;
             break;
-            
         }
     }
-
-   
-    
 }
-
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

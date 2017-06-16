@@ -655,7 +655,8 @@
                         [weakSelf.dataArray removeObjectAtIndex:indexPath.row];
                         [weakSelf.tableView reloadData];
                     }else{
-                  [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+                        [weakSelf.tableView reloadData];
+                  //[tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
                         [weakself showToast:response[@"msg"]];
                     }
                     

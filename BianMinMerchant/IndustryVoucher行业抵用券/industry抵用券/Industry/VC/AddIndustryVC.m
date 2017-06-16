@@ -31,7 +31,6 @@
     self.title = @"添加";
     self.nstockTF.delegate = self;
     self.limitAmount.delegate = self;
-    
     [self showBackBtn];
     __weak typeof(self) weakSelf = self;
     [self showRightBtnTitle:@"规则" Image:nil RightBtn:^{
@@ -42,8 +41,18 @@
 }
 #pragma mark - 关于数据
 -(void)SET_DATA{
-    
     self.industryModel = [IndustryModel new];
+    self.industryModel.faceId = self.faceId;
+    if (self.model) {
+        self.industryModel = _model;
+        self.carImageView.hidden = YES;
+        self.yuanImageView.hidden =self.carImageView.hidden;
+        self.yuanLabel.hidden =!self.carImageView.hidden;
+    }else{
+        self.carImageView.hidden = NO;
+        self.yuanImageView.hidden =self.carImageView.hidden;
+        self.yuanLabel.hidden =!self.carImageView.hidden;
+    }
     
 }
 #pragma mark - 选择车行
@@ -55,8 +64,8 @@
 
     VC.ChooseCarListVCBlock =^(NSString *companyId,NSString *companyName){
         [sender setTitle:companyName forState:0];
-        
-        weakSelf.industryModel.companyId  =companyName;
+        _carImageView.hidden = YES;
+        weakSelf.industryModel.companyId  =companyId;
     };
     [self.navigationController  pushViewController:VC animated:YES];
 
@@ -68,10 +77,11 @@
     //Push 跳转
     DhooseFaceListVC * VC = [[DhooseFaceListVC alloc]initWithNibName:@"DhooseFaceListVC" bundle:nil];
     __weak typeof(self) weakSelf = self;
-    VC.DhooseFaceListVCBlock =^(NSString *faceId,NSString *name){
-        [sender setTitle:name forState:0];
-        weakSelf.industryModel.faceId  =faceId;
-        
+    VC.DhooseFaceListVCBlock =^(NSString *faceAmount,NSString *name){
+        [sender setTitle:faceAmount forState:0];
+        self.yuanImageView.hidden =YES;
+        self.yuanLabel.hidden =!self.yuanImageView.hidden;
+        weakSelf.industryModel.faceAmount  =faceAmount;
     };
     [self.navigationController  pushViewController:VC animated:YES];
 }
@@ -80,15 +90,34 @@
 //判断输入钱的正则表达式，正整数，最多6位。
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    NSString *toString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    if (toString.length > 0) {
-        NSString *stringRegex = @"^[1-9]\\d{0,5}$";
-        NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", stringRegex];
-        BOOL flag = [phoneTest evaluateWithObject:toString];
-        if (!flag) {
-            return NO;
+    
+    if ([self.nstockTF isEqual:textField]) {
+        NSString *toString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if (toString.length > 0) {
+            NSString *stringRegex = @"^[1-9]\\d{0,5}$";
+            NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", stringRegex];
+            BOOL flag = [phoneTest evaluateWithObject:toString];
+            if (!flag) {
+                return NO;
+            }
         }
+        return YES;
     }
+    
+    if ([self.limitAmount isEqual:textField] ) {
+        NSString *toString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if (toString.length > 0) {
+            NSString *stringRegex = @"(\\+)?(([0]|(0[.]\\d{0,2}))|([1-9]\\d{0,5}(([.]\\d{0,2})?)))?";
+            NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", stringRegex];
+            BOOL flag = [phoneTest evaluateWithObject:toString];
+            if (!flag) {
+                return NO;
+            }
+        }
+        return YES;
+    }
+    
+    
     return YES;
     
 }
@@ -121,32 +150,34 @@
     }
 }
 
-
-
 #pragma mark -
 - (void)daterViewDidClicked:(XFDaterView *)daterView{
     if ([daterView isEqual:dater]) {
         if ([self.timeStr isEqualToString:@"1"]) {
             [self.beginTime setTitle: daterView.dateString  forState:(UIControlStateNormal)]  ;
-            self.industryModel.beginTime =[NSString stringWithFormat:@" %@",[daterView.timeString substringToIndex:5]];
+            self.industryModel.beginTime =daterView.dateString;
         }else if([self.timeStr isEqualToString:@"2"]){
-            [self.endTime setTitle: daterView.dateString  forState:(UIControlStateNormal)];
-            self.industryModel.endTime =[NSString stringWithFormat:@" %@",[daterView.timeString substringToIndex:5]];
+            NSString *a = [[self.BagendTime substringToIndex:10] stringByReplacingOccurrencesOfString:@"-" withString:@""];//该方法是去掉指定符号
+            NSString *b = [[daterView.dateString substringToIndex:10]stringByReplacingOccurrencesOfString:@"-" withString:@""];//该方法是去掉指定符号
+            if ([a intValue]<[b intValue  ]) {
+                [self showToast:[NSString stringWithFormat:@"不能晚于%@",self.BagendTime]];
+                [self.endTime setTitle: self.BagendTime  forState:(UIControlStateNormal)];
+                self.industryModel.endTime =self.BagendTime;
+            }else{
+                [self.endTime setTitle: daterView.dateString  forState:(UIControlStateNormal)];
+                self.industryModel.endTime =daterView.dateString;
+            }
         }
     }
 }
 #pragma mark -  日历取消
 - (void)daterViewDidCancel:(XFDaterView *)daterView{
-    
-    
-    
-    
 }
 
 - (IBAction)submitAction:(PublicBtn *)sender {
     if ([self IF]) {
         __weak typeof(self) weakSelf = self;
-        [self alertWithTitle:@"确认发布?" message:nil OKWithTitle:@"确认" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
+        [self alertWithTitle:@"是否发布?" message:nil OKWithTitle:@"确认" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
             weakSelf.view.userInteractionEnabled = NO;
             NSString *Token =[AuthenticationModel getLoginToken];
             __weak typeof(self) weakself = self;
@@ -166,7 +197,6 @@
                     }else{
                         weakself.view.userInteractionEnabled = YES;
                         [weakself showToast:response[@"msg"]];
-                        
                     }
                     
                 } faild:^(id error) {
@@ -180,12 +210,7 @@
         }];
         
     }
-    
-    
-    
-    
 }
-
 #pragma mark - 判断条件
 -(BOOL)IF{
     [self.view endEditing:YES];
@@ -220,17 +245,25 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"YYYYMMdd"];
     NSString *nowDate = [dateFormatter stringFromDate:currentDate];
-    NSString *a = [self.beginTime.titleLabel.text stringByReplacingOccurrencesOfString:@"-" withString:@""];//该方法是去掉指定符号
-    NSString *b = [self.endTime.titleLabel.text stringByReplacingOccurrencesOfString:@"-" withString:@""];//该方法是去掉指定符号
+    NSString *a = [[self.beginTime.titleLabel.text substringToIndex:10] stringByReplacingOccurrencesOfString:@"-" withString:@""];//该方法是去掉指定符号
+    NSString *b = [[self.endTime.titleLabel.text substringToIndex:10]stringByReplacingOccurrencesOfString:@"-" withString:@""];//该方法是去掉指定符号
     if ([a intValue]<[nowDate intValue  ]) {
         [self showToast:@"请不要选择早于今日的日期"];
         return NO;
+        
     }
     if ([a intValue]>[b intValue  ]) {
         [self showToast:@"起始时间不能晚于结束时间"];
         return NO;
     }
-    
+    if ([self.faceBtn.titleLabel.text intValue]*[self.nstockTF.text intValue]>[self.balanceFaceAmount intValue]) {
+        [self showToast:@"当前余额不足"];
+        return NO;
+    }
+    if ([self.faceBtn.titleLabel.text intValue]>[self.limitAmount.text intValue]) {
+        [self showToast:@"面额不能大于满足金额"];
+        return NO;
+    }
     return Y;
 }
 

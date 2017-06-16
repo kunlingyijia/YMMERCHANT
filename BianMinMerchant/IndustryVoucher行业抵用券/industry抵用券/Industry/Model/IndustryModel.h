@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSString  *endTime;
 ///面额id
 @property (nonatomic, strong) NSString  *faceId ;
-///1-审核中  2-审核通过，3-审核失败(可删除) ，4-已过期/	1-已发放, 2-已取消, 3-已过期, 4-已结束
+///1-待审核 , 2-审核失败(可删除)，3-审核通过 ，4-已过期/	1-已发放, 2-已取消, 3-已过期, 4-已结束
 @property (nonatomic, strong) NSString  *status ;
 ///余额
 @property (nonatomic, strong) NSString  *balanceFaceAmount ;
@@ -40,6 +40,12 @@
 @property (nonatomic, strong) NSString  *value ;
 ///审核不通过的原因
 @property (nonatomic, strong) NSString  *refuseReason;
+///名称:NO.1001
+@property (nonatomic, strong) NSString  *no ;
+///行业劵id
+@property (nonatomic, strong) NSString  *receiveId ;
+
+
 
 
 @end

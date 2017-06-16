@@ -11,9 +11,11 @@
 @interface IndustryAmountLIstOneCell : UITableViewCell
 ///model
 @property (nonatomic, strong) IndustryModel *model ;
+@property (weak, nonatomic) IBOutlet UILabel *no;
+
 @property (weak, nonatomic) IBOutlet UILabel *totalFaceAmount;
 @property (weak, nonatomic) IBOutlet UILabel *status;
-@property (weak, nonatomic) IBOutlet UILabel *beginTime;
-@property (weak, nonatomic) IBOutlet UILabel *endTime;
+@property (weak, nonatomic) IBOutlet UILabel *beginTimeAndendTime;
+
 
 @end

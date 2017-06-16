@@ -9,5 +9,9 @@
 #import "BaseViewController.h"
 
 @interface IndustryCertificationVC : BaseViewController
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
+@property (weak, nonatomic) IBOutlet UILabel *industryCouponRefuseReason;
+@property (weak, nonatomic) IBOutlet PublicBtn *submitBtn;
 
 @end

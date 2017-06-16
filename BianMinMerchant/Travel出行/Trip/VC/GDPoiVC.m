@@ -219,8 +219,6 @@
 #pragma mark - 连续定位回调函数
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
 {
-    
-    
     if (!_request) {
         self.request = [[AMapPOIAroundSearchRequest alloc] init];
 
@@ -229,7 +227,6 @@
     self.request.page =1;
     self.request.radius = 1000;               //搜索半径
     self.request.sortrule = 1;                //-距离排序
-    
     _request.location    = [AMapGeoPoint locationWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
     //[self showToast:[NSString stringWithFormat: @"%f",location.horizontalAccuracy]];
     _request.keywords  = @"公司企业|汽车服务|汽车销售|汽车维修|摩托车服务|餐饮服务|购物服务|生活服务|体育休闲服务|医疗保健服务|住宿服务|风景名胜|商务住宅|政府机构及社会团体|科教文化服务|交通设施服务|金融保险服务|道路附属设施|地名地址信息|公共设施";
@@ -237,10 +234,6 @@
     _request.sortrule            = 1;
     _request.requireExtension    = YES;
     [self.search AMapPOIAroundSearch:_request];
-   
-    
-    
-    
     CLLocationCoordinate2D endclLocationCoordinate2D;
     endclLocationCoordinate2D.latitude = location.coordinate.latitude;
     endclLocationCoordinate2D.longitude = location.coordinate.longitude;
@@ -303,9 +296,6 @@
     startclLocationCoordinate2D.latitude =  self.mapView.centerCoordinate.latitude;
     startclLocationCoordinate2D.longitude = self.mapView.centerCoordinate.longitude ;
     //[self addAnnotationWithCooordinate:startclLocationCoordinate2D ];
-
-   
-
 }
 #pragma mark - 单击地图底图调用此接口
 /**
@@ -355,13 +345,8 @@
             
             [weakSelf.dataArray addObject:[[POIAnnotation alloc] initWithPOI:obj]];
         }];
-        
      NSLog(@"%@",poiAnnotations);
         [self.tableView reloadData];
-
- 
-    
-    
     _mapView.userTrackingMode = MAUserTrackingModeNone;
     _mapView.showsUserLocation = NO;
      [self.locationManager stopUpdatingLocation];
@@ -420,8 +405,6 @@
 - (void)mapView:(MAMapView *)mapView mapDidZoomByUser:(BOOL)wasUserAction {
     self.zoomLevel =mapView.zoomLevel;
 }
-
-
 -(void)addAnnotationWithCooordinate:(CLLocationCoordinate2D)coordinate
 {
     MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
@@ -429,10 +412,6 @@
     
     [self.mapView addAnnotation:annotation];
 }
-
-
-
-
 #pragma mark - MAMapViewDelegate
 
 //- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation

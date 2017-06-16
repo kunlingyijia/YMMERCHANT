@@ -12,6 +12,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IndustryCertificationVC">
             <connections>
                 <outlet property="BtnViewConstraint" destination="Otl-lb-ujg" id="XeH-NJ-OQt"/>
+                <outlet property="imageView" destination="BcD-h7-i5M" id="qx7-DR-m4Q"/>
+                <outlet property="industryCouponRefuseReason" destination="x52-oL-Hvm" id="Y6m-38-mPK"/>
+                <outlet property="submitBtn" destination="OJ5-0m-NWP" id="hGd-Lt-SIh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="warningView" destination="hEf-d3-XrS" id="ePx-ER-1IC"/>
                 <outlet property="webView" destination="b5m-9q-2dT" id="9kS-Ah-n7y"/>
@@ -31,6 +34,9 @@
                                 <constraint firstAttribute="height" constant="40" id="5ao-ML-UbE"/>
                             </constraints>
                             <state key="normal" title="立即开通"/>
+                            <connections>
+                                <action selector="submitBtn:" destination="-1" eventType="touchUpInside" id="8Fz-0O-W1v"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -42,7 +48,7 @@
                     </constraints>
                 </view>
                 <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b5m-9q-2dT">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="573.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="574.5"/>
                     <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="KlF-06-MCt"/>
@@ -51,17 +57,17 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hEf-d3-XrS">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="说实话上海市都是那不是发货速度发到您示范点汉法地方哈的哈等你拿很大的内存动车郸城灿灿爱车ad才能擦草acne" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x52-oL-Hvm">
-                            <rect key="frame" x="47" y="10" width="278" height="80"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x52-oL-Hvm">
+                            <rect key="frame" x="45" y="10" width="280" height="80"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="审核中" translatesAutoresizingMaskIntoConstraints="NO" id="BcD-h7-i5M">
-                            <rect key="frame" x="20" y="39" width="22" height="22"/>
+                        <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="审核中" translatesAutoresizingMaskIntoConstraints="NO" id="BcD-h7-i5M">
+                            <rect key="frame" x="20" y="40" width="20" height="20"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="22" id="3Tm-ux-lpX"/>
-                                <constraint firstAttribute="width" constant="22" id="8WV-23-k8M"/>
+                                <constraint firstAttribute="height" constant="20" id="3Tm-ux-lpX"/>
+                                <constraint firstAttribute="width" constant="20" id="8WV-23-k8M"/>
                             </constraints>
                         </imageView>
                     </subviews>
@@ -77,7 +83,7 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="hEf-d3-XrS" secondAttribute="trailing" id="EuV-cd-9bo"/>
                 <constraint firstItem="hEf-d3-XrS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="PXP-IL-rOU"/>
@@ -86,7 +92,7 @@
                 <constraint firstItem="b5m-9q-2dT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="WQ2-SI-ry1"/>
                 <constraint firstItem="b5m-9q-2dT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Wwy-WM-3me"/>
                 <constraint firstItem="a2B-jK-6PB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cG3-kf-CNi"/>
-                <constraint firstItem="a2B-jK-6PB" firstAttribute="top" secondItem="b5m-9q-2dT" secondAttribute="bottom" id="dlj-z6-VMA"/>
+                <constraint firstItem="a2B-jK-6PB" firstAttribute="top" secondItem="b5m-9q-2dT" secondAttribute="bottom" constant="-1" id="dlj-z6-VMA"/>
                 <constraint firstAttribute="trailing" secondItem="b5m-9q-2dT" secondAttribute="trailing" id="jHw-Nn-J3X"/>
                 <constraint firstItem="hEf-d3-XrS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="p8W-96-mHn"/>
             </constraints>

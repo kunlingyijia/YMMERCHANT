@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface DhooseFaceListVC : BaseViewController
-@property (nonatomic, copy) void(^ DhooseFaceListVCBlock)(NSString *faceId,NSString *name);
+@property (nonatomic, copy) void(^ DhooseFaceListVCBlock)(NSString *faceAmount,NSString *name);
 @end

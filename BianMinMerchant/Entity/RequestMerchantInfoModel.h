@@ -56,8 +56,7 @@
 
 
 @property (nonatomic, strong) id images;
-
-///开通行业抵用券 1-未开通, 2-开通, 3-暂停业务
+///开通行业抵用券  1-未开通, 2-开通中,3-开通失败, 4-已开通, 5-暂停业务
 @property (nonatomic, strong) NSString  *industryCouponStatus ;
 ///行业抵用券业务原因
 @property (nonatomic, strong) NSString  *industryCouponRefuseReason ;

@@ -20,6 +20,10 @@
 @property (nonatomic, copy) NSString *image_password;
 ///开启定位时间(秒)
 @property (nonatomic, strong) NSString  *openPositionTime ;
+///行业抵用券url
+@property (nonatomic, strong) NSString  *industryCouponUrl ;
+
+
 
 
 

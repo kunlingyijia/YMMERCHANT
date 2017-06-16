@@ -57,11 +57,11 @@
 #endif
 #define Bounds [UIScreen mainScreen].bounds
 //正式
-#define kServerUrl @"http://api.bmin.wang/?"
+//#define kServerUrl @"http://api.bmin.wang/?"
 ///测试
 //#define kServerUrl @"http://test.bmin.wang/?"
 ///开发
-//#define kServerUrl @"http://test.bmin.dongwuit.com/?"
+#define kServerUrl @"http://bmin.dongwuit.com/?"
 ///正式地图
 #define GDKey @"6ab283311b81de8c1ac2d843244b2966"
 ///测试地图

@@ -14,12 +14,15 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddIndustryVC">
             <connections>
                 <outlet property="beginTime" destination="3Tb-k5-zhA" id="Cvf-wT-PKk"/>
+                <outlet property="carImageView" destination="TLf-ij-O67" id="iqY-Y9-B2P"/>
                 <outlet property="companyNameBtn" destination="Ihe-fG-0Xc" id="Eia-bU-r6L"/>
                 <outlet property="endTime" destination="P7p-k5-kBe" id="AiC-t4-2xd"/>
                 <outlet property="faceBtn" destination="Ows-Az-Ihc" id="P0w-PY-ckf"/>
                 <outlet property="limitAmount" destination="kPl-TD-sKb" id="6nz-95-KBs"/>
                 <outlet property="nstockTF" destination="0RK-9G-jt6" id="ZU6-l4-xQN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="yuanImageView" destination="uYq-Uq-Tma" id="QsD-GJ-PMd"/>
+                <outlet property="yuanLabel" destination="Rga-lJ-etW" id="f5n-sX-WsY"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -37,7 +40,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="41.5"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ihe-fG-0Xc">
-                                            <rect key="frame" x="15" y="6.5" width="330" height="29"/>
+                                            <rect key="frame" x="15" y="6.5" width="332" height="29"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <state key="normal" title="请选择车行">
                                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -47,10 +50,10 @@
                                             </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_class_xiangqing_right_jiantou" translatesAutoresizingMaskIntoConstraints="NO" id="TLf-ij-O67">
-                                            <rect key="frame" x="350" y="11" width="10" height="18"/>
+                                            <rect key="frame" x="352" y="12.5" width="8" height="15"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="10" id="Dj3-YY-ksb"/>
-                                                <constraint firstAttribute="height" constant="18" id="SCp-Ch-1K5"/>
+                                                <constraint firstAttribute="width" constant="8" id="Dj3-YY-ksb"/>
+                                                <constraint firstAttribute="height" constant="15" id="SCp-Ch-1K5"/>
                                             </constraints>
                                         </imageView>
                                     </subviews>
@@ -125,7 +128,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ows-Az-Ihc">
-                                            <rect key="frame" x="91" y="6" width="254" height="29"/>
+                                            <rect key="frame" x="91" y="6" width="256" height="29"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <state key="normal" title="请选择劵的面额">
                                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -135,10 +138,10 @@
                                             </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_class_xiangqing_right_jiantou" translatesAutoresizingMaskIntoConstraints="NO" id="uYq-Uq-Tma">
-                                            <rect key="frame" x="350" y="11" width="10" height="18"/>
+                                            <rect key="frame" x="352" y="12.5" width="8" height="15"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="10" id="Bri-i7-qyq"/>
-                                                <constraint firstAttribute="height" constant="18" id="KA5-iv-yP8"/>
+                                                <constraint firstAttribute="width" constant="8" id="Bri-i7-qyq"/>
+                                                <constraint firstAttribute="height" constant="15" id="KA5-iv-yP8"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rga-lJ-etW">
@@ -185,7 +188,7 @@
                                             <rect key="frame" x="90" y="12.5" width="249.5" height="18"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srh-Cp-TMu">
                                             <rect key="frame" x="344.5" y="12" width="16" height="18"/>
@@ -312,7 +315,7 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="U0t-hP-k3r"/>
                                     </constraints>
-                                    <state key="normal" title="保存"/>
+                                    <state key="normal" title="发布"/>
                                     <connections>
                                         <action selector="submitAction:" destination="-1" eventType="touchUpInside" id="rRU-v3-ZlW"/>
                                     </connections>

@@ -46,11 +46,11 @@
     
     [self showRightBtnTitle:@"选择" Image:nil RightBtn:^{
         
-        if (weakSelf.industryModel.name.length==0) {
+        if (weakSelf.industryModel.value.length==0) {
             [weakSelf showToast:@"请选择面额"];
             return ;
         }else{
-            weakSelf.DhooseFaceListVCBlock(weakSelf.industryModel.faceId,weakSelf.industryModel.name);
+            weakSelf.DhooseFaceListVCBlock(weakSelf.industryModel.value,weakSelf.industryModel.name);
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }
     }];
@@ -107,8 +107,8 @@
         baseReq.token = [AuthenticationModel getLoginToken];
         baseReq.encryptionType = AES;
         baseReq.data = [AESCrypt encrypt:[dic yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
-        [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/IndustryCouponFace/requestCompanyList" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response)  {
-            NSLog(@"获取第三方公司----%@",response);
+        [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/IndustryCouponFace/requestFaceAmountList" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response)  {
+            NSLog(@"面额----%@",response);
             if ([response[@"resultCode"] isEqualToString:@"1"]) {
                 if (weakself.pageIndex == 1) {
                     [weakself.dataArray removeAllObjects];
@@ -154,7 +154,7 @@
     CarListCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CarListCell" forIndexPath:indexPath];
     
     //cell 赋值
-    cell.companyName.text =[NSString stringWithFormat:@"%@元", ((IndustryModel*)self.dataArray[indexPath.row]).name];
+    cell.companyName.text =[NSString stringWithFormat:@"%@", ((IndustryModel*)self.dataArray[indexPath.row]).name];
     
     // cell 其他配置
     //cell选中时的颜色 无色

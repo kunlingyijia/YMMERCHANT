@@ -152,7 +152,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     //分割线
     tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-    __weak typeof(self) weakSelf = self;
         if (indexPath.section>self.dataArray.count-1||self.dataArray.count==0) {
             return [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
         }else{
@@ -174,7 +173,6 @@
     if ([model.status isEqualToString:@"3"]||[model.status isEqualToString:@"4"]) {
         //Push 跳转
         IndustryListVC * VC = [[IndustryListVC alloc]initWithNibName:@"IndustryListVC" bundle:nil];
-        
         VC.model  = model;
         [self.navigationController  pushViewController:VC animated:YES];
     }
@@ -182,7 +180,6 @@
         //Push 跳转
         AddIndustryAmountVC * VC = [[AddIndustryAmountVC alloc]initWithNibName:@"AddIndustryAmountVC" bundle:nil];
         __weak typeof(self) weakSelf = self;
-
         VC.AddIndustryAmountVCBlock =^(){
 //             self.pageIndex = 1;
 //            [self requestAction];
@@ -208,7 +205,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.001;
 }
-
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
@@ -237,8 +233,7 @@
                                 }
                             } faild:^(id error) {
                                 NSLog(@"%@", error);
-                               
-                            }];
+                             }];
         }
          } withCancel:^(UIAlertAction *cancelaction) {
          }];

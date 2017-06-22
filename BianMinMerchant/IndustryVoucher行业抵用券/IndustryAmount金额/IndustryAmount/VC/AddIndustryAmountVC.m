@@ -33,9 +33,16 @@
 -(void)SET_UI{
     self.title =self.model ? @"详情": @"添加";
     self.totalFaceAmount.delegate = self;
-    [self showBackBtn];
-    
-    
+    //[self showBackBtn];
+    __weak typeof(self) weakSelf = self;
+    [self showBackBtn:^{
+        [weakSelf alertWithTitle:@"亲,您确定要离开?" message:nil OKWithTitle:@"确定" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        } withCancel:^(UIAlertAction *cancelaction) {
+            
+        }];
+    }];
+
 }
 #pragma mark - 关于数据
 -(void)SET_DATA{

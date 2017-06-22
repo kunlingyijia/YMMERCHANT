@@ -99,7 +99,7 @@
         baseReq.token = [AuthenticationModel getLoginToken];
         baseReq.encryptionType = AES;
         baseReq.data = [AESCrypt encrypt:[@{} yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
-        [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/IndustryCoupon/requestApplyIndustryCoupon" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response)  {
+        [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/IndustryCouponApply/requestApplyIndustryCoupon" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response)  {
             NSLog(@" 发布行业抵用券----%@",response);
             if ([response[@"resultCode"] isEqualToString:@"1"]) {
                 DWHelper* helper = [DWHelper shareHelper];

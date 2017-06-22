@@ -37,24 +37,21 @@
     [self SET_UI];
     //关于数据
     [self  SET_DATA];
-    
 }
 #pragma mark - 关于UI
 -(void)SET_UI{
     self.title = @"行业类型";
     [self showBackBtn];
     __weak typeof(self) weakSelf = self;
-
-    [self showRightBtnTitle:@"选择" Image:nil RightBtn:^{
-        
-        if (weakSelf.carListModel.companyName.length==0) {
-            [weakSelf showToast:@"请选择车行"];
-            return ;
-        }else{
-        weakSelf.ChooseCarListVCBlock(weakSelf.carListModel.companyId,weakSelf.carListModel.companyName);
-        [weakSelf.navigationController popViewControllerAnimated:YES];
-        }
-    }];
+    //[self showRightBtnTitle:@"选择" Image:nil RightBtn:^{
+//        if (weakSelf.carListModel.companyName.length==0) {
+//            [weakSelf showToast:@"请选择车行"];
+//            return ;
+//        }else{
+//        weakSelf.ChooseCarListVCBlock(weakSelf.carListModel.companyId,weakSelf.carListModel.companyName);
+//        [weakSelf.navigationController popViewControllerAnimated:YES];
+//        }
+    //}];
     [self setUpTableView];
     
 }
@@ -114,7 +111,6 @@
                 if (weakself.pageIndex == 1) {
                     [weakself.dataArray removeAllObjects];
                 }
-                
                 NSArray *arr = response[@"data"];
                 for (NSDictionary *dicdata in arr) {
                     CarListModel *model = [CarListModel yy_modelWithJSON:dicdata];
@@ -135,7 +131,6 @@
         
     }
     
-    
 }
 
 #pragma tableView 代理方法
@@ -153,10 +148,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     CarListCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CarListCell" forIndexPath:indexPath];
-    
     //cell 赋值
     cell.companyName.text = ((CarListModel*)self.dataArray[indexPath.row]).companyName;
-    
     // cell 其他配置
     //cell选中时的颜色 无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -168,11 +161,24 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.carListModel =  ((CarListModel*)self.dataArray[indexPath.row]);
     
+    if (self.carListModel.companyName.length==0) {
+        [self showToast:@"请选择车行"];
+        return ;
+    }else{
+        __weak typeof(self) weakSelf = self;
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            weakSelf.ChooseCarListVCBlock(weakSelf.carListModel.companyId,weakSelf.carListModel.companyName);
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        });
+
+        
+    }
 }
 #pragma mark - Cell的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return Width*0.11;
+    return Width*0.12;
     
 }
 

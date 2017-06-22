@@ -43,17 +43,16 @@
     self.title = @"面额";
     [self showBackBtn];
     __weak typeof(self) weakSelf = self;
-    
-    [self showRightBtnTitle:@"选择" Image:nil RightBtn:^{
+    //[self showRightBtnTitle:@"选择" Image:nil RightBtn:^{
         
-        if (weakSelf.industryModel.value.length==0) {
-            [weakSelf showToast:@"请选择面额"];
-            return ;
-        }else{
-            weakSelf.DhooseFaceListVCBlock(weakSelf.industryModel.value,weakSelf.industryModel.name);
-            [weakSelf.navigationController popViewControllerAnimated:YES];
-        }
-    }];
+//        if (weakSelf.industryModel.value.length==0) {
+//            [weakSelf showToast:@"请选择面额"];
+//            return ;
+//        }else{
+//            weakSelf.DhooseFaceListVCBlock(weakSelf.industryModel.value,weakSelf.industryModel.name);
+//            [weakSelf.navigationController popViewControllerAnimated:YES];
+//        }
+    //}];
     [self setUpTableView];
     
 }
@@ -67,7 +66,6 @@
     [self.view addSubview:_tableView];
     [_tableView tableViewregisterClassArray:@[@"UITableViewCell"]];
     [_tableView tableViewregisterNibArray:@[@"CarListCell"]];
-    
 }
 #pragma mark - 关于数据
 -(void)SET_DATA{
@@ -131,10 +129,8 @@
         }];
         
     }else {
-        
+
     }
-    
-    
 }
 
 #pragma tableView 代理方法
@@ -150,28 +146,34 @@
 }
 //tab设置
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     CarListCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CarListCell" forIndexPath:indexPath];
-    
     //cell 赋值
     cell.companyName.text =[NSString stringWithFormat:@"%@", ((IndustryModel*)self.dataArray[indexPath.row]).name];
-    
     // cell 其他配置
     //cell选中时的颜色 无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    
     return cell;
 }
 #pragma mark - Cell点击事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.industryModel =  ((IndustryModel*)self.dataArray[indexPath.row]);
+    if (self.industryModel.value.length==0) {
+        [self showToast:@"请选择面额"];
+        return;
+    }else{
+        __weak typeof(self) weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        weakSelf.DhooseFaceListVCBlock(weakSelf.industryModel.value,weakSelf.industryModel.name);
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+        });
+    }
     
 }
+
 #pragma mark - Cell的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return Width*0.11;
+    return Width*0.12;
     
 }
 

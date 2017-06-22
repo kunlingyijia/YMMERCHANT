@@ -33,9 +33,11 @@
     self.tableView.dataSource = self;
     self.tableView.rowHeight = 200;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor =[UIColor colorWithHexString:kViewBg];
     [self.tableView registerNib:[UINib nibWithNibName:@"MessageCenterCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"MessageCenterCell"];
     [self.view addSubview:self.tableView];
     [self getDataList];
+    
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         self.pageIndex = 1;
         [self getDataList];

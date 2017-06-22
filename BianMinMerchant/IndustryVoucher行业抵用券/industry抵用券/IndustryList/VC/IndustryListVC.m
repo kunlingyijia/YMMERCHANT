@@ -43,7 +43,6 @@
 -(void)SET_UI{
     self.view.backgroundColor = [UIColor colorWithHexString:kNavigationBgColor];
     self.title =[NSString stringWithFormat:@"%@",self.model.no];
-    self.balanceFaceAmount.text = self.model.balanceFaceAmount;
     [self showBackBtn];
     __weak typeof(self) weakSelf = self;
     if ([self.model.status isEqualToString:@"3"]) {
@@ -63,7 +62,6 @@
   
     }
        [self setUpTableView];
-    
 }
 #pragma mark - 关于tableView
 -(void)setUpTableView{
@@ -81,6 +79,9 @@
 -(void)SET_DATA{
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     self.pageIndex =1;
+    self.model.balanceFaceAmount = @"0.00";
+    self.balanceFaceAmount.text = self.model.balanceFaceAmount;
+
     [self requestAction];
     //上拉刷新下拉加载
     [self Refresh];
@@ -98,7 +99,6 @@
     self.tableView. mj_footer=
     [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         weakself.pageIndex ++ ;
-        NSLog(@"%ld",(long)weakself.pageIndex);
         [weakself requestAction];
         // 进入刷新状态后会自动调用这个block
         [weakself.tableView.mj_footer endRefreshing];
@@ -152,7 +152,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     //分割线
     tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-    __weak typeof(self) weakSelf = self;
     if (indexPath.section>self.dataArray.count-1||self.dataArray.count==0) {
         return [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
     }else{
@@ -257,13 +256,9 @@
 //            
 //        }];
 //    }];
-    
-   
     return @[cancel];
     
 }
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

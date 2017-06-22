@@ -237,7 +237,7 @@
             NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
             request.token = [userD objectForKey:@"loginToken"];
             request.data = [AESCrypt encrypt:[orderUse yy_modelToJSONString] password:[userD objectForKey:@"loginKey"]];
-            [[DWHelper shareHelper] requestDataWithParm:[request yy_modelToJSONString] act:@"act=MerApi/Merchant/requestGoodsOrderUser" sign:[request.data MD5Hash] requestMethod:GET success:^(id response) {
+            [[DWHelper shareHelper] requestDataWithParm:[request yy_modelToJSONString] act:@"act=MerApi/GoodsOrder/requestGoodsOrderScan" sign:[request.data MD5Hash] requestMethod:GET success:^(id response) {
                 BaseResponse *baseRes = [BaseResponse yy_modelWithJSON:response];
                 if (baseRes.resultCode == 1) {
                     [weakSelf hideProgress];
@@ -335,7 +335,6 @@
         BaseResponse *baseRes = [BaseResponse yy_modelWithJSON:response];
         NSLog(@"---%@",response);
         if (baseRes.resultCode == 1) {
-            
             [AuthenticationModel setValue:response forkey:@"TGMerchantInfo"];
             weakSelf.shopModel = [RequestMerchantInfoModel yy_modelWithJSON:baseRes.data];
             weakSelf.navigationView.title.text = weakSelf.shopModel.merchantName;
@@ -513,15 +512,6 @@
         ShopCenterViewController *shopCenterC = [[ShopCenterViewController alloc] init];
         [self.navigationController pushViewController:shopCenterC animated:YES];
     }else if (tag == 60) {
-//        WriteMessageViewController *writeMessage = [[WriteMessageViewController alloc] init];
-//        writeMessage.shopModel = self.shopModel;
-//        __weak typeof(self) weakSelf = self;
-//        
-//        writeMessage.backAction =^(NSString *str){
-//            [weakSelf getShopData];
-//        };
-//
-//        [self.navigationController pushViewController:writeMessage animated:YES];
         //Push 跳转
         NewCompleonDataVC * VC = [[NewCompleonDataVC alloc]initWithNibName:@"NewCompleonDataVC" bundle:nil];
         VC.shopModel = self.shopModel;

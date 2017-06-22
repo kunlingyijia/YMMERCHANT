@@ -507,21 +507,13 @@
 
 #pragma mark - 推送跳转到消息中心
 -(void)PublicMessageVC{
-    
     // 否则，跳转到我的消息
     PublicMessageVC *message = [[PublicMessageVC alloc]initWithNibName:@"PublicMessageVC" bundle:nil];
     UIViewController * viewControllerNow = [self currentViewController];
-    if ([viewControllerNow  isKindOfClass:[PublicMessageVC class]]) {   //如果是页面XXX，则执行下面语句
+    if ([viewControllerNow  isKindOfClass:[PublicMessageVC class]]) {
+        //如果是页面XXX，则执行下面语句
         [message getDataList];
     }else{
-        
-        //        UINavigationController * Nav = [[UINavigationController alloc]initWithRootViewController:message];
-        //
-        //        CATransition *  ansition =[CATransition animation];
-        //        [ansition setDuration:0.3];
-        //        [ansition setType:kCAGravityRight];
-        //        [[[[UIApplication sharedApplication]keyWindow ]layer] addAnimation:ansition forKey:nil];
-        //        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:Nav animated:YES completion:nil];
         [viewControllerNow.navigationController pushViewController:message animated:YES];
     }
     

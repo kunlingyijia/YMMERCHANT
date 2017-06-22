@@ -36,7 +36,7 @@
     [faceAmount addAttribute:NSFontAttributeName
                        value:[UIFont systemFontOfSize:10]
                        range:NSMakeRange(0, 1)];
-        //status		string	1-已发放, 2-已取消, 3-已过期, 4-已结束
+    //status 1-已发放, 2-已取消, 3-已过期, 4-已结束
     if ([model.status isEqualToString:@"1"]) {
         _status.text = @"已发放";
         _LeftView.backgroundColor = [UIColor colorWithHexString:kNavigationBgColor];
@@ -47,7 +47,6 @@
         [faceAmount addAttribute:NSForegroundColorAttributeName
                            value:[UIColor redColor]
                            range:NSMakeRange(0, _model.faceAmount.length-1)];
-
     }else{
         _LeftView.backgroundColor = [UIColor grayColor];
         _symbol.textColor = [UIColor grayColor];
@@ -67,15 +66,6 @@
     if ([model.status isEqualToString:@"4"]) {
         _status.text = @"已结束";
     }
-    
     _faceAmount.attributedText  =faceAmount;
-
-    
-
-    
-   
-    
-    
-    
 }
 @end

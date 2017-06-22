@@ -107,7 +107,7 @@
     [backBtn setImage:Image ==nil ?nil :[UIImage imageNamed:Image] forState:UIControlStateNormal];
     backBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [backBtn setTitle:title forState:(UIControlStateNormal)];
-    [backBtn addTarget:self action:@selector(doBlockBack:) forControlEvents:UIControlEventTouchUpInside];
+    [backBtn addTarget:self action:@selector(doBlockRightBack:) forControlEvents:UIControlEventTouchUpInside];
     [backBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     backBtn.titleLabel.font = [UIFont systemFontOfSize:kFirstFont];
     [backBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
@@ -127,10 +127,14 @@
     //    //添加到视图
     //
     //    [self.view addGestureRecognizer:screenEdgePanGesture];
-    self.Back = RightBtn;
+    self.RightBack = RightBtn;
 
     
 }
+- (void)doBlockRightBack:(id)sender{
+    self.RightBack();
+}
+
 //回收键盘
 - (void)endEditingAction:(UIView *)endView {
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endtapAction:)];

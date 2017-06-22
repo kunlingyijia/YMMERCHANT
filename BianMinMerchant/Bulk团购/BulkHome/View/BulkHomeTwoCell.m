@@ -9,7 +9,6 @@
 #import "BulkHomeTwoCell.h"
 #define Space 40
 #define ImageW (Width - (Space * 4))/3
-
 @implementation BulkHomeTwoCell
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if ([super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -26,8 +25,8 @@
     //[self createView];
 }
 - (void)createView {
-    NSArray *nameArr = @[@"扫一扫",@"消息中心",@"交易记录",@"卡券管理",@"提现",@"商品管理"];
-    NSArray *pictureArr = @[@"btn_zhuye_saoyisao",@"btn_zhuye_xiaoxizhongxin",@"btn_zhuye_jiaoyijilu",@"btn_zhuye_kaquanguanli",@"btn_denglu_tixian",@"btn_zhuye_guanli"];
+    NSArray *nameArr = @[@"扫一扫",@"消息中心",@"交易记录",@"卡券管理",@"行业抵用券",@"商品管理"];
+    NSArray *pictureArr = @[@"btn_zhuye_saoyisao",@"btn_zhuye_xiaoxizhongxin",@"btn_zhuye_jiaoyijilu",@"btn_zhuye_kaquanguanli",@"行业抵用",@"btn_zhuye_guanli"];
     NSInteger count = 0;
     for (int i = 0; i<2; i++) {
         for (int j = 0; j < 3; j++) {
@@ -39,7 +38,6 @@
             btn.tag = 1000+count;
             btn.backgroundColor = [UIColor clearColor];
             [self.contentView addSubview:btn];
-            
             UILabel *numLabel = [UILabel new];
             numLabel.hidden = YES;
             numLabel.textColor = [UIColor colorWithHexString:kNavigationBgColor];
@@ -53,9 +51,7 @@
                 make.right.equalTo(btn.mas_right).with.offset(5);
                 make.size.mas_equalTo(CGSizeMake(15, 15));
             }];
-            
             UILabel *nameLabel = [UILabel new];
-            
             nameLabel.text = nameArr[count];
             nameLabel.font = [UIFont systemFontOfSize:12];
              nameLabel.tag = 2000+count;
@@ -67,7 +63,6 @@
                 make.centerX.equalTo(btn);
                 make.size.mas_equalTo(CGSizeMake(100, 20));
             }];
-            
             count = count+1;
         }
     }
@@ -75,22 +70,17 @@
     UIButton * btn = (UIButton*)[self.contentView viewWithTag:1004 ];
     UILabel *label = (UILabel*)[self.contentView viewWithTag:2004];
     if (helper.isLoginType==0) {
-        btn.hidden = NO;
-        label.hidden = NO;
-    
+   [btn setImage:[UIImage imageNamed:@"行业抵用"] forState:0];
+   label.textColor =  [UIColor colorWithHexString:kTitleColor];
+   btn.userInteractionEnabled = YES;
     }else{
-        btn.hidden = YES;
-       label.hidden = YES;
+    [btn setImage:[UIImage imageNamed:@"灰券-行业抵用"] forState:0];
+    label.textColor =  [UIColor lightGrayColor];
+    btn.userInteractionEnabled = NO;
     }
-
 }
 - (void)btnAction:(UIButton *)sender {
-
-   
-        self.bulkHomeTwoCellBlock(sender.tag-1000);
-   
-    
-
+    self.bulkHomeTwoCellBlock(sender.tag-1000);
 }
 
 

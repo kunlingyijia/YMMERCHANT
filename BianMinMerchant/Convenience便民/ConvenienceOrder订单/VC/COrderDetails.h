@@ -7,14 +7,10 @@
 //
 
 #import "BaseViewController.h"
-
 @interface COrderDetails : BaseViewController
-
 @property (weak, nonatomic) IBOutlet UIButton *RightBtn;
-
 @property (weak, nonatomic) IBOutlet UIButton *LeftBtn;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *BtnConstraintHeight;
-
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, copy)void(^backBlockAction)(NSString *str);
 @property (nonatomic, copy) NSString *orderNo;

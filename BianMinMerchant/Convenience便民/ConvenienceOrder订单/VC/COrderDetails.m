@@ -85,7 +85,6 @@
                  self.BtnConstraintHeight.constant =0;
                 weakSelf.LeftBtn.hidden = YES;
                 weakSelf.RightBtn.hidden = YES;
-               
             }
             [weakSelf.dataArray removeAllObjects];
             for (NSDictionary* dic in weakSelf.orderModel.bminServiceList) {
@@ -95,14 +94,11 @@
             [weakSelf.tableView reloadData];
             [self HiddenNodataView];
         }else {
-            
             [weakSelf showToast:baseRes.msg];
-            
         }
     } faild:^(id error) {
     }];
 }
-
 #pragma tableView 代理方法
 //tab分区个数
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -114,18 +110,14 @@
     switch (section) {
         case 0:
         {
-            
             return 1;
-            
             break;
         }
-            
         case 1:
         {
             return self.dataArray.count;
             break;
         }
-            
         case 2:
         {
             return 1;
@@ -328,7 +320,6 @@
             Coordinate.longitude = self.orderModel.lng;
             CLLocationCoordinate2D Coordinate2D = [self BD09FromGCJ02:Coordinate];
             NSString *urlString = [NSString stringWithFormat:@"baidumap://map/direction?origin=latlng:%f,%f|name:我的位置&destination=latlng:%f,%f|name:%@&mode=transit",_startLocation.latitude, _startLocation.longitude,  Coordinate2D.latitude, Coordinate2D.longitude, name];
-        
             [self openMap:urlString];
         }else {
             [self sheetAction:@"百度地图"];
@@ -336,8 +327,6 @@
 }
 #pragma mark - 高德地图
 -(void)GaoDeMap{
-    //CLLocationCoordinate2D startLocation ;
-    //NSString *name = @"东吴科技";
     NSString *name = self.orderModel.address;
     CLLocationCoordinate2D Coordinate ;
     Coordinate.latitude = self.orderModel.lat;
@@ -349,7 +338,6 @@
         [self sheetAction:@"高德地图"];
     }
 }
-
 - (void)openMap:(NSString *)urlString {
     NSString *string = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:string];

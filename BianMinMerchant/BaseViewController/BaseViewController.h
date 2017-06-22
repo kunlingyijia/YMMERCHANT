@@ -13,6 +13,7 @@ typedef void(^ObjectBack)();
 @interface BaseViewController : UIViewController
 ///ObjectBack
 @property (nonatomic, copy) ObjectBack  Back ;
+@property (nonatomic, copy) ObjectBack  RightBack ;
 - (void)navigationTitleColor:(NSString *)colorStr;
 - (void)showBackBtn;
 - (void)showBackBtn:(ObjectBack)Back;

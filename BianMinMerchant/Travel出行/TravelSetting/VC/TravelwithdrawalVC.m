@@ -13,11 +13,9 @@
 #import "TravelwithdrawalFourCell.h"
 #import "TravelwithdrawalStatasOneCell.h"
 #import "TravelSetFourCell.h"
-
 #import "TravelBanckModel.h"
 #import "BindBankCardViewController.h"
 #import "TravelwithdrawalListVC.h"
-
 @interface TravelwithdrawalVC (){
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -375,8 +373,6 @@
     return 80;
     
 }
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

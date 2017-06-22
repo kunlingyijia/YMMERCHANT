@@ -36,10 +36,6 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-//    [self LocalData];
-//    //获取车主信息
-//    [self requestAction];
-    
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -250,11 +246,7 @@
             };
             [self.navigationController  pushViewController:VC animated:YES];
         }
-        
-
-        
     }
-    
     if ([title isEqualToString:@"现金账户明细"]) {
         ///车主状态：1-待认证，2-审核中，3-认证通过，4-认证失败
         if ([self.ownerModel.status isEqualToString:@"2"]) {
@@ -262,11 +254,6 @@
         }else if([self.ownerModel.status isEqualToString:@"3"]){
             //Push 跳转--现金账户明细
             CashAccountVC * VC = [[CashAccountVC alloc]initWithNibName:@"CashAccountVC" bundle:nil];
-//            VC.account = self.ownerModel.account;
-//            __weak typeof(self) weakSelf = self;
-//            VC.TravelwithdrawalVCBlock =^(){
-//                [weakSelf requestAction];
-//            };
             [self.navigationController  pushViewController:VC animated:YES];
         }else{
             //Push 跳转--车主认证
@@ -277,22 +264,13 @@
             };
             [self.navigationController  pushViewController:VC animated:YES];
         }
-        
-        
-        
     }
-
-    
     if ([title isEqualToString:@"意见反馈"]) {
-#warning---Push 跳转 --问题反馈
+     //Push 跳转 --问题反馈
         [self.navigationController pushViewController:[Feedback new] animated:YES];
     }
-    
     if ([title isEqualToString:@"关于我们"]) {
         //Push 跳转--关于我们
-//        AboutUS * VC = [[AboutUS alloc]init];
-//        [self.navigationController  pushViewController:VC animated:YES];
-//        //Push 跳转
         AboutUSVC * VC = [[AboutUSVC alloc]initWithNibName:@"AboutUSVC" bundle:nil];
         [self.navigationController  pushViewController:VC animated:YES];
     }
@@ -307,17 +285,13 @@
       if ([title isEqualToString:@"头部"]) {
         return Width*0.4;
       }
-     
     if ([title isEqualToString:@"修改密码"]||[title isEqualToString:@"车主认证"]||[title isEqualToString:@"提现"]||[title isEqualToString:@"现金账户明细"]||[title isEqualToString:@"意见反馈"]||[title isEqualToString:@"关于我们"]) {
-         return Width*0.12;
+         return Width*0.125;
       }
-    
      if ([title isEqualToString:@"退出登录"]) {
            return 88+60;
      }
       return 0;
-    
-    
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     if (section==0) {
@@ -335,27 +309,11 @@
     [self.navigationController popToViewController:controllers[1] animated:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 #pragma mark - 头像
 -(void)tapAction:(UITapGestureRecognizer*)sender{
-    
     [self.view endEditing:YES];
     ImageChooseVC* VC = [[ImageChooseVC alloc]initWithNibName:@"ImageChooseVC" bundle:nil];
     VC.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
-//    VC.imageType= OriginalImage;
     VC.zoom = 1;
     __weak typeof(self) weakSelf = self;
     VC.ImageChooseVCBlock =^(UIImage *image){
@@ -393,7 +351,6 @@
                 weakself.view.userInteractionEnabled = YES;
                 weakself.ownerModel.avatarUrl =weakself.UpdateStr;
                 [weakself.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:(UITableViewRowAnimationNone)];
-                //[weakself requestAction];
             }else{
                 weakself.view.userInteractionEnabled = YES;
                 [weakself showToast:response[@"msg"]];
@@ -423,22 +380,14 @@
     }
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#pragma mark - dealloc
+- (void)dealloc
+{
+    NSLog(@"%@销毁了", [self class]);
+}
 @end

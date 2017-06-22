@@ -191,7 +191,7 @@
             NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
             request.token = [userD objectForKey:@"loginToken"];
             request.data = [AESCrypt encrypt:[orderUse yy_modelToJSONString] password:[userD objectForKey:@"loginKey"]];
-            [[DWHelper shareHelper] requestDataWithParm:[request yy_modelToJSONString] act:@"act=MerApi/TravelOrder/requestOrderScan" sign:[request.data MD5Hash] requestMethod:GET success:^(id response) {
+            [[DWHelper shareHelper] requestDataWithParm:[request yy_modelToJSONString] act:@"act=MerApi/TravelOrder/requestTravelOrderScan" sign:[request.data MD5Hash] requestMethod:GET success:^(id response) {
                 BaseResponse *baseRes = [BaseResponse yy_modelWithJSON:response];
                 if (baseRes.resultCode == 1) {
                     [weakSelf hideProgress];

@@ -10,11 +10,7 @@
 @class IndustryModel;
 @interface IndustryListVC : BaseViewController
 @property (nonatomic, copy) void(^ IndustryListVCBlock)();
-///faceId
-//@property (nonatomic, strong) NSString  *faceId ;
 @property (weak, nonatomic) IBOutlet UILabel *balanceFaceAmount;
-
 ///
-@property (nonatomic, strong) IndustryModel  *model ;
-
+@property (nonatomic, strong) IndustryModel  *model;
 @end

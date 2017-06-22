@@ -349,7 +349,6 @@ static SystemSoundID shake_sound_male_id = 0;
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo];
         //        NSLog(@"iOS10 前台收到远程通知:%@", [self logDic:userInfo]);
-        
         NSLog(@"iOS10 收到远程通知:%@", userInfo);
         self.userInfo = userInfo;
        [self receivePushMessage];
@@ -386,10 +385,7 @@ static SystemSoundID shake_sound_male_id = 0;
     completionHandler();  // 系统要求执行这个方法
 }
 #endif
-
-
 #pragma mark - APP运行中接收到通知(推送)处理
-
 ///** APP已经接收到“远程”通知(推送) - (App运行在后台/App运行在前台)  */
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
     [JPUSHService handleRemoteNotification:userInfo];
@@ -401,7 +397,6 @@ static SystemSoundID shake_sound_male_id = 0;
     }
     completionHandler(UIBackgroundFetchResultNewData);
 }
-
 #pragma mark------------------收到通知的页面处理
 -(void)receivePushMessage {
     NSDictionary *dic =self.userInfo;
@@ -413,14 +408,11 @@ static SystemSoundID shake_sound_male_id = 0;
     NSNumber *  industry =dic[@"industry"];
    // 1-消息列表
     NSNumber * transferType =dic[@"transferType"];
-    
     switch ([industry intValue]) {
         case 0:
         {
-            
             break;
         }
-            
         case 1:
         {
             if ([transferType intValue]==1) {
@@ -429,19 +421,15 @@ static SystemSoundID shake_sound_male_id = 0;
             }
             break;
         }
-            
         case 2:
         {
             if ([transferType intValue]==1) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"便民消息列表" object:@"便民消息列表" userInfo:@{}];
                 return;
             }
-            
             break;
         }
-            
-            
-        case 3:
+            case 3:
         {
             if ([transferType intValue]==1) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"出行消息列表" object:@"出行消息列表" userInfo:@{}];
@@ -449,30 +437,11 @@ static SystemSoundID shake_sound_male_id = 0;
             }
             break;
         }
-            
         default:{
-            
             break;
-            
         }
     }
-
-    
-    
-    
-    
-//    if ([industry intValue] ==1) {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"团购刷新订单" object:@"团购刷新订单" userInfo:@{}];
-//         return;
-//    } else if ([industry intValue] ==2) {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"便民刷新订单" object:@"便民刷新订单" userInfo:@{}];
-//        return;
-//    }else if ([industry intValue] ==3) {
-//         [[NSNotificationCenter defaultCenter] postNotificationName:@"出行刷新订单" object:@"出行刷新订单" userInfo:@{}];
-//         return;
-//    }
- 
-}
+ }
 #pragma mark - 运行在前台时的提示框提醒
 -(void)receiveRemoteNotificationReset:(NSDictionary *)userInfo{
     if (userInfo) {

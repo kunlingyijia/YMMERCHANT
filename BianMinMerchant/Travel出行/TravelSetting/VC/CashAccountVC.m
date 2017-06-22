@@ -102,7 +102,8 @@
         baseReq.encryptionType = AES;
         baseReq.data = [AESCrypt encrypt:[dic yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
         [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/AccountFlow/requestAccountFlowList" sign:[baseReq.data MD5Hash] requestMethod:GET  success:^(id response) {
-            BaseResponse *baseRes = [BaseResponse yy_modelWithJSON:response];            if (weakself.pageIndex == 1) {
+            BaseResponse *baseRes = [BaseResponse yy_modelWithJSON:response];
+            if (weakself.pageIndex == 1) {
                 [weakself.dataArray removeAllObjects];
             }
             if (baseRes.resultCode ==1) {
@@ -139,11 +140,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     //分割线
     //tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-    __weak typeof(self) weakSelf = self;
     if (indexPath.row>self.dataArray.count-1||self.dataArray.count==0) {
         return [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
     }else{
-                       CashAccountOneCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CashAccountOneCell" forIndexPath:indexPath];
+        
+        CashAccountOneCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CashAccountOneCell" forIndexPath:indexPath];
                 //cell 赋值
                 cell.model = indexPath.row >= self.dataArray.count ? nil :self.dataArray[indexPath.row];
                 // cell 其他配置
@@ -154,9 +155,6 @@
 #pragma mark - Cell点击事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    
-    
 }
 #pragma mark - Cell的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -177,9 +175,6 @@
     self.type = [NSString stringWithFormat:@"%ld",sender.tag-320];
     self.pageIndex = 1;
     [self requestAction];
-    
-    
-    
 }
 
 

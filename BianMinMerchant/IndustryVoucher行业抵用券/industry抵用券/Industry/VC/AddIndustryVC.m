@@ -31,12 +31,19 @@
     self.title = @"添加";
     self.nstockTF.delegate = self;
     self.limitAmount.delegate = self;
-    [self showBackBtn];
+    //[self showBackBtn];
     __weak typeof(self) weakSelf = self;
+    [self showBackBtn:^{
+        [weakSelf alertWithTitle:@"亲,您确定要离开?" message:nil OKWithTitle:@"确定" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        } withCancel:^(UIAlertAction *cancelaction) {
+            
+        }];
+    }];
     [self showRightBtnTitle:@"规则" Image:nil RightBtn:^{
         //Push 跳转
         RulesWebVC * VC = [[RulesWebVC alloc]initWithNibName:@"RulesWebVC" bundle:nil];
-        [weakSelf.navigationController  pushViewController:VC animated:YES];
+       [weakSelf.navigationController  pushViewController:VC animated:YES];
     }];
 }
 #pragma mark - 关于数据
@@ -53,7 +60,6 @@
         self.yuanImageView.hidden =self.carImageView.hidden;
         self.yuanLabel.hidden =!self.carImageView.hidden;
     }
-    
 }
 #pragma mark - 选择车行
 - (IBAction)companyNameBtnAction:(UIButton *)sender {
@@ -61,16 +67,13 @@
     //Push 跳转
     ChooseCarListVC * VC = [[ChooseCarListVC alloc]initWithNibName:@"ChooseCarListVC" bundle:nil];
     __weak typeof(self) weakSelf = self;
-
     VC.ChooseCarListVCBlock =^(NSString *companyId,NSString *companyName){
         [sender setTitle:companyName forState:0];
-        _carImageView.hidden = YES;
+        //_carImageView.hidden = YES;
         weakSelf.industryModel.companyId  =companyId;
     };
     [self.navigationController  pushViewController:VC animated:YES];
-
 }
-
 #pragma mark - 选择面额
 - (IBAction)denominationBtnAction:(UIButton *)sender {
     [self.view endEditing:YES];
@@ -79,18 +82,15 @@
     __weak typeof(self) weakSelf = self;
     VC.DhooseFaceListVCBlock =^(NSString *faceAmount,NSString *name){
         [sender setTitle:faceAmount forState:0];
-        self.yuanImageView.hidden =YES;
-        self.yuanLabel.hidden =!self.yuanImageView.hidden;
+//        self.yuanImageView.hidden =YES;
+//        self.yuanLabel.hidden =!self.yuanImageView.hidden;
         weakSelf.industryModel.faceAmount  =faceAmount;
     };
     [self.navigationController  pushViewController:VC animated:YES];
 }
-
-
 //判断输入钱的正则表达式，正整数，最多6位。
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    
     if ([self.nstockTF isEqual:textField]) {
         NSString *toString = [textField.text stringByReplacingCharactersInRange:range withString:string];
         if (toString.length > 0) {
@@ -103,7 +103,6 @@
         }
         return YES;
     }
-    
     if ([self.limitAmount isEqual:textField] ) {
         NSString *toString = [textField.text stringByReplacingCharactersInRange:range withString:string];
         if (toString.length > 0) {
@@ -116,15 +115,11 @@
         }
         return YES;
     }
-    
-    
     return YES;
     
 }
-
 #pragma mark - 开始时间
 - (IBAction)stastTimeAction:(UIButton *)sender {
-    
     [self.view endEditing:NO];
     self.timeStr = @"1";
     if (!dater) {
@@ -149,7 +144,6 @@
         [dater showInView:self.view animated:YES];
     }
 }
-
 #pragma mark -
 - (void)daterViewDidClicked:(XFDaterView *)daterView{
     if ([daterView isEqual:dater]) {
@@ -173,7 +167,6 @@
 #pragma mark -  日历取消
 - (void)daterViewDidCancel:(XFDaterView *)daterView{
 }
-
 - (IBAction)submitAction:(PublicBtn *)sender {
     if ([self IF]) {
         __weak typeof(self) weakSelf = self;

@@ -22,6 +22,9 @@
 @property (nonatomic, strong) NSString  *openPositionTime ;
 ///行业抵用券url
 @property (nonatomic, strong) NSString  *industryCouponUrl ;
+///行业抵用券添加规则
+@property (nonatomic, strong) NSString  *industryCouponExplainUrl ;
+
 
 
 

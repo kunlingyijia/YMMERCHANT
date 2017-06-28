@@ -86,10 +86,6 @@
 }
 #pragma mark - 推送跳转到消息列表
 -(void)PublicMessageVC{
-    
-    
-    
-    
     // 否则，跳转到我的消息
     PublicMessageVC *message = [[PublicMessageVC alloc]initWithNibName:@"PublicMessageVC" bundle:nil];
     UIViewController * viewControllerNow = [self currentViewController];
@@ -503,7 +499,7 @@
         //Push 跳转--行业抵用券认证
       DWHelper* helper = [DWHelper shareHelper];
       IndustryCertificationVC * industryCertificationVC = [[IndustryCertificationVC alloc]initWithNibName:@"IndustryCertificationVC" bundle:nil];
-               //Push 跳转--行业抵用券列表
+        //Push 跳转--行业抵用券列表
        IndustryAmountLIstVC * VC = [[IndustryAmountLIstVC alloc]initWithNibName:@"IndustryAmountLIstVC" bundle:nil];
         //helper.shopModel.industryCouponStatus = @"2";
         ///开通行业抵用券  1-未开通, 2-开通中,3-开通失败, 4-已开通, 5-暂停业务

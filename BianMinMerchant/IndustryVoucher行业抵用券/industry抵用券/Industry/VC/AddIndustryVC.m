@@ -91,7 +91,7 @@
 //判断输入钱的正则表达式，正整数，最多6位。
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if ([self.nstockTF isEqual:textField]) {
+    if ([self.nstockTF isEqual:textField]||[self.limitAmount isEqual:textField]) {
         NSString *toString = [textField.text stringByReplacingCharactersInRange:range withString:string];
         if (toString.length > 0) {
             NSString *stringRegex = @"^[1-9]\\d{0,5}$";
@@ -103,18 +103,18 @@
         }
         return YES;
     }
-    if ([self.limitAmount isEqual:textField] ) {
-        NSString *toString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-        if (toString.length > 0) {
-            NSString *stringRegex = @"(\\+)?(([0]|(0[.]\\d{0,2}))|([1-9]\\d{0,5}(([.]\\d{0,2})?)))?";
-            NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", stringRegex];
-            BOOL flag = [phoneTest evaluateWithObject:toString];
-            if (!flag) {
-                return NO;
-            }
-        }
-        return YES;
-    }
+//    if ([self.limitAmount isEqual:textField] ) {
+//        NSString *toString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+//        if (toString.length > 0) {
+//            NSString *stringRegex = @"(\\+)?(([0]|(0[.]\\d{0,2}))|([1-9]\\d{0,5}(([.]\\d{0,2})?)))?";
+//            NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", stringRegex];
+//            BOOL flag = [phoneTest evaluateWithObject:toString];
+//            if (!flag) {
+//                return NO;
+//            }
+//        }
+//        return YES;
+//    }
     return YES;
     
 }
@@ -253,7 +253,7 @@
         [self showToast:@"当前余额不足"];
         return NO;
     }
-    if ([self.faceBtn.titleLabel.text intValue]>[self.limitAmount.text intValue]) {
+    if ([self.faceBtn.titleLabel.text intValue]>[self.limitAmount.text floatValue]) {
         [self showToast:@"面额不能大于满足金额"];
         return NO;
     }

@@ -27,14 +27,13 @@
 -(void)setModel:(IndustryModel *)model{
     if (!model) return;
     _model = model;
-   // _faceAmount.text = model.faceAmount;
     _name.text = model.name;
     _receiveNumberAndstock.text =[NSString stringWithFormat:@"已领取%@/%@张", model.receiveNumber,model.stock];
     _limitAmount.text =[NSString stringWithFormat:@"消费满%@元给予发放", model.limitAmount];
     _beginTimeAndendtime.text =[NSString stringWithFormat:@"有效期: %@至%@", model.beginTime,model.endTime];
      NSMutableAttributedString * faceAmount = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥%@", model.faceAmount] ];
     [faceAmount addAttribute:NSFontAttributeName
-                       value:[UIFont systemFontOfSize:10]
+                       value:[UIFont systemFontOfSize:12]
                        range:NSMakeRange(0, 1)];
     //status 1-已发放, 2-已取消, 3-已过期, 4-已结束
     if ([model.status isEqualToString:@"1"]) {

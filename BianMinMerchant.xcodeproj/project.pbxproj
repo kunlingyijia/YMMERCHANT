@@ -3162,7 +3162,7 @@
 				TargetAttributes = {
 					63FF8AB71CF7D7F800007985 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 2M7G83HE4L;
+						DevelopmentTeam = X57HHXYHRU;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -3794,7 +3794,7 @@
 				CODE_SIGN_ENTITLEMENTS = "BianMinMerchant/易民商户.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: fzyimin@sina.com (75PQ8AH552)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2M7G83HE4L;
+				DEVELOPMENT_TEAM = X57HHXYHRU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3856,7 +3856,7 @@
 					"\"UIKit\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = test.dongwuit.merchant;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dw.merchant;
 				PRODUCT_NAME = "易民商户";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3873,7 +3873,7 @@
 				CODE_SIGN_ENTITLEMENTS = "BianMinMerchant/易民商户.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: fzyimin@sina.com (75PQ8AH552)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2M7G83HE4L;
+				DEVELOPMENT_TEAM = X57HHXYHRU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3935,7 +3935,7 @@
 					"\"UIKit\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = test.dongwuit.merchant;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dw.merchant;
 				PRODUCT_NAME = "易民商户";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

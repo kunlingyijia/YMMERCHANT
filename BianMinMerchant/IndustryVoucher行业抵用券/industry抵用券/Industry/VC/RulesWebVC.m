@@ -43,8 +43,8 @@
 }
 #pragma mark - 关于数据
 -(void)SET_DATA{
-   
-    [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.baidu.com"]]];
+    DWHelper* helper = [DWHelper shareHelper];
+     [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:helper.configModel.industryCouponExplainUrl]]];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     // [[LoadWaitSingle shareManager] hideLoadWaitView];

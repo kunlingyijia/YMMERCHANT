@@ -17,6 +17,7 @@
 #import "RequestBminDeelOrder.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+
 @interface COrderDetails ()<AMapLocationManagerDelegate>
 @property(nonatomic,strong)RequestBminorderListModel*orderModel ;
 ///数据
@@ -156,13 +157,36 @@
             };
             //选择地图
             cell.COrderDetailsOneCellLocationBlock =^(){
-                [weakSelf alertActionSheetWithTitle:nil message:nil OKWithTitleOne:@"百度地图" OKWithTitleTwo:@"高德地图" CancelWithTitle:@"取消" withOKDefaultOne:^(UIAlertAction *defaultaction) {
-                    [weakSelf  BaiDuMap];
-                   
+//                [weakSelf alertActionSheetWithTitle:nil message:nil OKWithTitleOne:@"百度地图" OKWithTitleTwo:@"高德地图" CancelWithTitle:@"取消" withOKDefaultOne:^(UIAlertAction *defaultaction) {
+//                    [weakSelf  BaiDuMap];
+//                   
+//                } withOKDefaultTwo:^(UIAlertAction *defaultaction) {
+//                    [weakSelf  GaoDeMap];
+//                    
+//                   
+//                    
+//                    
+//                    
+//                } withCancel:^(UIAlertAction *cancelaction) {
+//              }];
+                
+                [weakSelf alertActionSheetWithTitle:nil message:nil OKWithTitleOne:@"苹果地图" OKWithTitleTwo:@"百度地图" OKWithTitleThree:@"高德地图" CancelWithTitle:@"取消" withOKDefaultOne:^(UIAlertAction *defaultaction) {
+                    CLLocationCoordinate2D loc = CLLocationCoordinate2DMake(weakSelf.orderModel.lat , weakSelf.orderModel.lng );
+                    MKMapItem *currentLocation = [MKMapItem mapItemForCurrentLocation];
+                    currentLocation.name =@"我的位置";
+                    MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:loc addressDictionary:nil]];
+                    toLocation.name =weakSelf.orderModel.address;
+                    [MKMapItem openMapsWithItems:@[currentLocation, toLocation]
+                                   launchOptions:@{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving,
+                                                   MKLaunchOptionsShowsTrafficKey: [NSNumber numberWithBool:YES]}];
                 } withOKDefaultTwo:^(UIAlertAction *defaultaction) {
+                     [weakSelf  BaiDuMap];
+                } withOKDefaultThree:^(UIAlertAction *defaultaction) {
                     [weakSelf  GaoDeMap];
                 } withCancel:^(UIAlertAction *cancelaction) {
-              }];
+                    
+                }];
+                
             };
              return cell;
             break;
@@ -327,6 +351,8 @@
 }
 #pragma mark - 高德地图
 -(void)GaoDeMap{
+    
+    
     NSString *name = self.orderModel.address;
     CLLocationCoordinate2D Coordinate ;
     Coordinate.latitude = self.orderModel.lat;

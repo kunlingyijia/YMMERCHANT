@@ -57,8 +57,8 @@
     [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:helper.configModel.industryCouponUrl]]];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-   // [[LoadWaitSingle shareManager] hideLoadWaitView];
-    // 将商品详情界面图片等比例缩小至屏幕 JS
+// [[LoadWaitSingle shareManager] hideLoadWaitView];
+// 将商品详情界面图片等比例缩小至屏幕 JS
 //    NSString *smallImagesJS = @"var count = document.images.length;\
 //    for (var i = 0; i < count; i++) {\
 //    var image = document.images[i];\
@@ -147,7 +147,6 @@
 }
 /*
 #pragma mark - Navigation
-
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].

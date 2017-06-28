@@ -37,8 +37,7 @@ static SystemSoundID shake_sound_male_id = 0;
     NSNumber *firstLoad = [DWCacheManager getPrivateCacheByKey:@"firstLoad"];
     if (firstLoad) {
         SelectedShopKindController *selectedC = [[SelectedShopKindController alloc] initWithNibName:@"SelectedShopKindController" bundle:nil];
-//        LoginController *loginC = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginController"];
-//        UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:loginC];
+
         UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:selectedC];
         self.window.rootViewController = navC;
     }else {
@@ -74,19 +73,14 @@ static SystemSoundID shake_sound_male_id = 0;
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-//    [application setApplicationIconBadgeNumber:0];
-//    [JPUSHService setBadge:0];
-//    [application cancelAllLocalNotifications];
+   
 }
-
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-//    [application setApplicationIconBadgeNumber:0];
-   // [JPUSHService setBadge:0];
-     //[UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-//    [application cancelAllLocalNotifications];
+    
+    UILocalNotification * LocalNotification = [UILocalNotification new];
+    LocalNotification.applicationIconBadgeNumber = -1;
+    [application presentLocalNotificationNow: LocalNotification];
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -134,110 +128,30 @@ static SystemSoundID shake_sound_male_id = 0;
 }
 
 
-//- (void)application:(UIApplication *)application
-//didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-//    NSLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
-//    [JPUSHService registerDeviceToken:deviceToken];
-//}
-//
-//- (void)application:(UIApplication *)application
-//didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-//    NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
-//}
-//
-//#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
-//- (void)application:(UIApplication *)application
-//didRegisterUserNotificationSettings:
-//(UIUserNotificationSettings *)notificationSettings {
-//    
-//}
-//
-//// Called when your app has been activated by the user selecting an action from
-//// a local notification.
-//// A nil action identifier indicates the default action.
-//// You should call the completion handler as soon as you've finished handling
-//// the action.
-//- (void)application:(UIApplication *)application
-//handleActionWithIdentifier:(NSString *)identifier
-//forLocalNotification:(UILocalNotification *)notification
-//  completionHandler:(void (^)())completionHandler {
-//}
-//
-//// Called when your app has been activated by the user selecting an action from
-//// a remote notification.
-//// A nil action identifier indicates the default action.
-//// You should call the completion handler as soon as you've finished handling
-//// the action.
-//- (void)application:(UIApplication *)application
-//handleActionWithIdentifier:(NSString *)identifier
-//forRemoteNotification:(NSDictionary *)userInfo
-//  completionHandler:(void (^)())completionHandler {
-//}
-//#endif
-//
-//
-//- (void)application:(UIApplication *)application
-//didReceiveRemoteNotification:(NSDictionary *)userInfo {
-//    [JPUSHService handleRemoteNotification:userInfo];
-//    NSLog(@"收到通知:%@", userInfo);
-//    NSLog(@"收到通知:%@", userInfo);
-//    [application cancelAllLocalNotifications];
-//    [JPUSHService handleRemoteNotification:userInfo];
-//    PublicMessageVC * messageC = [[PublicMessageVC alloc]initWithNibName:@"PublicMessageVC" bundle:nil];
-//    
-////    DWTabBarController *tabbar = (DWTabBarController *)self.window.rootViewController;
-////    [tabbar.homePageViewController.navigationController popToRootViewControllerAnimated:NO];
-////    [tabbar.homePageViewController.navigationController pushViewController:messageC animated:YES];
-////    NSString *audioPath = [[NSBundle mainBundle] pathForResource:@"p_foot3" ofType:@"m4a"];
-////    NSURL *audioUrl = [NSURL fileURLWithPath:audioPath];
-////    self.player = [[AVPlayer alloc] initWithURL:audioUrl];
-////    [_player setVolume:1];
-////    [_player play];
-////    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"推送消息" message:[userInfo yy_modelToJSONString] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-////    [alert show];
-//    
-//}
-//
-//- (void)application:(UIApplication *)application
-//didReceiveRemoteNotification:(NSDictionary *)userInfo
-//fetchCompletionHandler:
-//(void (^)(UIBackgroundFetchResult))completionHandler {
-//    [JPUSHService handleRemoteNotification:userInfo];
-//
-//    [application setApplicationIconBadgeNumber:application.applicationIconBadgeNumber + 1];
-//    
-//    //    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);   //让手机震动
-////    [self performSelector:@selector(playMusic) withObject:nil afterDelay:1];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"刷新订单" object:@"刷新订单" userInfo:@{}];
-//    completionHandler(UIBackgroundFetchResultNewData);
-//}
-//- (void)playMusic {
-//    NSString *audioPath = [[NSBundle mainBundle] pathForResource:@"p_foot3" ofType:@"m4a"];
-//    NSURL *audioUrl = [NSURL fileURLWithPath:audioPath];
-//    self.player = [[AVPlayer alloc] initWithURL:audioUrl];
-//    [_player setVolume:2];
-//    [_player play];
-//}
-//
-//
-//
-//- (void)application:(UIApplication *)application
-//didReceiveLocalNotification:(UILocalNotification *)notification {
-//    [JPUSHService showLocalNotificationAtFront:notification identifierKey:nil];
-//}
 
 
 #pragma mark - 设置所有第三方
 -(void)SetUpThirdParty:(NSDictionary *)launchOptions{
     //极光推送
     [self JGPush:launchOptions];
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    //VerifyCode = @"";
-    NSLog(@"------%@%@",ACT_API,Request_Login);
+    UILocalNotification * LocalNotification = [UILocalNotification new];
+    LocalNotification.applicationIconBadgeNumber = -1;
+    [[UIApplication sharedApplication] presentLocalNotificationNow: LocalNotification];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (launchOptions) {
+            // apn 内容获取：
+            NSDictionary *remoteNotification = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
+            //这个判断是在程序没有运行的情况下收到通知，点击通知跳转页面
+            if (remoteNotification) {
+                NSLog(@"推送消息==== %@",remoteNotification);
+                self.userInfo = remoteNotification;
+                [self receivePushMessage];
+            }
+        }
+    });
+
     
 }
-
-
 #pragma mark - 极光推送
 -(void)JGPush:(NSDictionary *)launchOptions{
    
@@ -315,23 +229,25 @@ static SystemSoundID shake_sound_male_id = 0;
     NSLog(@"push set alias success alisa = %@", alias);
 }
 #pragma mark - 注册通知
+
 /** 远程通知注册成功委托 */
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSLog(@"\n>>>[DeviceToken Success]:%@\n\n", token);
-    //    [USER setObject:token forKey:@"deviceToken"];
-    //    [USER synchronize];
+    
     [JPUSHService registerDeviceToken:deviceToken];
     
 }
+
 /** 远程通知注册失败委托 */
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-        [SVProgressHUD showInfoWithStatus:@"推送注册失败"];
+    //    [SVProgressHUD showInfoWithStatus:@"注册推送失败"];
     NSLog(@"注册推送失败------------------");
 }
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     NSLog(@"%@",userInfo);
+    
     self.userInfo = userInfo;
     [self receivePushMessage];
 }
@@ -339,19 +255,19 @@ static SystemSoundID shake_sound_male_id = 0;
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
     NSDictionary * userInfo = notification.request.content.userInfo;
-    UNNotificationRequest *request = notification.request; // 收到推送的请求
+        UNNotificationRequest *request = notification.request; // 收到推送的请求
     UNNotificationContent *content = request.content; // 收到推送的消息内容
     NSNumber *badge = content.badge;  // 推送消息的角标
     NSString *body = content.body;    // 推送消息体
     UNNotificationSound *sound = content.sound;  // 推送消息的声音
     NSString *subtitle = content.subtitle;  // 推送消息的副标题
     NSString *title = content.title;  // 推送消息的标题
+    
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo];
-        //        NSLog(@"iOS10 前台收到远程通知:%@", [self logDic:userInfo]);
         NSLog(@"iOS10 收到远程通知:%@", userInfo);
-        self.userInfo = userInfo;
-       [self receivePushMessage];
+//        self.userInfo = userInfo;
+//        [self receivePushMessage];
     }
     else {
         // 判断为本地通知
@@ -361,7 +277,6 @@ static SystemSoundID shake_sound_male_id = 0;
 }
 //后台收到推送
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
-    
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     UNNotificationRequest *request = response.notification.request; // 收到推送的请求
     UNNotificationContent *content = request.content; // 收到推送的消息内容
@@ -370,6 +285,7 @@ static SystemSoundID shake_sound_male_id = 0;
     UNNotificationSound *sound = content.sound;  // 推送消息的声音
     NSString *subtitle = content.subtitle;  // 推送消息的副标题
     NSString *title = content.title;  // 推送消息的标题
+    [JPUSHService setBadge: [content.badge integerValue]-1];
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo];
         //        NSLog(@"iOS10 收到远程通知:%@", [self logDic:userInfo]);
@@ -385,25 +301,35 @@ static SystemSoundID shake_sound_male_id = 0;
     completionHandler();  // 系统要求执行这个方法
 }
 #endif
+
+
 #pragma mark - APP运行中接收到通知(推送)处理
+
 ///** APP已经接收到“远程”通知(推送) - (App运行在后台/App运行在前台)  */
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
     [JPUSHService handleRemoteNotification:userInfo];
     if([UIApplication sharedApplication].applicationState == UIApplicationStateActive){
         [self receiveRemoteNotificationReset:userInfo];
-    }else{
+    }else  if([UIApplication sharedApplication].applicationState == UIApplicationStateInactive){
+        [self receiveRemoteNotificationReset:userInfo];
+    }else if([UIApplication sharedApplication].applicationState == UIApplicationStateBackground){
         self.userInfo = userInfo;
         [self receivePushMessage];
+    } else{
+        //        self.userInfo = userInfo;
+        //        [self receivePushMessage];
+        
     }
     completionHandler(UIBackgroundFetchResultNewData);
 }
+
 #pragma mark------------------收到通知的页面处理
 -(void)receivePushMessage {
+
     NSDictionary *dic =self.userInfo;
     if (dic.count==0) {
         return;
     }
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     //用户类型：0-用户，1-团购 2-便民 3-出行
     NSNumber *  industry =dic[@"industry"];
    // 1-消息列表

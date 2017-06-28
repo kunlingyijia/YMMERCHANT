@@ -85,15 +85,15 @@
         [weakself.tableView.mj_header endRefreshing];
         
     }];
-    //上拉加载
-    self.tableView. mj_footer=
-    [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        weakself.pageIndex ++ ;
-        NSLog(@"%ld",(long)weakself.pageIndex);
-        [weakself requestAction];
-        // 进入刷新状态后会自动调用这个block
-        [weakself.tableView.mj_footer endRefreshing];
-    }];
+//    //上拉加载
+//    self.tableView. mj_footer=
+//    [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+//        weakself.pageIndex ++ ;
+//        NSLog(@"%ld",(long)weakself.pageIndex);
+//        [weakself requestAction];
+//        // 进入刷新状态后会自动调用这个block
+//        [weakself.tableView.mj_footer endRefreshing];
+//    }];
     
 }
 -(void)requestAction{
@@ -173,7 +173,7 @@
 #pragma mark - Cell的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return Width*0.12;
+    return Width*0.125;
     
 }
 

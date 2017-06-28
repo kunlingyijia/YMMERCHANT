@@ -366,4 +366,47 @@
     
 }
 
+
+#pragma mark - 取消-确定-确定 -确定 --居下
+-(void)alertActionSheetWithTitle:(NSString*)title message:(NSString*)message OKWithTitleOne:(NSString*)OKtitleOne OKWithTitleTwo:(NSString*)OKtitleTwo OKWithTitleThree:(NSString*)OKtitleThree  CancelWithTitle:(NSString*)Canceltitle withOKDefaultOne:(OKDefault)defaultactionOne withOKDefaultTwo:(OKDefault)defaultactionTwo withOKDefaultThree:(OKDefault)defaultactionThree withCancel:(Cancel)cancelaction{
+    
+    UIAlertController * alertC = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:(UIAlertControllerStyleActionSheet)];
+    UIAlertAction * OKOne = [UIAlertAction actionWithTitle:OKtitleOne style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        
+        defaultactionOne (action);
+        
+        
+    }];
+    //[OKOne setValue:[UIColor colorWithHexString:kNavigationBgColor] forKey:@"_titleTextColor"];
+    UIAlertAction * OKTwo = [UIAlertAction actionWithTitle:OKtitleTwo style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        
+        defaultactionTwo (action);
+        
+        
+    }];
+    //[OKTwo setValue:[UIColor colorWithHexString:kNavigationBgColor] forKey:@"_titleTextColor"];
+    
+    UIAlertAction * OKThree = [UIAlertAction actionWithTitle:OKtitleThree style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        
+        defaultactionThree (action);
+        
+        
+    }];
+    //[OKThree setValue:[UIColor colorWithHexString:kNavigationBgColor] forKey:@"_titleTextColor"];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:Canceltitle style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
+        cancelaction (action);
+    }];
+    //[cancel setValue:[UIColor colorWithHexString:kNavigationBgColor] forKey:@"_titleTextColor"];
+    
+    [alertC addAction:OKOne];
+    [alertC addAction:OKTwo];
+    [alertC addAction:OKThree];
+    [alertC addAction:cancel];
+    [self presentViewController:alertC animated:YES completion:nil];
+    
+}
+
+
+
 @end

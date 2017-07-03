@@ -357,8 +357,9 @@
     CLLocationCoordinate2D Coordinate ;
     Coordinate.latitude = self.orderModel.lat;
     Coordinate.longitude = self.orderModel.lng;
+     //style  导航方式(0 速度快; 1 费用少; 2 路程短; 3 不走高速；4 躲避拥堵；5 不走高速且避免收费；6 不走高速且躲避拥堵；7 躲避收费和拥堵；8 不走高速躲避收费和拥堵)
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"iosamap://"]]){
-        NSString *urlString = [NSString stringWithFormat:@"iosamap://navi?sourceApplication=%@&backScheme=applicationScheme&poiname=fangheng&poiid=BGVIS&lat=%f&lon=%f&dev=0&style=3",name, Coordinate.latitude , Coordinate.longitude ];
+        NSString *urlString = [NSString stringWithFormat:@"iosamap://navi?sourceApplication=%@&backScheme=applicationScheme&poiname=fangheng&poiid=BGVIS&lat=%f&lon=%f&dev=0&style=2",name, Coordinate.latitude , Coordinate.longitude ];
         [self openMap:urlString];
     }else {
         [self sheetAction:@"高德地图"];

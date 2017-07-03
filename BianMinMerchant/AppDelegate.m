@@ -325,7 +325,6 @@ static SystemSoundID shake_sound_male_id = 0;
 
 #pragma mark------------------收到通知的页面处理
 -(void)receivePushMessage {
-
     NSDictionary *dic =self.userInfo;
     if (dic.count==0) {
         return;

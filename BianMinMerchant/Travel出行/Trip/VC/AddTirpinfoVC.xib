@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -32,7 +32,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nIt-Bf-R1g">
-                            <rect key="frame" x="15" y="12.5" width="350" height="17"/>
+                            <rect key="frame" x="15" y="0.0" width="350" height="41.5"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
@@ -48,7 +48,8 @@
                         <constraint firstAttribute="trailing" secondItem="nIt-Bf-R1g" secondAttribute="trailing" constant="10" id="KNh-KF-6du"/>
                         <constraint firstItem="WzT-M5-DGp" firstAttribute="leading" secondItem="yOG-vO-455" secondAttribute="leading" constant="10" id="P1d-SJ-cfl"/>
                         <constraint firstItem="nIt-Bf-R1g" firstAttribute="leading" secondItem="WzT-M5-DGp" secondAttribute="trailing" constant="5" id="YHd-eJ-i4e"/>
-                        <constraint firstItem="nIt-Bf-R1g" firstAttribute="centerY" secondItem="yOG-vO-455" secondAttribute="centerY" id="hnm-hX-F3c"/>
+                        <constraint firstAttribute="bottom" secondItem="nIt-Bf-R1g" secondAttribute="bottom" id="etg-eu-xTG"/>
+                        <constraint firstItem="nIt-Bf-R1g" firstAttribute="top" secondItem="yOG-vO-455" secondAttribute="top" id="p1B-YU-YGJ"/>
                     </constraints>
                 </view>
             </subviews>

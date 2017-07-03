@@ -45,14 +45,27 @@
     self.title = @"行业抵用券";
     [self showBackBtn];
     __weak typeof(self) weakSelf = self;
+    ///开通行业抵用券  1-未开通, 2-开通中,3-已开通, 4-开通失败, 5-暂停业务
+    DWHelper* helper = [DWHelper shareHelper];
     [self showRightBtnTitle:@"添加" Image:nil RightBtn:^{
-        //Push 跳转
-        AddIndustryAmountVC * VC = [[AddIndustryAmountVC alloc]initWithNibName:@"AddIndustryAmountVC" bundle:nil];
-        VC.AddIndustryAmountVCBlock =^(){
-            weakSelf.pageIndex = 1;
-            [weakSelf requestAction];
-        };
-        [weakSelf.navigationController  pushViewController:VC animated:YES];
+    if ( [helper.shopModel.industryCouponStatus isEqualToString:@"5"]) {
+    [weakSelf alertWithTitle:@"该业务被暂停,请联系客服" message:nil OKWithTitle:@"确定" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
+        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel://%@",helper.configModel.plat_kfmobile];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+            } withCancel:^(UIAlertAction *cancelaction) {
+                
+            }];
+        }else{
+            //Push 跳转
+            AddIndustryAmountVC * VC = [[AddIndustryAmountVC alloc]initWithNibName:@"AddIndustryAmountVC" bundle:nil];
+            VC.AddIndustryAmountVCBlock =^(){
+                weakSelf.pageIndex = 1;
+                [weakSelf requestAction];
+            };
+            [weakSelf.navigationController  pushViewController:VC animated:YES];
+        }
+        
+        
     }];
     [self setUpTableView];
 }
@@ -166,9 +179,22 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
   IndustryModel*  model = indexPath.section >= self.dataArray.count ? nil :self.dataArray[indexPath.section];
-//1-待审核 , 2-审核失败(可删除)，3-审核通过 ，4-已过期
+    //1-待审核 , 2-审核失败(可删除)，3-审核通过 ，4-已过期
+    DWHelper* helper = [DWHelper shareHelper];
+    __weak typeof(self) weakSelf = self;
     if ([model.status isEqualToString:@"1"]) {
-        [self showToast:@"审核中"];
+        DWHelper* helper = [DWHelper shareHelper];
+
+        if ( [helper.shopModel.industryCouponStatus isEqualToString:@"5"]) {
+            [weakSelf alertWithTitle:@"该业务被暂停,请联系客服" message:nil OKWithTitle:@"确定" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
+                NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel://%@",helper.configModel.plat_kfmobile];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+            } withCancel:^(UIAlertAction *cancelaction) {
+                
+            }];
+        }else{
+            [self showToast:@"审核中"];
+        }
     }
     if ([model.status isEqualToString:@"3"]||[model.status isEqualToString:@"4"]) {
         //Push 跳转
@@ -177,16 +203,28 @@
         [self.navigationController  pushViewController:VC animated:YES];
     }
     if ([model.status isEqualToString:@"2"]) {
-        //Push 跳转
-        AddIndustryAmountVC * VC = [[AddIndustryAmountVC alloc]initWithNibName:@"AddIndustryAmountVC" bundle:nil];
-        __weak typeof(self) weakSelf = self;
-        VC.AddIndustryAmountVCBlock =^(){
-//             self.pageIndex = 1;
-//            [self requestAction];
-            [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationNone)];
-        };
-        VC.model=model;
-        [self.navigationController  pushViewController:VC animated:YES];
+        
+        
+        if ( [helper.shopModel.industryCouponStatus isEqualToString:@"5"]) {
+            [weakSelf alertWithTitle:@"该业务被暂停,请联系客服" message:nil OKWithTitle:@"确定" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
+                NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel://%@",helper.configModel.plat_kfmobile];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+            } withCancel:^(UIAlertAction *cancelaction) {
+                
+            }];
+        }else{
+            //Push 跳转
+            AddIndustryAmountVC * VC = [[AddIndustryAmountVC alloc]initWithNibName:@"AddIndustryAmountVC" bundle:nil];
+            VC.AddIndustryAmountVCBlock =^(){
+                //             self.pageIndex = 1;
+                //            [self requestAction];
+                [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationNone)];
+            };
+            VC.model=model;
+            [self.navigationController  pushViewController:VC animated:YES];
+        }
+        
+   
     }
 }
 #pragma mark - Cell的高度

@@ -43,31 +43,23 @@
 @property(nonatomic,strong)LocationModel *locationModel;
 @property (strong, nonatomic)  UITableView *tableView;
 @property (strong, nonatomic)  TravelHomeHeaderView *navigationView;
-//@property(strong,nonatomic)TraveHomeTwoHeader *traveHomeTwoHeaderView;
-
-//@property(strong,nonatomic)TraveHomeTwoHeader *traveHomeTwoHeader;
 @property(nonatomic,strong)OwnerModel*ownerModel;
 @property (nonatomic, assign) NSInteger pageIndex;
 ///数据
 @property (nonatomic,strong)NSMutableArray * dataArray;
 @property(nonatomic,strong)NSString * dateString;
 @end
-
 @implementation TravelHomeVC
 //视图即将加入窗口时调用
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-   // [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-   
     //获取车主信息
     [self requestAction];
     
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
      [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 - (void)viewDidLoad {
@@ -90,18 +82,8 @@
     if ([viewControllerNow  isKindOfClass:[PublicMessageVC class]]) {   //如果是页面XXX，则执行下面语句
         [message getDataList];
     }else{
-        
-//        UINavigationController * Nav = [[UINavigationController alloc]initWithRootViewController:message];
-//        
-//        CATransition *  ansition =[CATransition animation];
-//        [ansition setDuration:0.3];
-//        [ansition setType:kCAGravityRight];
-//        [[[[UIApplication sharedApplication]keyWindow ]layer] addAnimation:ansition forKey:nil];
-//        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:Nav animated:YES completion:nil];
           [viewControllerNow.navigationController pushViewController:message animated:YES];
     }
-    
-    
 }
 
 
@@ -118,23 +100,14 @@
     self.navigationView = [[TravelHomeHeaderView alloc]initWithFrame:CGRectMake(0, 0, Width, 64)];
     [self.navigationView.leftBtn addTarget:self action:@selector(ScanAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.navigationView.RightTwoBtn addTarget:self action:@selector(Message:) forControlEvents:(UIControlEventTouchUpInside)];
-    
-    
-    [self.navigationView.RightBtn addTarget:self action:@selector(MoreAction:) forControlEvents:(UIControlEventTouchUpInside)];
+     [self.navigationView.RightBtn addTarget:self action:@selector(MoreAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:_navigationView];
-    
     headerView =[[TravelHomeHeaderView alloc]initWithFrame:CGRectMake(0, 0, Width, 64)];
     [headerView.leftBtn addTarget:self action:@selector(ScanAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [headerView.RightBtn addTarget:self action:@selector(MoreAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [headerView.RightTwoBtn addTarget:self action:@selector(Message:) forControlEvents:(UIControlEventTouchUpInside)];
-  
     self.tableView.tableHeaderView = headerView;
-    
-//    self.traveHomeTwoHeaderView = [[TraveHomeTwoHeader alloc]initWithFrame:CGRectMake(0, 64, Width, 0.12*Width)];
-//    [self.view addSubview:_traveHomeTwoHeaderView];
-    
-    
-    
+   
 }
 #pragma mark - 扫一扫
 -(void)ScanAction:(UIButton*)sender{
@@ -158,29 +131,20 @@
     //SubLBXScanViewController继承自LBXScanViewController
     //添加一些扫码或相册结果处理
     LBXViewController *vc = [[LBXViewController alloc] init];
+    vc.title = @"扫一扫";
     vc.delegate = self;
     vc.style = style;
     [self.navigationController pushViewController:vc animated:YES];
-
-
-    
 }
 - (void)backAction:(LBXScanResult *)result {
      NSString *  strone = [result.strScanned substringToIndex:4];
     if (![strone isEqualToString:@"dwbm"]) {
        [self alertWithTitle:@"温馨提示" message:@"目前在不支持" OKWithTitle:@"确定" withOKDefault:^(UIAlertAction *defaultaction) {
-           
        }];
         return;
     }else{
-//        NSString *str = [result.strScanned substringFromIndex:7];
-//        NSRange range = [str rangeOfString:@":"];
-//        NSString *str1 = [str substringToIndex:range.location];
-//        NSString *str2 = [str substringFromIndex:range.location+1];
-        
         NSString *str = [result.strScanned substringFromIndex:7];
         NSArray * Arr = [str componentsSeparatedByString:@":"];
-        
         __weak typeof(self) weakSelf = self;
         [self alertWithTitle:@"是否上车?" message:nil OKWithTitle:@"确定" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
             TripModel *orderUse = [[TripModel alloc] init];
@@ -199,7 +163,6 @@
                 }else {
                     
                     [weakSelf showToast:baseRes.msg];
-                    //[ProcessResultCode processResultCodeWithBaseRespone:baseRes viewControll:weakSelf];
                 }
                 [weakSelf hideProgress];
             } faild:^(id error) {
@@ -209,10 +172,7 @@
         } withCancel:^(UIAlertAction *cancelaction) {
             
         }];
-
     }
-    
-   
 }
 
 - (void)useOrderNo:(LBXScanResult *)sender{
@@ -224,28 +184,19 @@
     //Push 跳转
     PublicMessageVC * VC = [[PublicMessageVC alloc]initWithNibName:@"PublicMessageVC" bundle:nil];
     [self.navigationController  pushViewController:VC animated:YES];
-
-    
-    
 }
-
-
 #pragma mark - 设置
 -(void)MoreAction:(UIButton*)sender{
     //Push 跳转
     TravelSettingVC * VC = [[TravelSettingVC alloc]initWithNibName:@"TravelSettingVC" bundle:nil];
     [self.navigationController  pushViewController:VC animated:YES];
-
-    
 }
 #pragma mark - 关于数据
 -(void)SET_DATA{
-    
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     self.pageIndex = 1;
     //获取配置信息
     [homeVM getConfig:self];
-    //[self getConfig];
     [self Refresh];
     NSDate *currentDate = [NSDate date];//获取当前时间，日期
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -269,18 +220,14 @@
         
     }];
 }
-
 -(void)Refresh{
     //下拉刷新
     __weak typeof(self) weakself = self;
     self.tableView.mj_header =[MJRefreshNormalHeader headerWithRefreshingBlock:^{
         weakself.navigationView.hidden = YES;
         weakself.pageIndex =1 ;
-                   //获取车主信息
-            [weakself requestAction];
-        
-       
-        
+        //获取车主信息
+        [weakself requestAction];
         // 进入刷新状态后会自动调用这个block
         [weakself.tableView.mj_header endRefreshing];
     }];
@@ -306,26 +253,19 @@
     //NSLog(@"*****%@",[self.ownerModel yy_modelToJSONObject]);
     NSMutableArray * PlanList = [AuthenticationModel objectForKey:@"PlanList"];
         if (PlanList.count!=0) {
-            
             if (self.pageIndex==1) {
                 [self.dataArray removeAllObjects];
             }
-            
             for (NSDictionary *dicdata in PlanList) {
                 TripModel *model = [TripModel yy_modelWithJSON:dicdata];
                 [self.dataArray addObject:model];
             }
             //刷新
             [self.tableView reloadData];
-
-            
         }
-        
-        
     }
   }
 }
-
 #pragma mark - 车主信息
 -(void)requestAction{
     NSString *Token =[AuthenticationModel getLoginToken];
@@ -343,7 +283,6 @@
                 [AuthenticationModel setValue:response forkey:@"DriverInfo"];
                 weakself.ownerModel = [OwnerModel
                                    yy_modelWithJSON:dic];
-                // [JPUSHService setAlias:weakself.ownerModel.pushAlias callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:weakself];
                 weakself.navigationView.title.text = weakself.ownerModel.realName;
                 headerView.title.text = weakself.ownerModel.realName;
                 [DWHelper shareHelper].shopModel =[RequestMerchantInfoModel yy_modelWithJSON: dic];
@@ -359,8 +298,6 @@
                     if (_timer) {
                          dispatch_cancel(_timer);
                     }
-                   
-                    
                 }else{
                     //打ཽ开ཽ定ཽ位ཽ
                     [weakself startSerialLocation];
@@ -412,8 +349,6 @@
         
     }
 
-    
-    
 }
 
 #pragma tableView 代理方法
@@ -436,7 +371,6 @@
            return 2;
             break;
         }
-            
         case 1:
         {  if([self.ownerModel.status isEqualToString:@"3"]){
              return self.dataArray.count;
@@ -445,15 +379,12 @@
         }
             break;
         }
-            
-            
         default:{
              return 10;
             break;
         }
-    }        
+      }
     }
-    
 }
 //tab设置
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -499,13 +430,9 @@
                     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
                     return cell;
                 }
-
-            
             }else{
                 return nil;
             }
-            
-            
             break;
         }
             
@@ -519,10 +446,7 @@
 
             break;
         }
-            
-        
-            
-        default:{
+         default:{
             
         return nil;
 
@@ -530,9 +454,8 @@
             
         }
     }
+  }
 }
-}
-
 
 #pragma mark - 跳转到添加路线
 -(void)AddBtnTrip:(UIButton*)sender{
@@ -540,14 +463,10 @@
     AddTripVC1 * VC = [[AddTripVC1 alloc]initWithNibName:@"AddTripVC1" bundle:nil];
     VC.titleStr = @"添加路线";
     [self.navigationController  pushViewController:VC animated:YES];
-
-    
-    
 }
 
 #pragma mark - 车主认证
 -(void)OneBtnOwnerCertification:(UIButton*)sender{
-    
     if ([self.ownerModel.status isEqualToString:@"2"]) {
         [self showToast:@"审核中.."];
     }else{
@@ -558,49 +477,34 @@
         VC.OwnerCertificationVCBlock =^(){
             [weakSelf requestAction];
         };
-        
-        
         [self.navigationController  pushViewController:VC animated:YES];
     }
 
-    
 }
-
 #pragma mark - Cell点击事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==1) {
         TripModel *model= self.dataArray[indexPath.row];
         if ([model.status isEqualToString:@"1"]) {
-            
             // @"发布";
-            //Push 跳转
             ReleaseTripVC * VC = [[ReleaseTripVC alloc]initWithNibName:@"ReleaseTripVC" bundle:nil];
             VC.tripModel = model;
             [self.navigationController  pushViewController:VC animated:YES];
             }else {
-            
-            // @"已发布";
-                //Push 跳转
+            //行程状态：1-待发布，2-已发布 ，3-待发车,4-已发车 ，5-已结束
                 TripDetailsVC * VC = [[TripDetailsVC alloc]initWithNibName:@"TripDetailsVC" bundle:nil];
                 VC.beforeTripModel= (TripModel*)self.dataArray[indexPath.row];
                 [self.navigationController  pushViewController:VC animated:YES];
-            
         }
     }
-    
-
-
 }
 #pragma mark - Cell的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     switch (indexPath.section) {
         case 0:
         {
-            
             if (indexPath.row==0) {
                 return Width*0.4;
-
             }else{
                 ///车主状态：1-待认证，2-审核中，3-认证通过，4-认证失败
                 if ([self.ownerModel.status isEqualToString:@"3"]) {
@@ -609,7 +513,6 @@
                     }else{
                         return 88;
                     }
-                    
                 }else{
                    return Height-Width*0.4-64;
                 }
@@ -628,15 +531,10 @@
     }
 }
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section==1) {
-    return YES;
-    }else{
-    return NO;
-  }
+    return indexPath.section==1 ?YES :NO;
 }
 //iOS 8.0 后才有的方法
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     if (indexPath.section==1) {
         TripModel *model= self.dataArray[indexPath.row];
     __weak typeof(self) weakSelf = self;
@@ -656,66 +554,20 @@
                         [weakSelf.tableView reloadData];
                     }else{
                         [weakSelf.tableView reloadData];
-                  //[tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
                         [weakself showToast:response[@"msg"]];
                     }
-                    
                 } faild:^(id error) {
                     NSLog(@"%@", error);
                 }];
             }
         } withCancel:^(UIAlertAction *cancelaction) {
-            
         }];
            }];
     return @[delete];
     }else{
         return @[];
     }
-    
-    
-    
-    
-
-}
-
-
-
-
-
-
-
-//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    if (section==0) {
-//        return [UIView new]
-//        ;
-//        
-//    }else{
-//        if (!self.traveHomeTwoHeader) {
-//            self.traveHomeTwoHeader = [[TraveHomeTwoHeader alloc]initWithFrame:CGRectMake(0, 64, Width, 0.12*Width)];
-//            
-//            
-//        }
-//        return self.traveHomeTwoHeader;
-//    
-//    }
-//}
-//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    if (section==0) {
-//return  Width*0.0;
-//    }else{
-//        ///车主状态：1-待认证，2-审核中，3-认证通过，4-认证失败
-//        if ([self.ownerModel.status isEqualToString:@"3"]) {
-//            //if (self.dataArray.count==0) {
-//            return  Width*0.12;
-//            
-//            
-//        }else{
-//            return 0.00001;
-//        }
-//    }
-//
-//}
+ }
 #pragma mark -  只要拖拽就会触发(scrollView 的偏移量发生改变)
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     NSLog(@"%f",scrollView.contentOffset.y);
@@ -723,13 +575,8 @@
         self.navigationView.hidden = YES;
     }else if(scrollView.contentOffset.y>-19){
         self.navigationView.hidden = NO;
-
     }
-    
-    
-    
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -738,14 +585,11 @@
 -(void)requestUpdatePosition{
     __weak typeof(self) weakSelf = self;
     //GCD定时器
-    
     NSTimeInterval period ;
     if ([[DWHelper shareHelper].configModel.openPositionTime floatValue] !=0) {
        period = [[DWHelper shareHelper].configModel.openPositionTime floatValue]; //设置时间间隔
-
     }else{
         period = 10; //设置时间间隔
-
     }
         NSLog(@"%f",[[DWHelper shareHelper].configModel.openPositionTime floatValue]);
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -764,30 +608,20 @@
             baseReq.encryptionType = AES;
             baseReq.data = [AESCrypt encrypt:[model yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
             [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/TravelDriver/requestUpdatePosition" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response)  {
-                
-                
                 if ([response[@"resultCode"] isEqualToString:@"1"]) {
                     // [weakSelf showToast:@"行程发送成功"];
                 }else{
                     [weakSelf showToast:response[@"msg"]];
-                    
                 }
-                
             } faild:^(id error) {
                 NSLog(@"%@", error);
             }];
-            
         }else {
-            
         }
-        
     });
     
     dispatch_resume(_timer);
 }
-
-
-
 - (void)startSerialLocation
 {
     if (!_locationManager) {
@@ -803,25 +637,19 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
      [weakSelf requestUpdatePosition];
     });
-    
-    
 }
-
 - (void)stopSerialLocation
 {
     if (!_locationManager) {
         //停止定位
         [self.locationManager stopUpdatingLocation];
     }
-    
 }
-
 - (void)amapLocationManager:(AMapLocationManager *)manager didFailWithError:(NSError *)error
 {
     //定位错误
     NSLog(@"%s, amapLocationManager = %@, error = %@", __func__, [manager class], error);
 }
-
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
 {
     if (!_locationModel) {
@@ -833,70 +661,41 @@
         _locationModel.lng =[NSString stringWithFormat:@"%f",location.coordinate.longitude];
     }
 }
-- (void)tagsAliasCallback:(int)iResCode tags:(NSSet*)tags alias:(NSString*)alias {
-    
-    if (iResCode == 6002) {
-        [JPUSHService setAlias:self.ownerModel.pushAlias callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
-    }
-    NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, tags , alias);
-}
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 #pragma mark - dealloc
 - (void)dealloc
 {
-    
     NSLog(@"%@销毁了", [self class]);
 }
-
-
 -(UIViewController*) findBestViewController:(UIViewController*)vc {
     if (vc.presentedViewController) {
         // Return presented view controller
         return [self findBestViewController:vc.presentedViewController];
-        
     } else if ([vc isKindOfClass:[UISplitViewController class]]) {
-        
         // Return right hand side
         UISplitViewController* svc = (UISplitViewController*) vc;
         if (svc.viewControllers.count > 0)
             return [self findBestViewController:svc.viewControllers.lastObject];
         else
             return vc;
-        
     } else if ([vc isKindOfClass:[UINavigationController class]]) {
-        
         // Return top view
         UINavigationController* svc = (UINavigationController*) vc;
         if (svc.viewControllers.count > 0)
             return [self findBestViewController:svc.topViewController];
         else
             return vc;
-        
     } else if ([vc isKindOfClass:[UITabBarController class]]) {
-        
         // Return visible view
         UITabBarController* svc = (UITabBarController*) vc;
         if (svc.viewControllers.count > 0)
             return [self findBestViewController:svc.selectedViewController];
         else
             return vc;
-        
     } else {
         // Unknown view controller type, return last child view controller
         return vc;
-        
     }
-    
 }
-
 -(UIViewController*) currentViewController {
     // Find best view controller
     UIViewController* viewController = [UIApplication sharedApplication].keyWindow.rootViewController;

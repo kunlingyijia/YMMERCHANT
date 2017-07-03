@@ -59,6 +59,9 @@
 ///预定情况描述
 @property (nonatomic, strong) NSString  *bookSeatDesc ;
 
+/// 待上车人数
+@property (nonatomic, strong) NSString  *notAboardNumber ;
+
 
 	
 

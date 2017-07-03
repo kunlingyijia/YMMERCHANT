@@ -90,27 +90,16 @@
     PublicMessageVC *message = [[PublicMessageVC alloc]initWithNibName:@"PublicMessageVC" bundle:nil];
     UIViewController * viewControllerNow = [self currentViewController];
     if ([viewControllerNow  isKindOfClass:[PublicMessageVC class]]) {   //如果是页面XXX，则执行下面语句
-         
         [message getDataList];
     }else{
-        
-//        UINavigationController * Nav = [[UINavigationController alloc]initWithRootViewController:message];
-//        
-//        CATransition *  ansition =[CATransition animation];
-//        [ansition setDuration:0.3];
-//        [ansition setType:kCAGravityRight];
-//        [[[[UIApplication sharedApplication]keyWindow ]layer] addAnimation:ansition forKey:nil];
-//        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:Nav animated:YES completion:nil];
           [viewControllerNow.navigationController pushViewController:message animated:YES];
     }
-    
-    
+ 
 }
 
 #pragma mark - 关于UI
 -(void)SET_UI{
     self.navigationView.backgroundColor = [UIColor colorWithHexString:kNavigationBgColor];
-    
     [self.tableView tableViewregisterClassArray:@[@"UITableViewCell",@"BulkHomeTwoCell"]];
     [self.tableView tableViewregisterNibArray:@[@"BulkHomeOneCell"]];
     self.tableView.tableFooterView = [UIView new];
@@ -131,9 +120,6 @@
         settingC.shopModel = self.shopModel;
     NSLog(@"%@",[settingC.shopModel yy_modelToJSONObject]);
         [self.navigationController pushViewController:settingC animated:YES];
-
-
-
 }
 -(void)SET_DATA{
     [self Refresh];
@@ -143,8 +129,6 @@
     [self LocalData];
     //获取配置信息
     [self getConfig];
-    
-    
 }
 -(void)Refresh{
     //下拉刷新
@@ -181,11 +165,7 @@
         
     }];
 }
-
-
 - (void)backAction:(LBXScanResult *)result {
-    
-    
     NSString *  strone = [result.strScanned substringToIndex:4];
     if (![strone isEqualToString:@"dwbm"]) {
         [self alertWithTitle:@"温馨提示" message:@"目前在不支持" OKWithTitle:@"确定" withOKDefault:^(UIAlertAction *defaultaction) {
@@ -193,42 +173,18 @@
         }];
         return;
     }else{
-        
-        
-        
-        
-        //            NSString *str = [result.strScanned substringFromIndex:7];
-        //
-        //        NSLog(@"%@",str);
-        //           // NSDictionary * dic1 = [str yy_modelToJSONObject];
-        //
-        //            NSData * data= [str dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
-        //
-        //            NSMutableDictionary * dic =[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-        //             NSLog(@"%@",dic);
-        
-        
-        //        NSRange range = [str rangeOfString:@":"];
-        //        NSString *str1 = [str substringToIndex:range.location];
-        //        NSString *str2 = [str substringFromIndex:range.location+1];
-        //        注意：元素本身就是字符。
+        //注意：元素本身就是字符。
         NSString *str = [result.strScanned substringFromIndex:7];
         NSArray * Arr = [str componentsSeparatedByString:@":"];
-        
         __weak typeof(self) weakSelf = self;
         [self alertWithTitle:@"是否消费?" message:nil OKWithTitle:@"确定" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
             [weakSelf showProgress];
             RequestGoodsOrderUser *orderUse = [[RequestGoodsOrderUser alloc] init];
-            //            orderUse.orderNo = str1;
-            //            orderUse.couponNo = str2;
             orderUse.orderNo = Arr[0];
             orderUse.couponNo = Arr[1];
             orderUse.goodsOrderId = Arr[2];;
             orderUse.goodsOrderCouponId = Arr[3];;
-            
-            
-            
-            BaseRequest *request = [[BaseRequest alloc] init];
+                  BaseRequest *request = [[BaseRequest alloc] init];
             request.encryptionType = AES;
             NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
             request.token = [userD objectForKey:@"loginToken"];
@@ -240,62 +196,14 @@
                     [weakSelf showToast:@"消费成功"];
                 }else {
                     [weakSelf showToast:baseRes.msg];
-                    //[ProcessResultCode processResultCodeWithBaseRespone:baseRes viewControll:self];
                 }
                 [weakSelf hideProgress];
             } faild:^(id error) {
                 [weakSelf hideProgress];
-                
             }];
         } withCancel:^(UIAlertAction *cancelaction) {
             
         }];
-        
-
-        
-        
-//        
-//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:result.strScanned preferredStyle:UIAlertControllerStyleAlert];
-//        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//            
-//            
-//        }]];
-//        __weak typeof(self) weakSelf = self;
-//
-//        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//            [weakSelf showProgress];
-//            RequestGoodsOrderUser *orderUse = [[RequestGoodsOrderUser alloc] init];
-//            //            orderUse.orderNo = str1;
-//            //            orderUse.couponNo = str2;
-//            orderUse.orderNo = Arr[0];
-//            orderUse.couponNo = Arr[1];
-//            orderUse.goodsOrderId = Arr[2];;
-//            orderUse.goodsOrderCouponId = Arr[3];;
-//            
-//            
-//            
-//            BaseRequest *request = [[BaseRequest alloc] init];
-//            request.encryptionType = AES;
-//            NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-//            request.token = [userD objectForKey:@"loginToken"];
-//            request.data = [AESCrypt encrypt:[orderUse yy_modelToJSONString] password:[userD objectForKey:@"loginKey"]];
-//            [[DWHelper shareHelper] requestDataWithParm:[request yy_modelToJSONString] act:@"act=MerApi/Merchant/requestGoodsOrderUser" sign:[request.data MD5Hash] requestMethod:GET success:^(id response) {
-//                BaseResponse *baseRes = [BaseResponse yy_modelWithJSON:response];
-//                if (baseRes.resultCode == 1) {
-//                    [weakSelf hideProgress];
-//                    [weakSelf showToast:@"消费成功"];
-//                }else {
-//                    [weakSelf showToast:baseRes.msg];
-//                    //[ProcessResultCode processResultCodeWithBaseRespone:baseRes viewControll:self];
-//                }
-//                [weakSelf hideProgress];
-//            } faild:^(id error) {
-//                [weakSelf hideProgress];
-//                
-//            }];
-//        }]];
-//        [self presentViewController:alert animated:YES completion:nil];
-//        
     }
 }
 
@@ -305,13 +213,11 @@
 #pragma mark - 本地存储
 -(void)LocalData{
     NSMutableDictionary * DriverInfo = [AuthenticationModel objectForKey:@"TGMerchantInfo"];
-    NSLog(@"%@",DriverInfo);
     if (DriverInfo.count!=0) {
         self.shopModel = [RequestMerchantInfoModel
                            yy_modelWithJSON:DriverInfo];
         self.navigationView.title.text = self.shopModel.merchantName;
         headerView.title.text =self.shopModel.merchantName;
-//        [JPUSHService setAlias:self.shopModel.pushAlias callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
         DWHelper *helper = [DWHelper shareHelper];
         helper.messageStatus = self.shopModel.status;
         helper.shopModel = self.shopModel;
@@ -326,7 +232,6 @@
     baseReq.encryptionType = AES;
     baseReq.data = [AESCrypt encrypt:[[NSArray array] yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
     __weak typeof(self) weakSelf = self;
-
     [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/Merchant/requestMerchantInfo" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response) {
         BaseResponse *baseRes = [BaseResponse yy_modelWithJSON:response];
         NSLog(@"---%@",response);
@@ -335,10 +240,6 @@
             weakSelf.shopModel = [RequestMerchantInfoModel yy_modelWithJSON:baseRes.data];
             weakSelf.navigationView.title.text = weakSelf.shopModel.merchantName;
             headerView.title.text =weakSelf.shopModel.merchantName;
-           
-               // [JPUSHService setAlias:weakSelf.shopModel.pushAlias callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:weakSelf];
-           
-            
             DWHelper *helper = [DWHelper shareHelper];
             helper.messageStatus = weakSelf.shopModel.status;
             helper.shopModel = weakSelf.shopModel;
@@ -425,23 +326,11 @@
     }else if (helper.messageStatus == 1) {
         [self pushController:tag];
     }else if (helper.messageStatus == 2) {
-//        WriteMessageViewController *writeMessage = [[WriteMessageViewController alloc] init];
-//        writeMessage.shopModel = self.shopModel;
-//        __weak typeof(self) weakSelf = self;
-//        
-//        writeMessage.backAction =^(NSString *str){
-//            [weakSelf getShopData];
-//        };
-//
-//        [self.navigationController pushViewController:writeMessage animated:YES];
-        
         //Push 跳转
         NewCompleonDataVC * VC = [[NewCompleonDataVC alloc]initWithNibName:@"NewCompleonDataVC" bundle:nil];
-        
         VC.shopModel = self.shopModel;
         VC.regionId = self.shopModel.regionId;
         __weak typeof(self) weakSelf = self;
-        
         VC.backAction =^(NSString *str){
             [weakSelf getShopData];
         };
@@ -472,18 +361,14 @@
         //SubLBXScanViewController继承自LBXScanViewController
         //添加一些扫码或相册结果处理
         LBXViewController *vc = [[LBXViewController alloc] init];
+        vc.title = @"扫一扫";
         vc.delegate = self;
         vc.style = style;
         [self.navigationController pushViewController:vc animated:YES];
     }else if (tag == 1) {
-//        MessageCenterViewController *messageController = [[MessageCenterViewController alloc] init];
-//        [self.navigationController pushViewController:messageController animated:YES];
-        
         //Push 跳转
         PublicMessageVC * VC = [[PublicMessageVC alloc]initWithNibName:@"PublicMessageVC" bundle:nil];
         [self.navigationController  pushViewController:VC animated:YES];
-
-        
     }else if (tag == 2) {
         TardeViewController *tarde = [[TardeViewController alloc] init];
         [self.navigationController pushViewController:tarde animated:YES];
@@ -491,17 +376,11 @@
         TicketViewController *ticketController = [[TicketViewController alloc] init];
         [self.navigationController pushViewController:ticketController animated:YES];
     }else if (tag == 4) {
-        
-//        //Push 跳转--提现
-//        TravelwithdrawalVC * VC = [[TravelwithdrawalVC alloc]initWithNibName:@"TravelwithdrawalVC" bundle:nil];
-//        VC.account = self.shopModel.account;
-//        [self.navigationController  pushViewController:VC animated:YES];
-        //Push 跳转--行业抵用券认证
+    //Push 跳转--行业抵用券认证
       DWHelper* helper = [DWHelper shareHelper];
       IndustryCertificationVC * industryCertificationVC = [[IndustryCertificationVC alloc]initWithNibName:@"IndustryCertificationVC" bundle:nil];
         //Push 跳转--行业抵用券列表
        IndustryAmountLIstVC * VC = [[IndustryAmountLIstVC alloc]initWithNibName:@"IndustryAmountLIstVC" bundle:nil];
-        //helper.shopModel.industryCouponStatus = @"2";
         ///开通行业抵用券  1-未开通, 2-开通中,3-开通失败, 4-已开通, 5-暂停业务
         [self.navigationController  pushViewController:[helper.shopModel.industryCouponStatus isEqualToString:@"1"]||[helper.shopModel.industryCouponStatus isEqualToString:@"2"]||[helper.shopModel.industryCouponStatus isEqualToString:@"3"] ?  industryCertificationVC :VC animated:YES];
     }else if (tag == 5) {
@@ -513,7 +392,6 @@
         VC.shopModel = self.shopModel;
         VC.regionId = self.shopModel.regionId;
         __weak typeof(self) weakSelf = self;
-        
         VC.backAction =^(NSString *str){
             [weakSelf getShopData];
         };

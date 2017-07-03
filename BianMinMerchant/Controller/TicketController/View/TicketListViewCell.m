@@ -31,13 +31,12 @@
         
     }else {
         NSString * dValue =[NSString stringWithFormat:@"%ld", (long)(model.dValue)];
-       
-        self.nameLabel.text = [NSString stringWithFormat:@"本商品打%.2f折",  [dValue floatValue]/100.0];
+        self.nameLabel.text = [NSString stringWithFormat:@"折扣:%.1f折",  [dValue floatValue]/10.0];
     }
     self.goodsNameL.text = model.couponName;
     self.numberLabel.text = [NSString stringWithFormat:@"库存%ld件", (long)model.storeAmount];
-    self.startTimeL.text = [NSString stringWithFormat:@"券有效期:%@", model.beginTime];
-    self.endTimeL.text = [NSString stringWithFormat:@"发放期至:%@", model.endTime];
+    self.startTimeL.text = [NSString stringWithFormat:@"发放时间:%@", model.beginTime];
+    self.endTimeL.text = [NSString stringWithFormat:@"结束时间:%@", model.endTime];
     self.alreadyUseL.text = [NSString stringWithFormat:@"已领用/已使用:%ld张/%ld张", (long)model.couRecNum, (long)model.couUseNum];
     self.couponId = model.couponId;
     NSLog(@"%ld", (long)model.status);

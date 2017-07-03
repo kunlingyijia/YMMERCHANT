@@ -208,16 +208,13 @@
 #pragma mark - 保存路线
 -(IBAction)saveAction:(PublicBtn *)sender {
     if (self.date.text.length==0) {
-        
-        
-        [self showToast:@"请设置日期"];
+         [self showToast:@"请设置日期"];
         return;
     }
     if (self.time.text.length==0) {
         [self showToast:@"请设置时间"];
         return;
     }
-    
     if (self.seatNumber.text.length==0) {
         [self showToast:@"请输入座位数"];
         return;
@@ -234,8 +231,6 @@
         [self showToast:@"请输入座位价格"];
         return;
     }
-    
-    
     self.view.userInteractionEnabled = NO;
     NSString *Token =[AuthenticationModel getLoginToken];
     TripModel *model = [[TripModel alloc]init];
@@ -245,7 +240,6 @@
     model.startPlace = self.startpoi.name;
     model.endPlace = self.endpoi.name;
     model.price = self.priceStr;
-
     if ([self.titleStr isEqualToString:@"编辑路线"]) {
         model.startPlaceLat =[NSString stringWithFormat:@"%f", self.startGeoPoint.latitude];
         model.startPlaceLng = [NSString stringWithFormat:@"%f", self.startGeoPoint.longitude];;
@@ -259,8 +253,6 @@
     }
     
     NSLog(@"%@",[model yy_modelToJSONObject]);
-    
-    
     NSString * act;
     if ([self.titleStr isEqualToString:@"编辑路线"]) {
          model.planId = self.tripModel.planId;
@@ -311,17 +303,11 @@
     }else{
         
     }
-    
-    
-
-    
-    
    }
 
 -(void)ReturnAddTripVC1:(ReturnAddTripVC1)block{
     self.returnAddTripVC1= block;
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

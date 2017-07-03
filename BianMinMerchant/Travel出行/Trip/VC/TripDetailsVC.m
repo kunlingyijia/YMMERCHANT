@@ -62,7 +62,6 @@
 }
 #pragma mark - 保存
 -(void)save:(UIButton*)sender{
-    
    // 1-待发布，2-已发布 ，3-待发车,4-已发车 ，5-已结束
     __weak typeof(self) weakSelf = self;
     if ([self.tripModel.status isEqualToString:@"1"]) {
@@ -74,9 +73,18 @@
             
         }];
     }else if([self.tripModel.status isEqualToString:@"3"]){
+        NSString * title = [self.tripModel.notAboardNumber isEqualToString:@"0"]? @"确认发车?":[NSString stringWithFormat:@"还有%@人未上车，确认发车？",self.tripModel.notAboardNumber];
         [self alertActionSheetWithTitle:nil message:nil OKWithTitleOne:@"发车" OKWithTitleTwo:@"取消行程" CancelWithTitle:@"取消" withOKDefaultOne:^(UIAlertAction *defaultaction) {
             
-             [weakSelf requestPlanStart];
+            [weakSelf alertWithTitle:title message:nil OKWithTitle:@"确定" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
+                 [weakSelf requestPlanStart];
+            } withCancel:^(UIAlertAction *cancelaction) {
+                
+            }];
+            
+            
+            
+            
         } withOKDefaultTwo:^(UIAlertAction *defaultaction) {
              [weakSelf requestPlanCancel];
         } withCancel:^(UIAlertAction *cancelaction) {
@@ -185,11 +193,11 @@
                     [weakself.dataArray addObject:model];
                 }
                 
-                
-                [weakself.tableView reloadData];
+//                //一个section刷新
+//                NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:1];
+//                [weakself.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationBottom];
+                  [weakself.tableView reloadData];
             }else{
-                
-                
                 [weakself showToast:response[@"msg"]];
                 
             }
@@ -316,7 +324,6 @@
         baseReq.encryptionType = AES;
         baseReq.data = [AESCrypt encrypt:[model yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
         [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/TravelPlan/requestPlanSeatNumberFull" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response)  {
-            
             NSLog(@"乘客已满,停止接单----%@",response);
             if ([response[@"resultCode"] isEqualToString:@"1"]) {
                 [weakself showToast:@"乘客已满,停止接单"];

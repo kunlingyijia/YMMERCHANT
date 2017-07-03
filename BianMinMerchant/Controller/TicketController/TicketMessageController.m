@@ -97,7 +97,7 @@
                 case 3:
                     self.nameLabel.text = model.couponName;
                      //NSString * dValue1 =[NSString stringWithFormat:@"%ld", (long)(model.dValue)];
-                    self.messageLabel.text = [NSString stringWithFormat:@"本商品打%.2f折", [[NSString stringWithFormat:@"%ld", (long)(model.dValue)] floatValue]/100.0];
+                    self.messageLabel.text = [NSString stringWithFormat:@"%.1f折", [[NSString stringWithFormat:@"%ld", (long)(model.dValue)] floatValue]/10.0];
                     
                     
                    
@@ -110,9 +110,9 @@
                     break;
             }
        
-        self.startTimeL.text = [NSString stringWithFormat:@"券有效期:%@", model.beginTime];
-        self.endTimeL.text = [NSString stringWithFormat:@"发放期至:%@", model.endTime];
-            self.storeNum.text = [NSString stringWithFormat:@"库存%ld件", (long)model.storeAmount];
+        self.startTimeL.text = [NSString stringWithFormat:@"%@", model.beginTime];
+        self.endTimeL.text = [NSString stringWithFormat:@"%@", model.endTime];
+            self.storeNum.text = [NSString stringWithFormat:@"%ld", (long)model.storeAmount];
         }
        
     } faild:^(id error) {

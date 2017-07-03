@@ -18,6 +18,11 @@
 @property (nonatomic, copy) NSString *image_hostname;
 @property (nonatomic, copy) NSString *image_account;
 @property (nonatomic, copy) NSString *image_password;
+///客服电话
+@property (nonatomic, strong) NSString  *plat_kfmobile ;
+
+
+
 ///开启定位时间(秒)
 @property (nonatomic, strong) NSString  *openPositionTime ;
 ///行业抵用券url

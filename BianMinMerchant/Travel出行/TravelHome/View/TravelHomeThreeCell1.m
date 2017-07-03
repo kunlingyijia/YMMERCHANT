@@ -14,9 +14,11 @@
     [super awakeFromNib];
     //cell选中时的颜色 无色
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.status.layer.masksToBounds = YES;
+    self.status.layer.cornerRadius = 3.0;
+    
 }
 -(void)CellGetData:(TripModel*)model{
-    
     self.startPlace.text = model.startPlace;
     self.endPlace.text = model.endPlace;
     self.timeAndSeatNumber.text = [NSString stringWithFormat:@"%@ %@  %@  %@",model.date, model.time,model.bookSeat,model.bookSeatDesc];

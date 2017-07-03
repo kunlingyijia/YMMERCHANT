@@ -45,19 +45,32 @@
     self.title =[NSString stringWithFormat:@"%@",self.model.no];
     [self showBackBtn];
     __weak typeof(self) weakSelf = self;
+    DWHelper* helper = [DWHelper shareHelper];
     if ([self.model.status isEqualToString:@"3"]) {
         [self showRightBtnTitle:@"添加" Image:nil RightBtn:^{
-            //Push 跳转
-            AddIndustryVC * VC = [[AddIndustryVC alloc]initWithNibName:@"AddIndustryVC" bundle:nil];
-            VC.balanceFaceAmount = weakSelf.balanceFaceAmount.text;
-            VC.faceId = weakSelf.model.faceId;
-            VC.BagendTime =weakSelf.model.endTime;
-            VC.AddIndustryVCBlock =^(NSString*balanceFaceAmount){
-                weakSelf.balanceFaceAmount.text = balanceFaceAmount;
-                weakSelf.pageIndex = 1;
-                [weakSelf requestAction];
-            };
-            [weakSelf.navigationController  pushViewController:VC animated:YES];
+            if ( [helper.shopModel.industryCouponStatus isEqualToString:@"5"]) {
+                [weakSelf alertWithTitle:@"该业务被暂停,请联系客服" message:nil OKWithTitle:@"确定" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
+                    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel://%@",helper.configModel.plat_kfmobile];
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+                } withCancel:^(UIAlertAction *cancelaction) {
+                    
+                }];
+            }else{
+                //Push 跳转
+                AddIndustryVC * VC = [[AddIndustryVC alloc]initWithNibName:@"AddIndustryVC" bundle:nil];
+                VC.balanceFaceAmount = weakSelf.balanceFaceAmount.text;
+                VC.faceId = weakSelf.model.faceId;
+                VC.BagendTime =weakSelf.model.endTime;
+                VC.AddIndustryVCBlock =^(NSString*balanceFaceAmount){
+                    weakSelf.balanceFaceAmount.text = balanceFaceAmount;
+                    weakSelf.pageIndex = 1;
+                    [weakSelf requestAction];
+                };
+                [weakSelf.navigationController  pushViewController:VC animated:YES];
+            }
+
+            
+            
         }];
   
     }

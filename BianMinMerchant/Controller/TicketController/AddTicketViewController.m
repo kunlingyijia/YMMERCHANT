@@ -202,15 +202,15 @@
         
         
         if (self.goodsName.text.length==0) {
-            [self showToast:@"请填写商品名称"];
+            [self showToast:@"请填写名称"];
+            return;
+        }
+        if (self.numberText.text.length==0) {
+            [self showToast:@"请填写库存"];
             return;
         }
         if (self.explainText.text.length==0) {
             [self showToast:@"请填写卡券描述"];
-            return;
-        }
-        if (self.numberText.text.length==0) {
-            [self showToast:@"请填写数量"];
             return;
         }
         switch (self.ticketKind) {

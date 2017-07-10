@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -165,13 +165,13 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xiI-6K-zKh">
-                        <rect key="frame" x="0.0" y="189.5" width="321" height="35.5"/>
+                        <rect key="frame" x="0.0" y="189.5" width="321" height="40"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKo-F1-Hq2">
-                                <rect key="frame" x="161.5" y="0.0" width="159.5" height="35.5"/>
+                                <rect key="frame" x="161.5" y="0.0" width="159.5" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="07l-HP-Ily">
-                                        <rect key="frame" x="0.0" y="0.0" width="159.5" height="35.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="159.5" height="40"/>
                                         <state key="normal" title="已上车">
                                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -189,10 +189,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1DE-hM-C31">
-                                <rect key="frame" x="0.0" y="0.0" width="159.5" height="35.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="159.5" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hlF-hL-7Y7">
-                                        <rect key="frame" x="0.0" y="0.0" width="159.5" height="35"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="159.5" height="39.5"/>
                                         <state key="normal" title="待上车">
                                             <color key="titleColor" red="0.12941176470588234" green="0.75294117647058822" blue="0.68235294117647061" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -213,7 +213,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="cKo-F1-Hq2" secondAttribute="trailing" id="AV3-uQ-KnV"/>
-                            <constraint firstAttribute="width" secondItem="xiI-6K-zKh" secondAttribute="height" multiplier="9" id="Bsu-w2-EDI"/>
+                            <constraint firstAttribute="width" secondItem="xiI-6K-zKh" secondAttribute="height" multiplier="8" id="Bsu-w2-EDI"/>
                             <constraint firstAttribute="bottom" secondItem="1DE-hM-C31" secondAttribute="bottom" id="GKZ-kd-lff"/>
                             <constraint firstItem="cKo-F1-Hq2" firstAttribute="leading" secondItem="1DE-hM-C31" secondAttribute="trailing" constant="2" id="JjR-MG-Tf3"/>
                             <constraint firstItem="1DE-hM-C31" firstAttribute="top" secondItem="xiI-6K-zKh" secondAttribute="top" id="LVW-LU-WqQ"/>

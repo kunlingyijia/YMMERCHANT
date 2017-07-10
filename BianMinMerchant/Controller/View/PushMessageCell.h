@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RequestMerchantMessageListModel.h"
+@class RequestMerchantMessageListModel;
 @interface PushMessageCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
-
-- (void)cellGetDataModel:(RequestMerchantMessageListModel *)model ;
+///model
+@property (nonatomic, strong) RequestMerchantMessageListModel *model ;
 
 @end

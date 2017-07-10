@@ -9,20 +9,30 @@
 #import "ReceiveViewCell.h"
 #import "GetCouponUserListModel.h"
 @implementation ReceiveViewCell
-
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    
+}
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
-    self.pictureView.clipsToBounds = YES;
+    //Cell背景颜色
+    //self.contentView.backgroundColor = [UIColor colorWithHexString:kViewBg];
+    //cell选中时的颜色 无色
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    //Cell右侧箭头
+    //self.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+    //self.separatorInset = UIEdgeInsetsMake(0, Width, 0, 0); // ViewWidth  [宏] 指的是手机屏幕的宽度
 }
-- (void)cellGetData:(GetCouponUserListModel *)model withController:(BaseViewController *)VC{
+-(void)setModel:(GetCouponUserListModel *)model{
+    if (!model) return;
+    _model = model;
     self.nameLabel.text = [NSString stringWithFormat:@"%@(%@)",model.userName, model.mobile];
     self.startTimeL.text = model.createTime;
-    [VC loadImageWithView:self.pictureView urlStr:model.avatarUrl];
+    [DWHelper SD_WebImage:self.pictureView imageUrlStr:model.avatarUrl placeholderImage:nil];
     if (model.userTime == nil) {
         self.endTimeL.text = @"暂未使用";
     }else {
-         self.endTimeL.text = model.userTime;
+        self.endTimeL.text = model.userTime;
     }
     switch (model.status) {
         case 1:
@@ -40,12 +50,7 @@
         default:
             break;
     }
+
 }
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 @end
+

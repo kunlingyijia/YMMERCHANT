@@ -51,7 +51,7 @@
 }
 #pragma mark - 关于tableView
 -(void)setUpTableView{
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, Width/9, Width, Height-64-Width/9) style:(UITableViewStylePlain)];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, Width/8, Width, Height-64-Width/8) style:(UITableViewStylePlain)];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.backgroundColor = [UIColor clearColor];

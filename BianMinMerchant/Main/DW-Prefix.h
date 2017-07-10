@@ -8,7 +8,6 @@
 
 #ifndef DW_Prefix_h
 #define DW_Prefix_h
-
 #import "BaseViewController.h"
 #import "NSString+DWString.h"
 #import "UIColor+DWColor.h"
@@ -59,13 +58,25 @@
 //正式
 //#define kServerUrl @"http://api.bmin.wang/?"
 ///测试
-//#define kServerUrl @"http://test.bmin.wang/?"
+#define kServerUrl @"http://test.bmin.wang/?"
 ///开发
-#define kServerUrl @"http://bmin.dongwuit.com/?"
-///正式地图
-#define GDKey @"6ab283311b81de8c1ac2d843244b2966"
-///测试地图
+//#define kServerUrl @"http://bmin.dongwuit.com/?"
+//地图
+#define GDKey  [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"] isEqualToString:@"com.dw.merchant"] ? @"6ab283311b81de8c1ac2d843244b2966" : @"9dd7acc47456a8294c0deb319d591741"
+//极光
+#define JGKey  [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"] isEqualToString:@"com.dw.merchant"] ? @"f2fbd2d88f92b5a6a836a4ef" : @"4faae306e8ea7918f81df6ba"
+
+
+/////正式地图
+//#define GDKey @"6ab283311b81de8c1ac2d843244b2966"
+/////极光正式
+//#define JGKey @"f2fbd2d88f92b5a6a836a4ef"
+//测试地图
 //#define GDKey @"9dd7acc47456a8294c0deb319d591741"
+//极光测试
+//#define JGKey @"4faae306e8ea7918f81df6ba"
+    
+
 #define kTitleColor @"#676767"
 #define kSubTitleColor @"#aaaaaa"
 #define kNavigationTitleColor @"#ffffff"

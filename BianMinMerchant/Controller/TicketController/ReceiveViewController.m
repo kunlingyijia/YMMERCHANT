@@ -11,117 +11,148 @@
 #import "RequestGetCouponUserList.h"
 #import "GetCouponUserListModel.h"
 @interface ReceiveViewController ()<UITableViewDelegate,UITableViewDataSource>
-
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dataSource;
-//记录加载分页
-@property (nonatomic, assign) NSInteger count;
+@property(nonatomic,strong)UITableView *tableView;
+///分页参数
+@property (nonatomic, assign) NSInteger pageIndex;
+///数据
+@property (nonatomic,strong)NSMutableArray * dataArray;
 @end
-
 @implementation ReceiveViewController
-
-- (NSMutableArray *)dataSource {
-    if (!_dataSource) {
-        self.dataSource = [NSMutableArray arrayWithCapacity:0];
-    }
-    return _dataSource;
+#pragma mark -  视图将出现在屏幕之前
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
+#pragma mark - 视图已在屏幕上渲染完成
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
 }
 
+#pragma mark -  载入完成
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.title = @"领用详情";
-    self.count = 1;
+    //关于UI
+    [self SET_UI];
+    //关于数据
+    [self  SET_DATA];
+}
+#pragma mark - 关于UI
+-(void)SET_UI{
+    self.title =@"领用详情";
     [self showBackBtn];
-    [self createTableView];
+    [self setUpTableView];
 }
-
-- (void)getDataList{
-    RequestGetCouponUserList *requestList = [[RequestGetCouponUserList alloc] init];
-    requestList.couponId = self.couponId;
-    
-    requestList.pageCount = 10;
-    requestList.pageIndex = self.count;
-    
-    BaseRequest *baseRequest = [[BaseRequest alloc] init];
-    baseRequest.token = [AuthenticationModel getLoginToken];
-    baseRequest.encryptionType = AES;
-    baseRequest.data = [AESCrypt encrypt:[requestList yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
-    [[DWHelper shareHelper]requestDataWithParm:[baseRequest yy_modelToJSONString] act:@"act=MerApi/Merchant/requestGetCouponUserList" sign:[baseRequest.data MD5Hash] requestMethod:GET success:^(id response) {
-        
-        NSLog(@"%@", response);
-        if (self.count == 1) {
-            [self.dataSource removeAllObjects];
-        }
-        BaseResponse *baseRes = [BaseResponse yy_modelWithJSON:response];
-        if (baseRes.resultCode == 1) {
-            for (NSDictionary *dic in baseRes.data) {
-                GetCouponUserListModel *model = [GetCouponUserListModel yy_modelWithDictionary:dic];
-                [self.dataSource addObject:model];
+#pragma mark - 关于tableView
+-(void)setUpTableView{
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, Width, Height-64) style:(UITableViewStylePlain)];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.tableFooterView = [UIView new];
+    [self.view addSubview:_tableView];
+    [_tableView tableViewregisterClassArray:@[@"UITableViewCell"]];
+    [_tableView tableViewregisterNibArray:@[@"ReceiveViewCell"]];
+}
+#pragma mark - 关于数据
+-(void)SET_DATA{
+    self.dataArray = [NSMutableArray arrayWithCapacity:0];
+    self.pageIndex =1;
+    [self requestAction];
+    //上拉刷新下拉加载
+    [self Refresh];
+}
+-(void)Refresh{
+    //下拉刷新
+    __weak typeof(self) weakself = self;
+    self.tableView.mj_header =[MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        weakself.pageIndex =1 ;
+        [weakself requestAction];
+        // 进入刷新状态后会自动调用这个block
+        [weakself.tableView.mj_header endRefreshing];
+    }];
+    //上拉加载
+    self.tableView. mj_footer=
+    [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        weakself.pageIndex ++ ;
+        [weakself requestAction];
+        // 进入刷新状态后会自动调用这个block
+        [weakself.tableView.mj_footer endRefreshing];
+    }];
+}
+#pragma mark - 网络请求
+-(void)requestAction{
+    NSString *Token =[AuthenticationModel getLoginToken];
+    NSMutableDictionary *dic  =[ @{@"pageIndex":@(self.pageIndex),@"pageCount":@(10),@"couponId":self.couponId}mutableCopy];
+    __weak typeof(self) weakself = self;
+    if (Token.length!= 0) {
+        BaseRequest *baseReq = [[BaseRequest alloc] init];
+        baseReq.token = [AuthenticationModel getLoginToken];
+        baseReq.encryptionType = AES;
+        baseReq.data = [AESCrypt encrypt:[dic yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
+        [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/Merchant/requestGetCouponUserList" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response) {
+            BaseResponse *baseRes = [BaseResponse yy_modelWithJSON:response];            if (weakself.pageIndex == 1) {
+                [weakself.dataArray removeAllObjects];
             }
-        }
-        [self.tableView.mj_footer endRefreshing];
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView reloadData];
-    } faild:^(id error) {
-    }];
-    
+            if (baseRes.resultCode == 1) {
+                for (NSDictionary *dic in baseRes.data) {
+                    GetCouponUserListModel *model = [GetCouponUserListModel yy_modelWithDictionary:dic];
+                    [weakself.dataArray addObject:model];
+                }
+                //刷新
+                [weakself.tableView reloadData];
+            }else{
+                [weakself showToast:baseRes.msg];
+            }
+        } faild:^(id error) {
+            NSLog(@"%@", error);
+        }];
+    }else {
+        
+    }
 }
-
-
-- (void)createTableView {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Width, Height-64) style:UITableViewStylePlain];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.rowHeight = 80;
-    [self.tableView registerNib:[UINib nibWithNibName:@"ReceiveViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"ReceiveViewCell"];
-    [self.view addSubview:self.tableView];
-    self.tableView .tableFooterView = [UIView new];
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        self.count = 1;
-        [self getDataList];
-    }];
-    
-    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        self.count = self.count+1;
-        [self getDataList];
-    }];
-    [self getDataList];
-}
-
-#pragma mark - UITableViewDelegate
-#pragma mark - UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    [tableView tableViewDisplayWitimage:nil ifNecessaryForRowCount:self.dataSource.count];
-    return self.dataSource.count;
-}
-
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ReceiveViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReceiveViewCell" forIndexPath:indexPath];
-    GetCouponUserListModel *model = self.dataSource[indexPath.row];
-    [cell cellGetData:model withController:self];
-    return cell;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//tab分区个数
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-
+///tab个数
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    [tableView tableViewDisplayWitimage:@"列表为空-1" ifNecessaryForRowCount:self.dataArray.count];
+    //分区个数
+    return self.dataArray.count;
+    
+}
+//tab设置
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row>self.dataArray.count-1||self.dataArray.count==0) {
+        return [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
+    }else{
+        ReceiveViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ReceiveViewCell" forIndexPath:indexPath];
+        //cell 赋值
+        cell.model = indexPath.row >= self.dataArray.count ? nil :self.dataArray[indexPath.row];
+        // cell 其他配置
+        return cell;
+        
+    }
+}
+#pragma mark - Cell点击事件
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
+#pragma mark - Cell的高度
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //用storyboard 进行自适应布局
+    self.tableView.estimatedRowHeight = 200;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    return self.tableView.rowHeight;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - dealloc
+- (void)dealloc
+{
+    NSLog(@"%@销毁了", [self class]);
 }
-*/
 
 @end
+

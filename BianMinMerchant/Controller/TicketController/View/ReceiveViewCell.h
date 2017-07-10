@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *useLabel;
 
 - (void)cellGetData:(GetCouponUserListModel *)model withController:(BaseViewController *)VC;
-
+///model
+@property (nonatomic, strong) GetCouponUserListModel *model ;
 
 @end

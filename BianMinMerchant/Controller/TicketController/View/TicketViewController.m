@@ -372,7 +372,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+
     TicketListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TicketListViewCell"];
+    //cell选中时的颜色 无色
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     CouponListModel *model = nil;
     switch (self.selectedTicket + 1) {
         case 1:
@@ -394,42 +398,61 @@
         [weakSelf.navigationController pushViewController:receiveC animated:YES];
     };
     cell.buyGoods = ^(NSString *strID, NSString *status) {
-        RequestUpdateCouponStatus *updateStatus = [[RequestUpdateCouponStatus alloc] init];
-        updateStatus.couponId = strID;
-        updateStatus.status = status;
-        BaseRequest *baseReq = [[BaseRequest alloc] init];
-        baseReq.encryptionType = AES;
-        baseReq.token = [AuthenticationModel getLoginToken];
-        baseReq.data = [AESCrypt encrypt:[updateStatus yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
         
-        [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/Merchant/requestUpdateCouponStatus" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response) {
-            BaseResponse *baseRes = [BaseResponse yy_modelWithJSON:response];
-            if (baseRes.resultCode == 1) {
-                
-                
-                
-                switch (self.selectedTicket) {
-                    case 0:
-                        [self.dataSource removeAllObjects];
-                        break;
-                    case 1:
-                        [self.mDataSource removeAllObjects];
-                        break;
-                    case 2:
-                        [self.zDataSource removeAllObjects];
-                        break;
-                    default:
-                        break;
+        NSString *nameStr = nil;
+        if ([status isEqualToString:@"2"]) {
+            nameStr = @"是否下架";
+        }else {
+            nameStr = @"是否上架";
+        }
+        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:nameStr preferredStyle:UIAlertControllerStyleAlert];
+        [alertC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }]];
+        [alertC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            RequestUpdateCouponStatus *updateStatus = [[RequestUpdateCouponStatus alloc] init];
+            updateStatus.couponId = strID;
+            updateStatus.status = status;
+            BaseRequest *baseReq = [[BaseRequest alloc] init];
+            baseReq.encryptionType = AES;
+            baseReq.token = [AuthenticationModel getLoginToken];
+            baseReq.data = [AESCrypt encrypt:[updateStatus yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
+            
+            [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/Merchant/requestUpdateCouponStatus" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response) {
+                BaseResponse *baseRes = [BaseResponse yy_modelWithJSON:response];
+                if (baseRes.resultCode == 1) {
+                    
+                    
+                    
+                    switch (self.selectedTicket) {
+                        case 0:
+                            [self.dataSource removeAllObjects];
+                            break;
+                        case 1:
+                            [self.mDataSource removeAllObjects];
+                            break;
+                        case 2:
+                            [self.zDataSource removeAllObjects];
+                            break;
+                        default:
+                            break;
+                    }
+                    [weakSelf getDataList:self.selectedTicket+1];
+                }else{                 [weakSelf showToast:baseRes.msg];
                 }
-                [weakSelf getDataList:self.selectedTicket+1];
-            }else{                 [weakSelf showToast:baseRes.msg];
-            }
-        } faild:^(id error) {
-            
-            
-            
-        }];
-    };
+            } faild:^(id error) {
+                
+                
+                
+            }];
+
+        }]];
+        
+        [weakSelf presentViewController:alertC animated:YES completion:nil];
+        
+        
+           };
     
     cell.changeNumber = ^(NSString *strID) {
       UIAlertController *alertC = [UIAlertController  alertControllerWithTitle:@"提示" message:@"请输入修改数量" preferredStyle:UIAlertControllerStyleAlert];

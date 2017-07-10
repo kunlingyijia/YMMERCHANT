@@ -9,7 +9,6 @@
 #import "CashAccountOneCell.h"
 #import "CashAccountModel.h"
 @implementation CashAccountOneCell
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     
@@ -30,7 +29,6 @@
     _remark.text = model.remark;
     _amount.text= model.amount;
     _createTime.text = model.createTime;
-    
 }
 @end
 

@@ -10,6 +10,9 @@
 #import "DWTools.h"
 #import "Imageupload.h"
 #import "SVProgressHUD.h"
+#import "LoginController.h"
+#import "SelectedShopKindController.h"
+
 //#import "DWDeviceInfo.h"
 @implementation DWHelper
 
@@ -62,21 +65,45 @@
         [Session.requestSerializer
          setValue:phoneModel
          forHTTPHeaderField:@"phoneModel"];
-        
         [Session GET:url parameters:[NSDictionary dictionaryWithObject:parm forKey:@"request"] progress:^(NSProgress * _Nonnull downloadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
        if([responseObject[@"resultCode"]isEqualToString:@"14"]) {
-  //设置别名
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"设置别名" object:nil userInfo:[NSDictionary dictionaryWithObject:@"" forKey:@"pushAlias"]];
+       //设置别名
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"设置别名" object:nil userInfo:[NSDictionary dictionaryWithObject:@"" forKey:@"pushAlias"]];
+           //UIViewController * viewControllerNow = [self currentViewController];
+           
+//           for (UIViewController *tempVC in viewControllerNow.navigationController.viewControllers) {
+//               if ([tempVC isKindOfClass:[LoginController class]]) {
+//                   [viewControllerNow.navigationController popToViewController:tempVC animated:YES];
+//               }
+//           }
+           
+          
+           __weak typeof(self) weakSelf = self;
+            weakSelf.BaseVC.view.userInteractionEnabled = NO;
+            for (UIViewController *tempVC in weakSelf.BaseVC.navigationController.viewControllers) {
+            if ([tempVC isKindOfClass:[SelectedShopKindController class]]) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf.BaseVC.navigationController popToViewController:tempVC animated:NO];
+            });
+                             
+                          }
+            }
     }
             
             
             success(responseObject);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             faild(error);
-            [SVProgressHUD showErrorWithStatus:@"网络请求失败"];
+            NSString * errorStr =error.localizedDescription;
+            if (errorStr.length>1) {
+                [SVProgressHUD showErrorWithStatus:  [error.localizedDescription   substringToIndex:error.localizedDescription.length-1]];
+            }else{
+                [SVProgressHUD showErrorWithStatus:@"网络连接失败"];
+                
+            }
         }];
     }else if (method == POST) {
         NSString *url = [NSString stringWithFormat:@"%@%@&sign=%@",kServerUrl, actName,sign];
@@ -153,4 +180,57 @@
     
     
 }
+
+
+-(UIViewController*) findBestViewController:(UIViewController*)vc {
+    
+    if (vc.presentedViewController) {
+        
+        // Return presented view controller
+        return [self findBestViewController:vc.presentedViewController];
+        
+    } else if ([vc isKindOfClass:[UISplitViewController class]]) {
+        
+        // Return right hand side
+        UISplitViewController* svc = (UISplitViewController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [self findBestViewController:svc.viewControllers.lastObject];
+        else
+            return vc;
+        
+    } else if ([vc isKindOfClass:[UINavigationController class]]) {
+        
+        // Return top view
+        UINavigationController* svc = (UINavigationController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [self findBestViewController:svc.topViewController];
+        else
+            return vc;
+        
+    } else if ([vc isKindOfClass:[UITabBarController class]]) {
+        
+        // Return visible view
+        UITabBarController* svc = (UITabBarController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [self findBestViewController:svc.selectedViewController];
+        else
+            return vc;
+        
+    } else {
+        
+        // Unknown view controller type, return last child view controller
+        return vc;
+        
+    }
+    
+}
+
+-(UIViewController*) currentViewController {
+    
+    // Find best view controller
+    UIViewController* viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    return [self findBestViewController:viewController];
+    
+}
+
 @end

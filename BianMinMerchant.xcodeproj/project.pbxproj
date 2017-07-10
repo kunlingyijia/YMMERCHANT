@@ -113,7 +113,6 @@
 		632914D11D5AFFE200D7F21D /* StaffViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 632914CF1D5AFFE200D7F21D /* StaffViewCell.xib */; };
 		632C02631CF979E700936F5C /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 632C02621CF979E700936F5C /* LoginController.m */; };
 		632C02661CF97B7700936F5C /* RegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 632C02651CF97B7700936F5C /* RegisterController.m */; };
-		632C026C1CF982BF00936F5C /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 632C026B1CF982BF00936F5C /* ShopViewController.m */; };
 		63379F351D0FF63800C60847 /* RequestMerchantFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 63379F341D0FF63800C60847 /* RequestMerchantFeedback.m */; };
 		63379F3C1D1001AD00C60847 /* GoodsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 63379F3A1D1001AD00C60847 /* GoodsViewCell.m */; };
 		63379F3D1D1001AD00C60847 /* GoodsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63379F3B1D1001AD00C60847 /* GoodsViewCell.xib */; };
@@ -145,7 +144,6 @@
 		635D99DF1DFFC91A00E42A10 /* newbminorder.wav in Resources */ = {isa = PBXBuildFile; fileRef = 635D99DE1DFFC91A00E42A10 /* newbminorder.wav */; };
 		6367228B1CFBD4D2008A9C34 /* libLBXScan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6367228A1CFBD4D2008A9C34 /* libLBXScan.a */; };
 		6367228E1CFBDB80008A9C34 /* LBXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6367228D1CFBDB80008A9C34 /* LBXViewController.m */; };
-		6367229E1CFC10F8008A9C34 /* MessageCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6367229D1CFC10F8008A9C34 /* MessageCenterViewController.m */; };
 		636722A11CFC1198008A9C34 /* TardeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 636722A01CFC1198008A9C34 /* TardeViewController.m */; };
 		636722A71CFC1720008A9C34 /* MoneyCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 636722A61CFC1720008A9C34 /* MoneyCenterViewController.m */; };
 		636722AB1CFC2398008A9C34 /* BindBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 636722AA1CFC2398008A9C34 /* BindBankCardViewController.m */; };
@@ -256,6 +254,7 @@
 		63FF8AC81CF7D7F800007985 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63FF8AC71CF7D7F800007985 /* Assets.xcassets */; };
 		63FF8AD61CF7D92000007985 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FF8AD51CF7D92000007985 /* BaseViewController.m */; };
 		9B55D04186BDA436CE8082DF /* libPods-BianMinMerchant.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA14BBE3BE713936B766F3BD /* libPods-BianMinMerchant.a */; };
+		BD00E8C51F0C866700143651 /* 兑富宝加载等待图.gif in Resources */ = {isa = PBXBuildFile; fileRef = BD00E8C41F0C866700143651 /* 兑富宝加载等待图.gif */; };
 		BD0277A11EA4B4B0002C8E64 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD0277A01EA4B4B0002C8E64 /* GLKit.framework */; };
 		BD0308AE1E56C26D00CCB384 /* libc.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BD0308AD1E56C26D00CCB384 /* libc.tbd */; };
 		BD0308B51E56D0DB00CCB384 /* POIAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0308B21E56D0DB00CCB384 /* POIAnnotation.m */; };
@@ -649,8 +648,6 @@
 		632C02621CF979E700936F5C /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
 		632C02641CF97B7700936F5C /* RegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterController.h; sourceTree = "<group>"; };
 		632C02651CF97B7700936F5C /* RegisterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterController.m; sourceTree = "<group>"; };
-		632C026A1CF982BF00936F5C /* ShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopViewController.h; sourceTree = "<group>"; };
-		632C026B1CF982BF00936F5C /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopViewController.m; sourceTree = "<group>"; };
 		63379F331D0FF63800C60847 /* RequestMerchantFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestMerchantFeedback.h; sourceTree = "<group>"; };
 		63379F341D0FF63800C60847 /* RequestMerchantFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestMerchantFeedback.m; sourceTree = "<group>"; };
 		63379F391D1001AD00C60847 /* GoodsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GoodsViewCell.h; path = ../GoodsViewCell.h; sourceTree = "<group>"; };
@@ -707,8 +704,6 @@
 		6367228A1CFBD4D2008A9C34 /* libLBXScan.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLBXScan.a; path = "../../Library/Developer/Xcode/DerivedData/BianMinMerchant-eejxsnoyglilvzbnmsslviaigvlf/Build/Products/Debug-iphoneos/libLBXScan.a"; sourceTree = "<group>"; };
 		6367228C1CFBDB80008A9C34 /* LBXViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXViewController.h; sourceTree = "<group>"; };
 		6367228D1CFBDB80008A9C34 /* LBXViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXViewController.m; sourceTree = "<group>"; };
-		6367229C1CFC10F8008A9C34 /* MessageCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCenterViewController.h; sourceTree = "<group>"; };
-		6367229D1CFC10F8008A9C34 /* MessageCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCenterViewController.m; sourceTree = "<group>"; };
 		6367229F1CFC1198008A9C34 /* TardeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TardeViewController.h; sourceTree = "<group>"; };
 		636722A01CFC1198008A9C34 /* TardeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TardeViewController.m; sourceTree = "<group>"; };
 		636722A51CFC1720008A9C34 /* MoneyCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoneyCenterViewController.h; path = ../MoneyCenterViewController.h; sourceTree = "<group>"; };
@@ -906,6 +901,7 @@
 		63FF8AD41CF7D92000007985 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		63FF8AD51CF7D92000007985 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		63FF8AD91CF7D9B600007985 /* DW-Prefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DW-Prefix.h"; sourceTree = "<group>"; };
+		BD00E8C41F0C866700143651 /* 兑富宝加载等待图.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "兑富宝加载等待图.gif"; sourceTree = "<group>"; };
 		BD0277A01EA4B4B0002C8E64 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		BD0308AD1E56C26D00CCB384 /* libc.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libc.tbd; path = usr/lib/libc.tbd; sourceTree = SDKROOT; };
 		BD0308B11E56D0DB00CCB384 /* POIAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POIAnnotation.h; sourceTree = "<group>"; };
@@ -1568,12 +1564,8 @@
 				6300F3BE1E4B043200063A83 /* SelectedShopKindController.xib */,
 				632C02641CF97B7700936F5C /* RegisterController.h */,
 				632C02651CF97B7700936F5C /* RegisterController.m */,
-				632C026A1CF982BF00936F5C /* ShopViewController.h */,
-				632C026B1CF982BF00936F5C /* ShopViewController.m */,
 				6367228C1CFBDB80008A9C34 /* LBXViewController.h */,
 				6367228D1CFBDB80008A9C34 /* LBXViewController.m */,
-				6367229C1CFC10F8008A9C34 /* MessageCenterViewController.h */,
-				6367229D1CFC10F8008A9C34 /* MessageCenterViewController.m */,
 				6367229F1CFC1198008A9C34 /* TardeViewController.h */,
 				636722A01CFC1198008A9C34 /* TardeViewController.m */,
 				636722AC1CFC2DDB008A9C34 /* ShopCenterViewController.h */,
@@ -2115,6 +2107,7 @@
 		63FF8AD21CF7D87700007985 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				BD00E8C41F0C866700143651 /* 兑富宝加载等待图.gif */,
 				63FF8ABE1CF7D7F800007985 /* AppDelegate.h */,
 				63FF8ABF1CF7D7F800007985 /* AppDelegate.m */,
 				63FF8AD91CF7D9B600007985 /* DW-Prefix.h */,
@@ -3162,7 +3155,7 @@
 				TargetAttributes = {
 					63FF8AB71CF7D7F800007985 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = X57HHXYHRU;
+						DevelopmentTeam = 2M7G83HE4L;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -3327,6 +3320,7 @@
 				BDA71C0C1E6A2B1E00A9F295 /* BulkHomeVC.xib in Resources */,
 				BD6B179F1E5A885900B94D84 /* TravelwithdrawalListCell.xib in Resources */,
 				BDC0CD981E543A1B007D8423 /* TripDetailsTwoCell.xib in Resources */,
+				BD00E8C51F0C866700143651 /* 兑富宝加载等待图.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3388,7 +3382,6 @@
 				63BBC5171D0E621F00070010 /* MHeadImaView.m in Sources */,
 				63BBC5261D0E621F00070010 /* SDLoopProgressView.m in Sources */,
 				63D0E6A21D654B60005BC756 /* BMShopContentViewController.m in Sources */,
-				632C026C1CF982BF00936F5C /* ShopViewController.m in Sources */,
 				63BBC5151D0E621F00070010 /* MFlowLayOut.m in Sources */,
 				BD03A0A11EEE989400850784 /* DhooseFaceListVC.m in Sources */,
 				BD8499901E514D2A00579C2C /* TravelSetOneCell.m in Sources */,
@@ -3595,7 +3588,6 @@
 				BD6B17991E5A80E800B94D84 /* TravelwithdrawalListVC.m in Sources */,
 				63379F401D100F9700C60847 /* RequestGoodsList.m in Sources */,
 				63F1A7E71D057F5B00274953 /* UIColor+HexString.m in Sources */,
-				6367229E1CFC10F8008A9C34 /* MessageCenterViewController.m in Sources */,
 				BDDA7ECD1EE9252A0077E7B1 /* LineView.m in Sources */,
 				634A1BAF1D52DC1C00AAD4F9 /* BuyMessageCell.m in Sources */,
 				6302F3FC1D6C265500561EA0 /* LGPhotoPickerAssetsViewController.m in Sources */,
@@ -3794,7 +3786,7 @@
 				CODE_SIGN_ENTITLEMENTS = "BianMinMerchant/易民商户.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: fzyimin@sina.com (75PQ8AH552)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = X57HHXYHRU;
+				DEVELOPMENT_TEAM = 2M7G83HE4L;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3856,7 +3848,7 @@
 					"\"UIKit\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dw.merchant;
+				PRODUCT_BUNDLE_IDENTIFIER = test.dongwuit.merchant;
 				PRODUCT_NAME = "易民商户";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3873,7 +3865,7 @@
 				CODE_SIGN_ENTITLEMENTS = "BianMinMerchant/易民商户.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: fzyimin@sina.com (75PQ8AH552)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = X57HHXYHRU;
+				DEVELOPMENT_TEAM = 2M7G83HE4L;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3935,7 +3927,7 @@
 					"\"UIKit\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dw.merchant;
+				PRODUCT_BUNDLE_IDENTIFIER = test.dongwuit.merchant;
 				PRODUCT_NAME = "易民商户";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

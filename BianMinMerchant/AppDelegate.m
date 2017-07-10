@@ -16,7 +16,6 @@
 #import "SelectedShopKindController.h"
 #import "PublicMessageVC.h"
 #import "SVProgressHUD.h"
-static SystemSoundID shake_sound_male_id = 0;
 @interface AppDelegate ()<UIScrollViewDelegate,JPUSHRegisterDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong) AVPlayer *player;
 
@@ -30,14 +29,12 @@ static SystemSoundID shake_sound_male_id = 0;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, Width, Height)];
     self.window.backgroundColor = [UIColor whiteColor];
     NSNumber *firstLoad = [DWCacheManager getPrivateCacheByKey:@"firstLoad"];
     if (firstLoad) {
         SelectedShopKindController *selectedC = [[SelectedShopKindController alloc] initWithNibName:@"SelectedShopKindController" bundle:nil];
-
         UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:selectedC];
         self.window.rootViewController = navC;
     }else {
@@ -46,28 +43,19 @@ static SystemSoundID shake_sound_male_id = 0;
     }
     [AMapServices sharedServices].apiKey =GDKey;
     [[AMapServices sharedServices] setEnableHTTPS:YES];
-
     [self.window makeKeyWindow];
-    
     [application setApplicationIconBadgeNumber:0];
     NSLog(@"%ld", (long)application.applicationIconBadgeNumber);
-    
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
     [audioSession setActive:YES error:nil];
     //设置第三方
     [self SetUpThirdParty:launchOptions];
-    
-    
-    
     return YES;
 }
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-   
 }
 
 
@@ -94,10 +82,8 @@ static SystemSoundID shake_sound_male_id = 0;
 - (void)addScrollView {
 //    LoginController *loginC = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginController"];
     SelectedShopKindController *selectedC = [[SelectedShopKindController alloc] initWithNibName:@"SelectedShopKindController" bundle:nil];
-    
     UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:selectedC];
     self.window.rootViewController = navC;
-    
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:Bounds];
     scrollView.backgroundColor = [UIColor clearColor];
     scrollView.delegate = self;
@@ -106,7 +92,6 @@ static SystemSoundID shake_sound_male_id = 0;
     scrollView.bounces = NO;
     scrollView.contentSize = CGSizeMake(Width*4, Height);
     [self.window.rootViewController.view addSubview:scrollView];
-    
     for (int i = 0;i < 4 ; i++) {
         UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(i*Width, 0, Width, Height)];
         iv.image = [UIImage imageNamed:[NSString stringWithFormat:@"WelcomePage%d.jpg",i+1]];
@@ -126,10 +111,6 @@ static SystemSoundID shake_sound_male_id = 0;
         [scrollView removeFromSuperview];
     }
 }
-
-
-
-
 #pragma mark - 设置所有第三方
 -(void)SetUpThirdParty:(NSDictionary *)launchOptions{
     //极光推送
@@ -149,12 +130,9 @@ static SystemSoundID shake_sound_male_id = 0;
             }
         }
     });
-
-    
 }
 #pragma mark - 极光推送
 -(void)JGPush:(NSDictionary *)launchOptions{
-   
     NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
       #ifdef NSFoundationVersionNumber_iOS_9_x_Max
@@ -182,7 +160,7 @@ static SystemSoundID shake_sound_male_id = 0;
     //                 apsForProduction:isProduction
     //            advertisingIdentifier:advertisingId];
     //    //如不需要使用IDFA，advertisingIdentifier 可为nil
-        [JPUSHService setupWithOption:launchOptions appKey:@"f2fbd2d88f92b5a6a836a4ef"
+        [JPUSHService setupWithOption:launchOptions appKey:JGKey
                               channel:@"官网"
                      apsForProduction:false
                 advertisingIdentifier:advertisingId];

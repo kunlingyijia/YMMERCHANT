@@ -8,7 +8,6 @@
 
 #import "LoginController.h"
 #import "RegisterController.h"
-#import "ShopViewController.h"
 #import "RequestLogin.h"
 #import "LoginResponse.h"
 #import "BMShopContentViewController.h"

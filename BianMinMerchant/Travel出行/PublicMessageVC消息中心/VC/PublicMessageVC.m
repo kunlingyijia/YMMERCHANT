@@ -73,7 +73,6 @@
     baseReq.token = [AuthenticationModel getLoginToken];
     baseReq.data = [AESCrypt encrypt:[list yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
     __weak typeof(self) weakSelf = self;
-
     [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/Message/requestMessageList" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response) {
         NSLog(@"%@", response);
         BaseResponse *baseRes = [BaseResponse yy_modelWithJSON:response];
@@ -118,19 +117,9 @@
     PushMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PushMessageCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     RequestMerchantMessageListModel *model = self.dataArray[indexPath.row];
-    [cell cellGetDataModel:model];
+    cell.model =model;
     return cell;
-    // cell 其他配置
-    
-    
-    /*
-     //cell选中时的颜色 无色
-     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-     //cell 背景颜色
-     cell.backgroundColor = [UIColor yellowColor];
-     //分割线
-     tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-     */
+   
     
 }
 #pragma mark - Cell点击事件

@@ -299,12 +299,12 @@
 #pragma mark - Cell的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
-        return Width/9*6+20;
+        return Width/9*5+20+Width/8;
     }else{
         if (self.dataArray.count==0) {
             return Width*0.8;
         }else{
-         return Width*0.15;
+         return Width*0.125;
         }
     }
    

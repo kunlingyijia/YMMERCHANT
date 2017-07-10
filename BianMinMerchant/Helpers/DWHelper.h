@@ -10,6 +10,7 @@
 #import "RequestConfigModel.h" 
 #import "RequestMerchantInfoModel.h"
 #import "OwnerModel.h"
+@class BaseViewController;
 typedef void(^SuccessCallback)(id response);
 typedef void(^FaildCallback)(id error);
 typedef void(^SuccessImageArr)(id response);
@@ -38,9 +39,8 @@ typedef enum : NSUInteger {
 ///车主
 @property (nonatomic, strong) OwnerModel  *ownerModel ;
 
-
-
-
+///BaseViewController
+@property (nonatomic, strong) BaseViewController  * BaseVC ;
 //上传图片
 -(void)UPImageToServer:(NSArray*)imageArr success:(SuccessImageArr)success faild:(FaildCallback)faild;
 ///图片展示

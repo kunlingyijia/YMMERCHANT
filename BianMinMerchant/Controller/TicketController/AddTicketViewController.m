@@ -399,11 +399,10 @@
             break;
     }
 }
-
-//判断输入钱的正则表达式，可输入正负，小数点前5位，小数点后2位，位数可控
+//判断输入钱的正则表达式，可输入正负，小数点前5位，小数点后2位，位数可控 //判断输入钱的正则表达式，正整数，最多6位。
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if ([self.mPriceTex isEqual:textField]||[self.mVauleText isEqual:textField]||[self.lValueText isEqual:textField]||[self.dValueText isEqual:textField]) {
+    if ([self.mPriceTex isEqual:textField]) {
         NSString *toString = [textField.text stringByReplacingCharactersInRange:range withString:string];
         if (toString.length > 0) {
             NSString *stringRegex = @"(\\+)?(([0]|(0[.]\\d{0,2}))|([1-9]\\d{0,4}(([.]\\d{0,2})?)))?";
@@ -416,12 +415,22 @@
         return YES;
     }
     
-    if ([self.numberText isEqual:textField]) {
+   if ([self.numberText isEqual:textField]||[self.mVauleText isEqual:textField]||[self.lValueText isEqual:textField]) {
+    NSString *toString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (toString.length > 0) {
+        NSString *stringRegex = @"^[1-9]\\d{0,5}$";
+        NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", stringRegex];
+        BOOL flag = [phoneTest evaluateWithObject:toString];
+        if (!flag) {
+            return NO;
+        }
+    }
+    return YES;
+    }
+    if ([self.dValueText isEqual:textField]) {
         NSString *toString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-        //^[0-9]*$
-        
         if (toString.length > 0) {
-            NSString *stringRegex = @"^([1-9]\\d{0,9})$";
+            NSString *stringRegex = @"^[1-9][0-9]{0,1}$";
             NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", stringRegex];
             BOOL flag = [phoneTest evaluateWithObject:toString];
             if (!flag) {
@@ -430,19 +439,11 @@
         }
         return YES;
     }
-    
-    
-    
-    
-    return YES;
+     return YES;
     
     
     
 }
-
-
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

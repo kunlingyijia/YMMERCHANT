@@ -31,7 +31,6 @@
     self.title = @"添加";
     self.nstockTF.delegate = self;
     self.limitAmount.delegate = self;
-    //[self showBackBtn];
     __weak typeof(self) weakSelf = self;
     [self showBackBtn:^{
         [weakSelf alertWithTitle:@"亲,您确定要离开?" message:nil OKWithTitle:@"确定" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
@@ -167,6 +166,7 @@
 #pragma mark -  日历取消
 - (void)daterViewDidCancel:(XFDaterView *)daterView{
 }
+
 - (IBAction)submitAction:(PublicBtn *)sender {
     if ([self IF]) {
         __weak typeof(self) weakSelf = self;
@@ -243,18 +243,17 @@
     if ([a intValue]<[nowDate intValue  ]) {
         [self showToast:@"请不要选择早于今日的日期"];
         return NO;
-        
     }
     if ([a intValue]>[b intValue  ]) {
         [self showToast:@"起始时间不能晚于结束时间"];
         return NO;
     }
     if ([self.faceBtn.titleLabel.text intValue]*[self.nstockTF.text intValue]>[self.balanceFaceAmount intValue]) {
-        [self showToast:@"当前余额不足"];
+        [self showToast:[NSString stringWithFormat: @"当前余额不足,仅剩%@元",self.balanceFaceAmount]];
         return NO;
     }
     if ([self.faceBtn.titleLabel.text intValue]>[self.limitAmount.text floatValue]) {
-        [self showToast:@"面额不能大于满足金额"];
+        [self showToast:[NSString stringWithFormat: @"面额%@元不能大于满足金额%@元",self.faceBtn.titleLabel.text,self.limitAmount.text]];
         return NO;
     }
     return Y;

@@ -45,6 +45,13 @@
     }else{
         
     }
+//    if ([model.status isEqualToString:@"5"]) {
+//        
+//        self.status.backgroundColor = [UIColor grayColor];
+//        
+//    }else{
+//        self.status.backgroundColor = [UIColor colorWithHexString:@"FFCC66"];
+//    }
     
     
 }

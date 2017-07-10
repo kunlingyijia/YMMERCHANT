@@ -17,7 +17,6 @@
 #import "LBXScanResult.h"
 #import "LBXScanWrapper.h"
 #import "LBXViewController.h"
-#import "MessageCenterViewController.h"
 #import "TardeViewController.h"
 #import "MoneyCenterViewController.h"
 #import "TicketViewController.h"

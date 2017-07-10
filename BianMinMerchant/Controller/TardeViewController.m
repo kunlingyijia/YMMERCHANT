@@ -81,9 +81,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     RequestTradeListModel *model = self.dataSource[indexPath.section];
     if (model.status == 2) {
-        return 240+25+80;
+        return 240+20;
     }else {
-        return 200+25+80;
+        return 200+20;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

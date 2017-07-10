@@ -153,6 +153,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GoodsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GoodsViewCell" forIndexPath:indexPath];
+    //cell选中时的颜色 无色
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     __weak ShopCenterViewController *weakSelf = self;
     cell.buyBackAction = ^(NSString *goodsId) {
         [weakSelf buyMessageAction:goodsId];

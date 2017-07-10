@@ -17,6 +17,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+    [DWHelper shareHelper].BaseVC = self;
     self.view.userInteractionEnabled = YES;
     //去掉底部黑线
     UIImageView *navBarHairlineImageView;
@@ -24,7 +25,6 @@
     navBarHairlineImageView.hidden = YES;
    // [self.view endEditing:YES];
     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
-
     
 }
 - (UIImageView *)findHairlineImageViewUnder:(UIView *)view {

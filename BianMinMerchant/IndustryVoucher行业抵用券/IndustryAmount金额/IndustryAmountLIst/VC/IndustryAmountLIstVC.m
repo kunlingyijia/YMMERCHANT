@@ -233,8 +233,6 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-//UIView * header= ;
-//    header.backgroundColor = [UIColor redColor];
         return [UIView new];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

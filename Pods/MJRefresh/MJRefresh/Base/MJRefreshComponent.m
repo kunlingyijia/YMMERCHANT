@@ -112,7 +112,6 @@
     if ([keyPath isEqualToString:MJRefreshKeyPathContentSize]) {
         [self scrollViewContentSizeDidChange:change];
     }
-    
     // 看不见
     if (self.hidden) return;
     if ([keyPath isEqualToString:MJRefreshKeyPathContentOffset]) {
@@ -142,18 +141,18 @@
 {
     static NSBundle *bundle = nil;
     if (bundle == nil) {
-        // 获得设备的语言
+        //获得设备的语言
         NSString *language = [NSLocale preferredLanguages].firstObject;
+        if (![language isEqualToString:@"en"]) {
         // 如果是iOS9以上，截取前面的语言标识
         if ([UIDevice currentDevice].systemVersion.floatValue >= 9.0) {
             NSRange range = [language rangeOfString:@"-" options:NSBackwardsSearch];
             language = [language substringToIndex:range.location];
         }
-        
+        }
         if (language.length == 0) {
             language = @"zh-Hans";
         }
-        
         // 先从MJRefresh.bundle中查找资源
         NSBundle *refreshBundle = [NSBundle mj_refreshBundle];
         if ([refreshBundle.localizations containsObject:language]) {

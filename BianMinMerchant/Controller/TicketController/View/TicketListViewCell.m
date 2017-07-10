@@ -9,13 +9,10 @@
 #import "TicketListViewCell.h"
 #import "CouponListModel.h"
 @implementation TicketListViewCell
-
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
@@ -46,12 +43,15 @@
             self.status.text = @"已上架";
             [self.downBtn setTitle:@"下架" forState:UIControlStateNormal];
             self.status.textColor = [UIColor colorWithHexString:kNavigationBgColor];
+            self.downBtn.userInteractionEnabled = YES;
+
             break;
         case 2:
             self.status.text = @"已下架";
             [self.downBtn setTitle:@"上架" forState:UIControlStateNormal];
             self.status.textColor = [UIColor colorWithHexString:kNavigationBgColor];
-            
+            self.downBtn.userInteractionEnabled = YES;
+
             break;
         case 3:
             self.status.text = @"已过期";

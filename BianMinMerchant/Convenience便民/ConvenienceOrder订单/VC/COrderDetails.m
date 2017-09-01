@@ -171,14 +171,8 @@
 //              }];
                 
                 [weakSelf alertActionSheetWithTitle:nil message:nil OKWithTitleOne:@"苹果地图" OKWithTitleTwo:@"百度地图" OKWithTitleThree:@"高德地图" CancelWithTitle:@"取消" withOKDefaultOne:^(UIAlertAction *defaultaction) {
-                    CLLocationCoordinate2D loc = CLLocationCoordinate2DMake(weakSelf.orderModel.lat , weakSelf.orderModel.lng );
-                    MKMapItem *currentLocation = [MKMapItem mapItemForCurrentLocation];
-                    currentLocation.name =@"我的位置";
-                    MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:loc addressDictionary:nil]];
-                    toLocation.name =weakSelf.orderModel.address;
-                    [MKMapItem openMapsWithItems:@[currentLocation, toLocation]
-                                   launchOptions:@{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving,
-                                                   MKLaunchOptionsShowsTrafficKey: [NSNumber numberWithBool:YES]}];
+                    [weakSelf iPhoneMap];
+                   
                 } withOKDefaultTwo:^(UIAlertAction *defaultaction) {
                      [weakSelf  BaiDuMap];
                 } withOKDefaultThree:^(UIAlertAction *defaultaction) {
@@ -349,10 +343,22 @@
             [self sheetAction:@"百度地图"];
         }
 }
+
+#pragma mark - 苹果地图
+-(void)iPhoneMap{
+    CLLocationCoordinate2D loc = CLLocationCoordinate2DMake(self.orderModel.lat , self.orderModel.lng );
+    MKMapItem *currentLocation = [MKMapItem mapItemForCurrentLocation];
+    currentLocation.name =@"我的位置";
+    MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:loc addressDictionary:nil]];
+    toLocation.name =self.orderModel.address;
+    [MKMapItem openMapsWithItems:@[currentLocation, toLocation]
+                   launchOptions:@{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving,
+                                   MKLaunchOptionsShowsTrafficKey: [NSNumber numberWithBool:YES]}];
+}
+
+
 #pragma mark - 高德地图
 -(void)GaoDeMap{
-    
-    
     NSString *name = self.orderModel.address;
     CLLocationCoordinate2D Coordinate ;
     Coordinate.latitude = self.orderModel.lat;

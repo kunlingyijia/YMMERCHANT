@@ -111,6 +111,8 @@
 }
 #pragma mark - 扫一扫
 -(void)ScanAction:(UIButton*)sender{
+    
+
     //设置扫码区域参数设置
     //创建参数对象
     LBXScanViewStyle *style = [[LBXScanViewStyle alloc]init];

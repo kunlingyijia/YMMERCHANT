@@ -16,24 +16,20 @@
 @property(nonatomic,strong)NSString*  timeStr;
 @property(nonatomic,strong)IndustryModel *industryModel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *refuseReasonViewConstraint;
-
 @end
 
 @implementation AddIndustryAmountVC
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     //UI
     [self SET_UI];
     //数据
     [self  SET_DATA];
-    
 }
 #pragma mark - 关于UI
 -(void)SET_UI{
     self.title =self.model ? @"详情": @"添加";
     self.totalFaceAmount.delegate = self;
-    //[self showBackBtn];
     __weak typeof(self) weakSelf = self;
     [self showBackBtn:^{
         [weakSelf alertWithTitle:@"亲,您确定要离开?" message:nil OKWithTitle:@"确定" CancelWithTitle:@"取消" withOKDefault:^(UIAlertAction *defaultaction) {
@@ -42,7 +38,6 @@
             
         }];
     }];
-
 }
 #pragma mark - 关于数据
 -(void)SET_DATA{
@@ -58,8 +53,6 @@
         self.refuseReasonViewConstraint.constant =0.00;
         self.refuseReasonView .hidden = YES;
     }
-   
-   
 }
 //判断输入钱的正则表达式，正整数，最多6位。
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -74,12 +67,10 @@
         }
     }
     return YES;
-    
 }
 
 #pragma mark - 开始时间
 - (IBAction)stastTimeAction:(UIButton *)sender {
-    
     [self.view endEditing:NO];
     self.timeStr = @"1";
     if (!dater) {
@@ -104,9 +95,6 @@
         [dater showInView:self.view animated:YES];
     }
 }
-
-
-
 #pragma mark -
 - (void)daterViewDidClicked:(XFDaterView *)daterView{
     if ([daterView isEqual:dater]) {
@@ -121,12 +109,7 @@
 }
 #pragma mark -  日历取消
 - (void)daterViewDidCancel:(XFDaterView *)daterView{
-    
-    
-    
-    
 }
-
 - (IBAction)submitAction:(PublicBtn *)sender {
     if ([self IF]) {
         __weak typeof(self) weakSelf = self;
@@ -151,24 +134,16 @@
                     }else{
                         weakself.view.userInteractionEnabled = YES;
                         [weakself showToast:response[@"msg"]];
-                        
                     }
-                    
                 } faild:^(id error) {
                     weakself.view.userInteractionEnabled = YES;
                     NSLog(@"%@", error);
                 }];
             }
-            
         } withCancel:^(UIAlertAction *cancelaction) {
-            
         }];
-        
     }
-
-    
 }
-
 #pragma mark - 判断条件
 -(BOOL)IF{
     BOOL  Y = YES;
@@ -200,25 +175,11 @@
         [self showToast:@"起始时间不能晚于结束时间"];
         return NO;
     }
-
     return Y;
 }
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 #pragma mark - dealloc
 - (void)dealloc
 {

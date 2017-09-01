@@ -233,7 +233,7 @@
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
     NSDictionary * userInfo = notification.request.content.userInfo;
-        UNNotificationRequest *request = notification.request; // 收到推送的请求
+    UNNotificationRequest *request = notification.request; // 收到推送的请求
     UNNotificationContent *content = request.content; // 收到推送的消息内容
     NSNumber *badge = content.badge;  // 推送消息的角标
     NSString *body = content.body;    // 推送消息体
@@ -279,10 +279,7 @@
     completionHandler();  // 系统要求执行这个方法
 }
 #endif
-
-
 #pragma mark - APP运行中接收到通知(推送)处理
-
 ///** APP已经接收到“远程”通知(推送) - (App运行在后台/App运行在前台)  */
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
     [JPUSHService handleRemoteNotification:userInfo];
@@ -360,7 +357,6 @@
                                                   otherButtonTitles:@"立即前往", nil];
         [alertView show];
     }
-    
 }
 #pragma mark-------------------------------推送处理
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -376,7 +372,4 @@
 //                                      styleName:@"SBStyle"];
 //    
 }
-
-
-
 @end

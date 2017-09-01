@@ -223,8 +223,6 @@
             VC.model=model;
             [self.navigationController  pushViewController:VC animated:YES];
         }
-        
-   
     }
 }
 #pragma mark - Cell的高度

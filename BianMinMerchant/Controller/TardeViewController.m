@@ -37,14 +37,14 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"MessageCenterCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"MessageCenterCell"];
     [self.view addSubview:self.tableView];
     [self getDataList];
-    
+    __weak typeof(self) weakSelf = self;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        self.pageIndex = 1;
-        [self getDataList];
+        weakSelf.pageIndex = 1;
+        [weakSelf getDataList];
     }];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        self.pageIndex = self.pageIndex +1;
-        [self getDataList];
+        weakSelf.pageIndex = weakSelf.pageIndex +1;
+        [weakSelf getDataList];
     }];
 }
 
@@ -55,28 +55,30 @@
     BaseRequest *baseReq = [[BaseRequest alloc] init];
     baseReq.token = [AuthenticationModel getLoginToken];
     baseReq.encryptionType = AES;
+    __weak typeof(self) weakSelf = self;
     baseReq.data = [AESCrypt encrypt:[goodsL yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
     [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/Merchant/requestTradeList" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response) {
         NSLog(@"%@", response);
         BaseResponse *baseRes = [BaseResponse yy_modelWithJSON:response];
         if (baseRes.resultCode == 1) {
-            if (self.pageIndex == 1) {
-                [self.dataSource removeAllObjects];
+            if (weakSelf.pageIndex == 1) {
+                [weakSelf.dataSource removeAllObjects];
             }
             for (NSDictionary *dic in baseRes.data) {
                 RequestTradeListModel *model = [RequestTradeListModel yy_modelWithDictionary:dic];
-                [self.dataSource addObject:model];
+                [weakSelf.dataSource addObject:model];
             }
+        }else{
+            [weakSelf showToast:baseRes.msg];
         }
-        [self.tableView.mj_footer endRefreshing];
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView reloadData];
+        [weakSelf.tableView.mj_footer endRefreshing];
+        [weakSelf.tableView.mj_header endRefreshing];
+        [weakSelf.tableView reloadData];
     } faild:^(id error) {
-        
+        [weakSelf.tableView.mj_footer endRefreshing];
+        [weakSelf.tableView.mj_header endRefreshing];
     }];
 }
-
-
 #pragma  mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     RequestTradeListModel *model = self.dataSource[indexPath.section];
@@ -93,8 +95,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
 }
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MessageCenterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageCenterCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -111,27 +111,28 @@
 }
 
 - (void)agreeOrRefuseWithOrderNo:(NSString *)orderNo goodsOrderId:(NSString*)goodsOrderId WithType:(NSInteger)type {
+    __weak typeof(self) weakSelf = self;
     if (type == 2) {
+        
         UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入退款理由" preferredStyle:UIAlertControllerStyleAlert];
         [alertC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             
         }];
         UITextField *textField = alertC.textFields[0];
-        
         [alertC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
         }]];
+        
         [alertC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             RequestRefundOrderStatus *status = [[RequestRefundOrderStatus alloc] init];
             status.orderNo = orderNo;
             status.status = type;
             status.goodsOrderId =goodsOrderId;
             if (textField.text.length == 0) {
-                [self showToast:@"请输入退款理由"];
+                [weakSelf showToast:@"请输入退款理由"];
             }else {
                 status.refuseReason = textField.text;
             }
-            [self selectedagreeOrRefuseWithRequest:status];
+            [weakSelf selectedagreeOrRefuseWithRequest:status];
         }]];
         [self presentViewController:alertC animated:YES completion:nil];
     }else {
@@ -147,32 +148,25 @@
     baseReq.encryptionType = AES;
     baseReq.token = [AuthenticationModel getLoginToken];
     baseReq.data = [AESCrypt encrypt:[request yy_modelToJSONString] password:[AuthenticationModel getLoginKey]];
+    __weak typeof(self) weakSelf = self;
     [[DWHelper shareHelper] requestDataWithParm:[baseReq yy_modelToJSONString] act:@"act=MerApi/Order/requestRefundOrderStatus" sign:[baseReq.data MD5Hash] requestMethod:GET success:^(id response) {
         NSLog(@"%@", response);
         BaseResponse *baseRes = [BaseResponse yy_modelWithJSON:response];
         if (baseRes.resultCode == 1) {
-            [self showToast:@"操作成功"];
+            [weakSelf showToast:@"操作成功"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.dataSource removeAllObjects];
-                [self getDataList];
+                [weakSelf.dataSource removeAllObjects];
+                [weakSelf getDataList];
             });
         }else {
-            [self showToast: baseRes.msg];
-            //[ProcessResultCode processResultCodeWithBaseRespone:baseRes viewControll:self];
+            [weakSelf showToast: baseRes.msg];
         }
     } faild:^(id error) {
         NSLog(@"%@", error);
     }];
 }
-
-
-
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    
     [self.tableView tableViewDisplayWitimage:nil ifNecessaryForRowCount:self.dataSource.count];
-    
     return self.dataSource.count;
 }
 

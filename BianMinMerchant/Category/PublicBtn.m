@@ -42,11 +42,13 @@
     self.layer.cornerRadius = 5;
     
     [self setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+   
 }
-//-(void)layoutSubviews{
-//   
-//
-//    
+
+//- (void)setNeedsLayout{
+//    CGRect frame = self.frame;
+//    frame.size.height = 80;
+//    self.frame = frame;
 //
 //}
 

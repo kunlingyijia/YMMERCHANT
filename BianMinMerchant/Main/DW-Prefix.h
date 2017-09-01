@@ -47,7 +47,6 @@
 #import "UIImage+DWImage.h"
 #import "ImageChooseVC.h"
 #import "APICount.h"
-
 // 引入JPush功能所需头文件
 #import "JPUSHService.h"
 // iOS10注册APNs所需头文件
@@ -58,9 +57,9 @@
 //正式
 //#define kServerUrl @"http://api.bmin.wang/?"
 ///测试
-#define kServerUrl @"http://test.bmin.wang/?"
+//#define kServerUrl @"http://test.bmin.wang/?"
 ///开发
-//#define kServerUrl @"http://bmin.dongwuit.com/?"
+#define kServerUrl @"http://bmin.dongwuit.com/?"
 //地图
 #define GDKey  [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"] isEqualToString:@"com.dw.merchant"] ? @"6ab283311b81de8c1ac2d843244b2966" : @"9dd7acc47456a8294c0deb319d591741"
 //极光
